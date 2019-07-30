@@ -1,0 +1,64 @@
+.header-container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 100px 1fr 100px;
+  margin-bottom: 1rem;
+}
+
+.menu {
+  text-align: center;
+}
+
+.menuList {
+  list-style: none;
+  margin-bottom: 0;
+}
+
+.menuListLink {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.account {
+  text-align: right;
+}
+
+.title {
+  text-align: center;
+  grid-row: 2 / 4;
+}
+
+.title-header {
+  margin-top: 0;
+}
+
+.footer-container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 100px 1fr 100px;
+  margin-top: 1rem;
+}
+
+.copyright {
+  text-align: left;
+}
+
+.contact {
+  text-align: right;
+}
+
+@media only screen and (max-width: 480px) {
+  .header-container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 4fr 1fr;
+    margin-bottom: 1rem;
+  }
+
+  .footer-container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 4fr 1fr;
+    margin-top: 1rem;
+  }
+}

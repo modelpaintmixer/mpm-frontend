@@ -1,0 +1,39 @@
+.swatch-container {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.swatch {
+  position: relative;
+  margin: 0 auto;
+  border: medium solid black;
+  text-align: center;
+  height: 10rem;
+  width: 10rem;
+}
+
+.swatch div {
+  display: table;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 180%;
+  font-weight: bold;
+}
+
+.swatch div p {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+@media only screen and (max-width: 480px) {
+  .swatch {
+    height: 5rem;
+    width: 5rem;
+  }
+
+  .swatch div {
+    font-size: 90%;
+  }
+}

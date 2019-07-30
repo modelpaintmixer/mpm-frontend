@@ -1,0 +1,47 @@
+{
+  "name": "poc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gatsby-browser.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.3",
+    "prettier": "^1.18.2"
+  },
+  "dependencies": {
+    "@mdx-js/mdx": "^1.1.0",
+    "@mdx-js/react": "^1.0.27",
+    "babel-plugin-styled-components": "^1.10.6",
+    "date-fns": "^1.30.1",
+    "gatsby": "^2.13.42",
+    "gatsby-cli": "^2.7.21",
+    "gatsby-image": "^2.2.7",
+    "gatsby-plugin-manifest": "^2.2.4",
+    "gatsby-plugin-mdx": "^1.0.18",
+    "gatsby-plugin-offline": "^2.2.4",
+    "gatsby-plugin-react-helmet": "^3.1.2",
+    "gatsby-plugin-sharp": "^2.2.9",
+    "gatsby-plugin-styled-components": "^3.1.2",
+    "gatsby-plugin-typography": "^2.3.2",
+    "gatsby-source-filesystem": "^2.1.6",
+    "gatsby-transformer-sharp": "^2.2.5",
+    "normalize.css": "^8.0.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-helmet": "^5.2.1",
+    "react-icons": "^3.7.0",
+    "react-popupbox": "^2.0.8",
+    "react-typography": "^0.16.19",
+    "styled-components": "^4.3.2",
+    "typography": "^0.16.19",
+    "typography-theme-fairy-gates": "^0.16.19"
+  }
+}
