@@ -27,7 +27,7 @@ class ShowMix extends Component {
   }
 
   componentDidMount() {
-    fetch(`http://tremere.local:3000/api/view/mix/${this.props.id}`)
+    fetch(`http://localhost:3000/api/view/mix/${this.props.id}`)
       .then(res => res.json())
       .then(
         result => {
