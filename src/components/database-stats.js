@@ -12,7 +12,7 @@ class DatabaseStats extends Component {
   }
 
   componentDidMount() {
-    fetch("http://tremere.local:3000/api/stats/site")
+    fetch("http://localhost:3000/api/stats/site")
       .then(res => res.json())
       .then(
         result => {

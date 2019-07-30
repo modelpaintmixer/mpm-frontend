@@ -37,7 +37,7 @@ class NewestChanges extends Component {
   }
 
   componentDidMount() {
-    fetch("http://tremere.local:3000/api/stats/changes")
+    fetch("http://localhost:3000/api/stats/changes")
       .then(res => res.json())
       .then(
         result => {
