@@ -82,6 +82,7 @@ class ShowPaint extends Component {
         Origin: origin,
         ProductCodes: prodCodes,
         Standards: standards,
+        Mixes: mixes,
       } = paint
 
       let hasAttr = {}
@@ -135,6 +136,19 @@ class ShowPaint extends Component {
         )
       }
 
+      let relMixes = []
+      count = 0
+      for (let mix of mixes) {
+        if (count++) {
+          relMixes.push(", ")
+        }
+        relMixes.push(
+          <a href={`/mix/${mix.id}`} title={mix.name}>
+            {mix.name}
+          </a>
+        )
+      }
+
       content = (
         <Layout title={`${name} (${partNumber})`}>
           <ColorSwatch
@@ -166,12 +180,16 @@ class ShowPaint extends Component {
                 <p>{relStandards}</p>
               </>
             )}
-            <h3>{addedUpdatedHdr}</h3>
-            <p>
-              <DateFormat date={dateTime} />
-            </p>
             <h3>Attributes</h3>
             <p>{attrText}</p>
+            {mixes.length === 0 ? (
+              ""
+            ) : (
+              <>
+                <h3>Used in</h3>
+                <p>{relMixes}</p>
+              </>
+            )}
             {notes === null ? (
               ""
             ) : (
@@ -180,6 +198,10 @@ class ShowPaint extends Component {
                 <p>{notes}</p>
               </>
             )}
+            <h3>{addedUpdatedHdr}</h3>
+            <p>
+              <DateFormat date={dateTime} />
+            </p>
           </div>
         </Layout>
       )
