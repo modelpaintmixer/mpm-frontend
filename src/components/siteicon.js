@@ -7,7 +7,7 @@ const SiteIcon = () => {
     query {
       placeholderImage: file(relativePath: { eq: "mpm-icon.png" }) {
         childImageSharp {
-          fluid(maxWidth: 48) {
+          fluid(maxWidth: 96) {
             ...GatsbyImageSharpFluid
           }
         }
