@@ -6,22 +6,28 @@ import styles from "./paint-cards.module.css"
 
 const PaintCard = ({ paint }) => (
   <div className={`${styles.paintCard} text-block`}>
-    <p className={styles.paintTitle}>
-      {paint.manufacturer
-        ? `${paint.manufacturer} ${paint.partNumber} ${paint.name}`
-        : `${paint.partNumber} ${paint.name}`}
-    </p>
-    <div className={styles.paintSwatch}>
-      <ColorSwatch color={paint.colorRgb} size="4rem" />
-      {paint.parts ? (
-        <p>
-          {paint.parts} part
-          {paint.parts === 1 ? "" : "s"}
-        </p>
-      ) : (
-        ""
-      )}
-    </div>
+    <a
+      href={`/paint/${paint.id}`}
+      className={styles.paintLink}
+      title="View this paint"
+    >
+      <p className={styles.paintTitle}>
+        {paint.manufacturer
+          ? `${paint.manufacturer} ${paint.partNumber} ${paint.name}`
+          : `${paint.partNumber} ${paint.name}`}
+      </p>
+      <div className={styles.paintSwatch}>
+        <ColorSwatch color={paint.colorRgb} size="4rem" />
+        {paint.parts ? (
+          <p>
+            {paint.parts} part
+            {paint.parts === 1 ? "" : "s"}
+          </p>
+        ) : (
+          ""
+        )}
+      </div>
+    </a>
   </div>
 )
 

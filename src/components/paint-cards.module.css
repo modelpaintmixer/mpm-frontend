@@ -26,8 +26,15 @@
   flex: 1;
 }
 
+.paint-link {
+  /* Color taken from the theme def file */
+  color: hsla(0,0%,0%,0.8);
+  text-decoration: none;
+  text-shadow: none;
+  background-image: none;
+}
+
 div.paint-cards > :last-child {
-  margin-right: 0;
   margin-bottom: 1rem;
 }
 
