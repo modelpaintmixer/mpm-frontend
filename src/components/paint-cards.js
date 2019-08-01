@@ -7,14 +7,20 @@ import styles from "./paint-cards.module.css"
 const PaintCard = ({ paint }) => (
   <div className={`${styles.paintCard} text-block`}>
     <p className={styles.paintTitle}>
-      {`${paint.manufacturer} ${paint.partNumber} ${paint.name}`}
+      {paint.manufacturer
+        ? `${paint.manufacturer} ${paint.partNumber} ${paint.name}`
+        : `${paint.partNumber} ${paint.name}`}
     </p>
     <div className={styles.paintSwatch}>
       <ColorSwatch color={paint.colorRgb} size="4rem" />
-      <p>
-        {paint.parts} part
-        {paint.parts === 1 ? "" : "s"}
-      </p>
+      {paint.parts ? (
+        <p>
+          {paint.parts} part
+          {paint.parts === 1 ? "" : "s"}
+        </p>
+      ) : (
+        ""
+      )}
     </div>
   </div>
 )
@@ -24,17 +30,13 @@ PaintCard.propTypes = {
   key: PropTypes.any,
 }
 
-const PaintCards = ({ paints }) => {
-  return (
-    <div className={styles.paintCards}>
-      <div className={styles.paintCard}></div>
-      {paints.map((paint, index) => (
-        <PaintCard key={index} paint={paint} />
-      ))}
-      <div className={styles.paintCard}></div>
-    </div>
-  )
-}
+const PaintCards = ({ paints }) => (
+  <div className={styles.paintCards}>
+    {paints.map((paint, index) => (
+      <PaintCard key={index} paint={paint} />
+    ))}
+  </div>
+)
 
 PaintCards.propTypes = {
   paints: PropTypes.array.isRequired,
