@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `Model Paint Mixer`,
     description: `A site for finding and exchanging custom paint mixes`,
-    author: `@rjray`,
+    author: `rjray@blackperl.com`,
   },
   plugins: [
     {
@@ -11,6 +11,7 @@ module.exports = {
         pathToConfigModule: `src/utils/typography`,
       },
     },
+    "gatsby-plugin-optimize-svgs",
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-mdx`,
@@ -36,8 +37,8 @@ module.exports = {
         name: `ModelPaintMixer.com`,
         short_name: `PaintMixer`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#fafafa`,
+        theme_color: `#fafafa`,
         display: `browser`,
         icon: `src/images/mpm-icon.png`, // This path is relative to the root of the site.
       },
