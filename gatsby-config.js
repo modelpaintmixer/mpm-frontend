@@ -1,3 +1,7 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   siteMetadata: {
     title: `Model Paint Mixer`,
@@ -9,6 +13,13 @@ module.exports = {
       resolve: `gatsby-plugin-typography`,
       options: {
         pathToConfigModule: `src/utils/typography`,
+      },
+    },
+    {
+      resolve: "gatsby-plugin-cookiehub",
+      options: {
+        cookihubId: process.env.COOKIEHUB_API_KEY,
+        head: false,
       },
     },
     "gatsby-plugin-optimize-svgs",
