@@ -73,7 +73,7 @@ class ShowOrigin extends Component {
         abbreviation,
         notes,
         Standards: standards,
-        Mixes: mixes,
+        Colors: colors,
         Paints: paints,
       } = origin
 
@@ -90,15 +90,15 @@ class ShowOrigin extends Component {
         )
       }
 
-      let relMixes = []
+      let relColors = []
       count = 0
-      for (let mix of mixes) {
+      for (let color of colors) {
         if (count++) {
-          relMixes.push(", ")
+          relColors.push(", ")
         }
-        relMixes.push(
-          <a href={`/mix/${mix.id}`} title={mix.name}>
-            {mix.name}
+        relColors.push(
+          <a href={`/color/${color.id}`} title={color.name}>
+            {color.name}
           </a>
         )
       }
@@ -117,7 +117,7 @@ class ShowOrigin extends Component {
       }
 
       content = (
-        <Layout title={`${name} (${abbreviation})`}>
+        <Layout title={`Origin: ${name} (${abbreviation})`}>
           <div className="text-block">
             {notes === null ? (
               ""
@@ -135,12 +135,12 @@ class ShowOrigin extends Component {
                 <p>{relStandards}</p>
               </>
             )}
-            {mixes.length === 0 ? (
+            {colors.length === 0 ? (
               ""
             ) : (
               <>
-                <h3>Related mixes</h3>
-                <p>{relMixes}</p>
+                <h3>Related colors</h3>
+                <p>{relColors}</p>
               </>
             )}
             {paints.length === 0 ? (

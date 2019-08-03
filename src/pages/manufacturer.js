@@ -94,7 +94,7 @@ class ShowManufacturer extends Component {
       }
 
       content = (
-        <Layout title={fullName}>
+        <Layout title={`Manufacturer: ${fullName}`}>
           <div className="text-block">
             <ManufacturerLocations locations={locations} />
             {origin === null ? (

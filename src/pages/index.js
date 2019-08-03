@@ -16,7 +16,7 @@ class IndexPage extends Component {
           <div className="text-block">
             <p>
               Welcome to <b>Model Paint Mixer</b>, a site that gathers custom
-              colors and mixes for scale modeling. The mixes presented here are
+              colors and mixes for scale modeling. The colors presented here are
               created by users for the purpose of sharing with the scale
               modeling community.
             </p>

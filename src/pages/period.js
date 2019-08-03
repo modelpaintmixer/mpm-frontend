@@ -72,7 +72,7 @@ class ShowPeriod extends Component {
         name,
         abbreviation,
         notes,
-        Mixes: mixes,
+        Colors: colors,
         Standards: standards,
       } = period
 
@@ -90,21 +90,21 @@ class ShowPeriod extends Component {
         )
       }
 
-      let relMixes = []
+      let relColors = []
       count = 0
-      for (let mix of mixes) {
+      for (let color of colors) {
         if (count++) {
-          relMixes.push(", ")
+          relColors.push(", ")
         }
-        relMixes.push(
-          <a href={`/mix/${mix.id}`} title={mix.name}>
-            {mix.name}
+        relColors.push(
+          <a href={`/color/${color.id}`} title={color.name}>
+            {color.name}
           </a>
         )
       }
 
       content = (
-        <Layout title={`${name} (${abbreviation})`}>
+        <Layout title={`Period: ${name} (${abbreviation})`}>
           <div className="text-block">
             {notes === null ? (
               ""
@@ -122,12 +122,12 @@ class ShowPeriod extends Component {
                 <p>{relStandards}</p>
               </>
             )}
-            {mixes.length === 0 ? (
+            {colors.length === 0 ? (
               ""
             ) : (
               <>
-                <h3>Related mixes</h3>
-                <p>{relMixes}</p>
+                <h3>Related colors</h3>
+                <p>{relColors}</p>
               </>
             )}
           </div>

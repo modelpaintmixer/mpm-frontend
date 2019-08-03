@@ -82,7 +82,7 @@ class ShowPaint extends Component {
         Origin: origin,
         ProductCodes: prodCodes,
         Standards: standards,
-        Mixes: mixes,
+        Colors: colors,
       } = paint
 
       let hasAttr = {}
@@ -136,21 +136,21 @@ class ShowPaint extends Component {
         )
       }
 
-      let relMixes = []
+      let relColors = []
       count = 0
-      for (let mix of mixes) {
+      for (let color of colors) {
         if (count++) {
-          relMixes.push(", ")
+          relColors.push(", ")
         }
-        relMixes.push(
-          <a href={`/mix/${mix.id}`} title={mix.name}>
-            {mix.name}
+        relColors.push(
+          <a href={`/color/${color.id}`} title={color.name}>
+            {color.name}
           </a>
         )
       }
 
       content = (
-        <Layout title={`${name} (${partNumber})`}>
+        <Layout title={`Paint: ${name} (${partNumber})`}>
           <ColorSwatch
             color={colorRgb}
             isTransparent={hasAttr.transparent || false}
@@ -182,12 +182,12 @@ class ShowPaint extends Component {
             )}
             <h3>Attributes</h3>
             <p>{attrText}</p>
-            {mixes.length === 0 ? (
+            {colors.length === 0 ? (
               ""
             ) : (
               <>
                 <h3>Used in</h3>
-                <p>{relMixes}</p>
+                <p>{relColors}</p>
               </>
             )}
             {notes === null ? (

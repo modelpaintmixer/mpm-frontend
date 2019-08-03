@@ -52,7 +52,7 @@ class DatabaseStats extends Component {
             {stats.paints} {stats.paints == 1 ? "paint" : "paints"}
           </li>
           <li>
-            {stats.mixes} {stats.mixes == 1 ? "mix" : "mixes"}
+            {stats.colors} {stats.colors == 1 ? "color" : "colors"}
           </li>
           <li>
             {stats.images} {stats.images == 1 ? "image" : "images"}

@@ -7,33 +7,33 @@ import ColorSwatch from "../components/color-swatch"
 import PaintCards from "../components/paint-cards"
 import DateFormat from "../components/date-format"
 
-const MixPage = () => (
+const ColorPage = () => (
   <Router>
-    <ShowMix path="/mix/:id" />
-    <Redirect from="/mix/" to="/colors" />
+    <ShowColor path="/color/:id" />
+    <Redirect from="/color/" to="/colors" />
   </Router>
 )
 
-class ShowMix extends Component {
+class ShowColor extends Component {
   constructor(props) {
     super(props)
     this.state = {
       error: null,
       isLoaded: false,
-      mix: null,
+      color: null,
       id: 0,
       timeStamp: 0,
     }
   }
 
   componentDidMount() {
-    fetch(`http://localhost:3000/api/view/mix/${this.props.id}`)
+    fetch(`http://localhost:3000/api/view/color/${this.props.id}`)
       .then(res => res.json())
       .then(
         result => {
           this.setState({
             isLoaded: true,
-            mix: result.mix,
+            color: result.color,
             // eslint-disable-next-line react/prop-types
             id: this.props.id,
             timeStamp: result.timestamp,
@@ -49,7 +49,7 @@ class ShowMix extends Component {
   }
 
   render() {
-    const { error, isLoaded, mix } = this.state
+    const { error, isLoaded, color } = this.state
     let content
 
     if (error) {
@@ -57,7 +57,7 @@ class ShowMix extends Component {
         <>
           <h2>An Error Occurred</h2>
           <div className="text-block">
-            <p>An error occurred trying to load the data for this mix:</p>
+            <p>An error occurred trying to load the data for this color:</p>
             <p>{error.message}</p>
           </div>
         </>
@@ -82,7 +82,7 @@ class ShowMix extends Component {
         Standards: standards,
         Periods: periods,
         parts,
-      } = mix
+      } = color
 
       let addedUpdatedHdr
       let dateTime
@@ -118,7 +118,7 @@ class ShowMix extends Component {
       }
 
       content = (
-        <Layout title={name}>
+        <Layout title={`Color: ${name}`}>
           <ColorSwatch color={colorRgb} />
           <PaintCards paints={parts} />
           <div className="text-block">
@@ -177,8 +177,8 @@ class ShowMix extends Component {
   }
 }
 
-ShowMix.propTypes = {
+ShowColor.propTypes = {
   id: PropTypes.number,
 }
 
-export default MixPage
+export default ColorPage
