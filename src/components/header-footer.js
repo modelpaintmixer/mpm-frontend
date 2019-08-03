@@ -10,6 +10,7 @@ import {
   MdPalette,
   MdSearch,
   MdSpeakerNotes,
+  MdFingerprint,
 } from "react-icons/md"
 
 import SiteIcon from "./siteicon"
@@ -103,7 +104,10 @@ export const Footer = () => (
             About
           </ListLink>
           <ListLink to="/code" icon={<MdSpeakerNotes />}>
-            Code
+            Code & Terms
+          </ListLink>
+          <ListLink to="/privacy" icon={<MdFingerprint />}>
+            Privacy
           </ListLink>
         </ul>
       </div>
