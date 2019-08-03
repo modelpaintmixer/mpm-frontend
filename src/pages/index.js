@@ -23,7 +23,7 @@ class IndexPage extends Component {
           </div>
         </div>
         <div className="text-block">
-          <h3 className="front-header3">Site News</h3>
+          <h3>Site News</h3>
           <NewestChanges />
         </div>
       </Layout>
