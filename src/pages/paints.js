@@ -52,7 +52,7 @@ class PaintsPage extends Component {
         <>
           <h2>An Error Occurred</h2>
           <div className="text-block">
-            <p>An error occurred trying to load the all paints:</p>
+            <p>An error occurred trying to load all the paints:</p>
             <p>{error.message}</p>
           </div>
         </>
