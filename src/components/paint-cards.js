@@ -17,7 +17,12 @@ const PaintCard = ({ paint }) => (
           : `${paint.partNumber} ${paint.name}`}
       </p>
       <div className={styles.paintSwatch}>
-        <ColorSwatch color={paint.colorRgb} size="4rem" />
+        <ColorSwatch
+          color={paint.colorRgb}
+          isTransparent={paint.transparent}
+          isClear={paint.clear}
+          size="4rem"
+        />
         {paint.parts ? (
           <p>
             {paint.parts} part

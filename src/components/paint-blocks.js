@@ -12,7 +12,12 @@ const PaintBlock = ({ paint }) => (
       title="View this paint"
     >
       <div className={styles.paintSwatch}>
-        <ColorSwatch color={paint.colorRgb} size="4rem" />
+        <ColorSwatch
+          color={paint.colorRgb}
+          isTransparent={paint.transparent}
+          isClear={paint.clear}
+          size="4rem"
+        />
       </div>
       <p className={styles.paintTitle}>
         {paint.manufacturer

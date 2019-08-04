@@ -74,6 +74,8 @@ class ShowPaint extends Component {
         name,
         partNumber,
         colorRgb,
+        transparent,
+        clear,
         notes,
         createdAt,
         updatedAt,
@@ -153,8 +155,8 @@ class ShowPaint extends Component {
         <Layout title={`Paint: ${name} (${partNumber})`}>
           <ColorSwatch
             color={colorRgb}
-            isTransparent={hasAttr.transparent || false}
-            isClear={hasAttr.clear || false}
+            isTransparent={transparent}
+            isClear={clear}
           />
           <div className="text-block">
             <h3>Manufacturer</h3>
