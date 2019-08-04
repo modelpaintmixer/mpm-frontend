@@ -5,14 +5,18 @@ import transparent from "../images/transparent_pattern.png"
 import styles from "./color-swatch.module.css"
 
 const ColorSwatch = props => {
-  let { color, size, isTransparent, isClear } = props
+  let { color, size, isTransparent, isClear, textSize } = props
   let opacity = isTransparent ? 0.6 : isClear ? 0 : 1
   let text = ""
+  let topDivStyle = {}
   if (color === null) {
-    color = "rgb(0,0,0,0)"
+    topDivStyle["background"] = "rgb(0,0,0,0)"
+    if (textSize) {
+      topDivStyle["fontSize"] = textSize
+    }
     text = <p>No color available yet</p>
   } else {
-    color = `rgb(${color},${opacity})`
+    topDivStyle["background"] = `rgb(${color},${opacity})`
   }
 
   let style = {}
@@ -27,7 +31,7 @@ const ColorSwatch = props => {
         <div>
           <img src={transparent} alt="" />
         </div>
-        <div style={{ background: color }}>{text}</div>
+        <div style={topDivStyle}>{text}</div>
       </div>
     </div>
   )
@@ -38,6 +42,7 @@ ColorSwatch.propTypes = {
   size: PropTypes.string,
   isTransparent: PropTypes.bool,
   isClear: PropTypes.bool,
+  textSize: PropTypes.string,
 }
 
 export default ColorSwatch
