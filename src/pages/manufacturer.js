@@ -5,7 +5,7 @@ import { Router, Redirect } from "@reach/router"
 import Layout from "../components/layout"
 import DateFormat from "../components/date-format"
 import ManufacturerLocations from "../components/manufacturer-locations"
-import PaintCards from "../components/paint-cards"
+import PaintBlocks from "../components/paint-blocks"
 
 const ManufacturerPage = () => (
   <Router>
@@ -118,7 +118,7 @@ class ShowManufacturer extends Component {
             ) : (
               <>
                 <h3>Paints</h3>
-                <PaintCards paints={paints} />
+                <PaintBlocks paints={paints} />
               </>
             )}
             <h3>{addedUpdatedHdr}</h3>

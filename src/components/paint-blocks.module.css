@@ -2,26 +2,34 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  align-items: stretch;
 }
 
 .paint-block {
   flex: 1;
-  flex-basis: 20%;
+  /* flex-basis: 20%; */
+  flex-basis: calc(20% - 1rem);
   flex-grow: 0;
   display: flex;
   flex-direction: column;
   margin-right: 0.5rem;
   margin-left: 0.5rem;
   margin-bottom: 1rem;
+  padding: 0.5rem;
   text-align: center;
   background-color: #f0f0f0;
-  -webkit-box-shadow: 0px 0px 3px 3px rgba(240, 240, 240, 1);
-  -moz-box-shadow: 0px 0px 3px 3px rgba(240, 240, 240, 1);
-  box-shadow: 0px 0px 3px 3px rgba(240, 240, 240, 1);
+  -webkit-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.75);
+}
+
+.paint-block:hover {
+  background-color: #f5f5f5;
 }
 
 .paint-title {
+  margin-top: 1rem;
+  margin-bottom: 0;
   flex: 1;
 }
 
@@ -30,6 +38,10 @@
 }
 
 .paint-link {
+  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   /* Color taken from the theme def file */
   color: hsla(0, 0%, 0%, 0.8);
   text-decoration: none;
@@ -43,12 +55,12 @@ div.paint-blocks > :last-child {
 
 @media only screen and (max-width: 480px) {
   .paint-blocks {
-    flex-direction: column;
+    /* flex-direction: column; */
     text-align: center;
   }
 
   .paint-block {
-    width: 50%;
+    flex-basis: calc(50% - 1rem);
     margin: auto;
     margin-bottom: 1rem;
   }

@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { Router, Redirect } from "@reach/router"
 
 import Layout from "../components/layout"
-import PaintCards from "../components/paint-cards"
+import PaintBlocks from "../components/paint-blocks"
 
 const AttributePage = () => (
   <Router>
@@ -77,7 +77,7 @@ class ShowAttribute extends Component {
             <h3>Description</h3>
             <p>{description}</p>
             <h3>Paints with this attribute</h3>
-            <PaintCards paints={paints} />
+            <PaintBlocks paints={paints} />
           </div>
         </Layout>
       )

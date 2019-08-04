@@ -5,28 +5,20 @@ import ColorSwatch from "./color-swatch"
 import styles from "./paint-blocks.module.css"
 
 const PaintBlock = ({ paint }) => (
-  <div className={`${styles.paintBlock} text-block`}>
+  <div className={styles.paintBlock}>
     <a
       href={`/paint/${paint.id}`}
       className={styles.paintLink}
       title="View this paint"
     >
+      <div className={styles.paintSwatch}>
+        <ColorSwatch color={paint.colorRgb} size="4rem" />
+      </div>
       <p className={styles.paintTitle}>
         {paint.manufacturer
           ? `${paint.manufacturer} ${paint.partNumber} ${paint.name}`
           : `${paint.partNumber} ${paint.name}`}
       </p>
-      <div className={styles.paintSwatch}>
-        <ColorSwatch color={paint.colorRgb} size="4rem" />
-        {paint.parts ? (
-          <p>
-            {paint.parts} part
-            {paint.parts === 1 ? "" : "s"}
-          </p>
-        ) : (
-          ""
-        )}
-      </div>
     </a>
   </div>
 )
