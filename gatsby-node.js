@@ -1,8 +1,19 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/node-apis/
- */
+const { createFilePath } = require("gatsby-source-filesystem")
+
+exports.onCreateNode = ({ node, actions, getNode }) => {
+  const { createNodeField } = actions
+
+  // Not currently use MDX nodes
+  if (node.internal.type === "Mdx") {
+    const value = createFilePath({ node, getNode })
+
+    createNodeField({
+      name: "slug",
+      node,
+      value: value,
+    })
+  }
+}
 
 exports.onCreatePage = async ({ page, actions }) => {
   const { createPage } = actions

@@ -33,13 +33,20 @@ module.exports = {
     "gatsby-plugin-optimize-svgs",
     `gatsby-plugin-react-helmet`,
     {
-      resolve: `gatsby-plugin-mdx`,
+      resolve: "gatsby-source-filesystem",
       options: {
-        defaultLayouts: {
-          default: require.resolve("./src/components/md-layout.js"),
-        },
+        name: "pages",
+        path: `${__dirname}/src/pages`,
       },
     },
+    // {
+    //   resolve: `gatsby-plugin-mdx`,
+    //   options: {
+    //     defaultLayouts: {
+    //       default: require.resolve("./src/components/md-layout.js"),
+    //     },
+    //   },
+    // },
     `gatsby-plugin-styled-components`,
     {
       resolve: `gatsby-source-filesystem`,
