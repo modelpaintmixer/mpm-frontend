@@ -2,10 +2,17 @@ require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
+const siteUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://modelpaintmixer.com"
+    : "http://localhost:8000"
+
 module.exports = {
   siteMetadata: {
-    title: `Model Paint Mixer`,
+    title: "Home",
+    titleTemplate: "%s | Model Paint Mixer",
     description: `A site for finding and exchanging custom paint mixes`,
+    url: siteUrl,
     author: `rjray@blackperl.com`,
   },
   plugins: [
