@@ -1,0 +1,70 @@
+.color-blocks {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.color-block {
+  flex: 1;
+  flex-basis: calc(20% - 0.5rem);
+  flex-grow: 0;
+  display: flex;
+  flex-direction: column;
+  margin-right: 0.25rem;
+  margin-left: 0.25rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  text-align: center;
+  background-color: #f0f0f0;
+  -webkit-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.75);
+}
+
+.color-block:hover {
+  background-color: #f5f5f5;
+}
+
+.color-title {
+  margin-top: 1rem;
+  flex: 1;
+}
+
+.color-credit {
+  flex: 1;
+  font-size: 60%;
+  margin-bottom: 0;
+}
+
+.color-swatch {
+  flex: 1;
+}
+
+.color-link {
+  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* Color taken from the theme def file */
+  color: hsla(0, 0%, 0%, 0.8);
+  text-decoration: none;
+  text-shadow: none;
+  background-image: none;
+}
+
+div.color-blocks > :last-child {
+  margin-bottom: 1rem;
+}
+
+@media only screen and (max-width: 480px) {
+  .color-blocks {
+    text-align: center;
+  }
+
+  .color-block {
+    flex-basis: calc(50% - 1rem);
+    margin: auto;
+    margin-bottom: 1rem;
+  }
+}
