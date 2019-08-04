@@ -2,6 +2,7 @@ import React, { Component } from "react"
 
 import Layout from "../components/layout"
 import PaintBlocks from "../components/paint-blocks"
+import SEO from "../components/seo"
 
 class PaintsPage extends Component {
   constructor(props) {
@@ -67,12 +68,15 @@ class PaintsPage extends Component {
       )
     } else {
       content = (
-        <Layout title="All Paints">
-          <div className="text-block">
-            <h3>{count} Paints in Database</h3>
-            {paints.length === 0 ? "" : <PaintBlocks paints={paints} />}
-          </div>
-        </Layout>
+        <>
+          <SEO title="All Paints" />
+          <Layout title="All Paints">
+            <div className="text-block">
+              <h3>{count} Paints in Database</h3>
+              {paints.length === 0 ? "" : <PaintBlocks paints={paints} />}
+            </div>
+          </Layout>
+        </>
       )
     }
 
