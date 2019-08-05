@@ -16,7 +16,7 @@ const TermsOfServicePage = () => (
           created and you will be unable to comment, create mixes, or otherwise
           directly participate in the MPM community.
         </p>
-        <p>(to come)</p>
+        <p>(to come, before user accounts are enabled)</p>
       </div>
     </Layout>
   </>

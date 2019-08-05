@@ -13,7 +13,7 @@ const PrivacyPage = () => (
           <b>ModelPaintMixer.com</b> provides the following policy on the
           privacy of its users:
         </p>
-        <p>(to come)</p>
+        <p>(to come, before user accounts are enabled)</p>
       </div>
     </Layout>
   </>
