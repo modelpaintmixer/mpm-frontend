@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import PropTypes from "prop-types"
 import { Router, Redirect } from "@reach/router"
 
+import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
 import DateFormat from "../components/date-format"
 import ManufacturerLocations from "../components/manufacturer-locations"
@@ -27,7 +28,7 @@ class ShowManufacturer extends Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:3000/api/view/manufacturer/${this.props.id}`)
+    fetch(apiurl(`/api/view/manufacturer/${this.props.id}`))
       .then(res => res.json())
       .then(
         result => {

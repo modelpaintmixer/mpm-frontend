@@ -1,5 +1,7 @@
 import React, { Component } from "react"
 
+import apiurl from "../utils/api-url"
+
 class DatabaseStats extends Component {
   constructor(props) {
     super(props)
@@ -12,7 +14,7 @@ class DatabaseStats extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3000/api/stats/site")
+    fetch(apiurl("/api/stats/site"))
       .then(res => res.json())
       .then(
         result => {

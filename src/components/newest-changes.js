@@ -2,6 +2,8 @@ import React, { Component } from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 
+import apiurl from "../utils/api-url"
+
 const ItemLink = props => {
   let item = props.item
   let url = `/${item.type.toLowerCase()}/${item.id}`
@@ -37,7 +39,7 @@ class NewestChanges extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3000/api/stats/changes")
+    fetch(apiurl("/api/stats/changes"))
       .then(res => res.json())
       .then(
         result => {

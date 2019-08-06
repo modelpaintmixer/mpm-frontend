@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import PropTypes from "prop-types"
 import { Router, Redirect } from "@reach/router"
 
+import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
 
 const StandardPage = () => (
@@ -24,7 +25,7 @@ class ShowStandard extends Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:3000/api/view/standard/${this.props.id}`)
+    fetch(apiurl(`/api/view/standard/${this.props.id}`))
       .then(res => res.json())
       .then(
         result => {

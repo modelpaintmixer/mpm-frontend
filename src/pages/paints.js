@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 
+import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
 import PaintBlocks from "../components/paint-blocks"
 import SEO from "../components/seo"
@@ -17,7 +18,7 @@ class PaintsPage extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3000/api/paint")
+    fetch(apiurl("/api/paint"))
       .then(res => res.json())
       .then(
         result => {

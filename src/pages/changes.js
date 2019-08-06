@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 
+import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
 
 const ItemLink = props => {
@@ -39,7 +40,7 @@ class ChangesPage extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3000/api/stats/changes/25")
+    fetch(apiurl("/api/stats/changes/25"))
       .then(res => res.json())
       .then(
         result => {

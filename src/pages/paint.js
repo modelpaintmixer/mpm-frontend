@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import PropTypes from "prop-types"
 import { Router, Redirect } from "@reach/router"
 
+import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
 import ColorSwatch from "../components/color-swatch"
 import DateFormat from "../components/date-format"
@@ -26,7 +27,7 @@ class ShowPaint extends Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:3000/api/view/paint/${this.props.id}`)
+    fetch(apiurl(`/api/view/paint/${this.props.id}`))
       .then(res => res.json())
       .then(
         result => {

@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 
+import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
 import ColorBlocks from "../components/color-blocks"
 import SEO from "../components/seo"
@@ -17,7 +18,7 @@ class ColorsPage extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3000/api/color")
+    fetch(apiurl("/api/color"))
       .then(res => res.json())
       .then(
         result => {

@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import PropTypes from "prop-types"
 import { Router, Redirect } from "@reach/router"
 
+import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
 import ColorSwatch from "../components/color-swatch"
 import PaintCards from "../components/paint-cards"
@@ -27,7 +28,7 @@ class ShowColor extends Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:3000/api/view/color/${this.props.id}`)
+    fetch(apiurl(`/api/view/color/${this.props.id}`))
       .then(res => res.json())
       .then(
         result => {
