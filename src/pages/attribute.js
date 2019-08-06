@@ -5,6 +5,7 @@ import { Router, Redirect } from "@reach/router"
 import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
 import PaintBlocks from "../components/paint-blocks"
+import SEO from "../components/seo"
 
 const AttributePage = () => (
   <Router>
@@ -73,14 +74,17 @@ class ShowAttribute extends Component {
       let { name, description, Paints: paints } = attribute
 
       content = (
-        <Layout title={`Attribute: ${name}`}>
-          <div className="text-block">
-            <h3>Description</h3>
-            <p>{description}</p>
-            <h3>Paints with this attribute</h3>
-            <PaintBlocks paints={paints} />
-          </div>
-        </Layout>
+        <>
+          <SEO title={`Attribute: ${name}`} />
+          <Layout title={`Attribute: ${name}`}>
+            <div className="text-block">
+              <h3>Description</h3>
+              <p>{description}</p>
+              <h3>Paints with this attribute</h3>
+              <PaintBlocks paints={paints} />
+            </div>
+          </Layout>
+        </>
       )
     }
 

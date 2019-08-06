@@ -4,6 +4,7 @@ import { Router, Redirect } from "@reach/router"
 
 import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
+import SEO from "../components/seo"
 
 const OriginPage = () => (
   <Router>
@@ -118,42 +119,45 @@ class ShowOrigin extends Component {
       }
 
       content = (
-        <Layout title={`Origin: ${name} (${abbreviation})`}>
-          <div className="text-block">
-            {notes === null ? (
-              ""
-            ) : (
-              <>
-                <h3>Notes</h3>
-                <p>{notes}</p>
-              </>
-            )}
-            {standards.length === 0 ? (
-              ""
-            ) : (
-              <>
-                <h3>Related standards</h3>
-                <p>{relStandards}</p>
-              </>
-            )}
-            {colors.length === 0 ? (
-              ""
-            ) : (
-              <>
-                <h3>Related colors</h3>
-                <p>{relColors}</p>
-              </>
-            )}
-            {paints.length === 0 ? (
-              ""
-            ) : (
-              <>
-                <h3>Related paints</h3>
-                <p>{relPaints}</p>
-              </>
-            )}
-          </div>
-        </Layout>
+        <>
+          <SEO title={`Origin: ${name} (${abbreviation})`} />
+          <Layout title={`Origin: ${name} (${abbreviation})`}>
+            <div className="text-block">
+              {notes === null ? (
+                ""
+              ) : (
+                <>
+                  <h3>Notes</h3>
+                  <p>{notes}</p>
+                </>
+              )}
+              {standards.length === 0 ? (
+                ""
+              ) : (
+                <>
+                  <h3>Related standards</h3>
+                  <p>{relStandards}</p>
+                </>
+              )}
+              {colors.length === 0 ? (
+                ""
+              ) : (
+                <>
+                  <h3>Related colors</h3>
+                  <p>{relColors}</p>
+                </>
+              )}
+              {paints.length === 0 ? (
+                ""
+              ) : (
+                <>
+                  <h3>Related paints</h3>
+                  <p>{relPaints}</p>
+                </>
+              )}
+            </div>
+          </Layout>
+        </>
       )
     }
 

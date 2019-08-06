@@ -7,6 +7,7 @@ import Layout from "../components/layout"
 import DateFormat from "../components/date-format"
 import ManufacturerLocations from "../components/manufacturer-locations"
 import PaintBlocks from "../components/paint-blocks"
+import SEO from "../components/seo"
 
 const ManufacturerPage = () => (
   <Router>
@@ -95,39 +96,42 @@ class ShowManufacturer extends Component {
       }
 
       content = (
-        <Layout title={`Manufacturer: ${fullName}`}>
-          <div className="text-block">
-            <ManufacturerLocations locations={locations} />
-            {origin === null ? (
-              ""
-            ) : (
-              <>
-                <h3>Founded</h3>
-                <p>{origin.name}</p>
-              </>
-            )}
-            {notes === null ? (
-              ""
-            ) : (
-              <>
-                <h3>Notes</h3>
-                <p>{notes}</p>
-              </>
-            )}
-            {paints.length === 0 ? (
-              ""
-            ) : (
-              <>
-                <h3>Paints</h3>
-                <PaintBlocks paints={paints} />
-              </>
-            )}
-            <h3>{addedUpdatedHdr}</h3>
-            <p>
-              <DateFormat date={dateTime} />
-            </p>
-          </div>
-        </Layout>
+        <>
+          <SEO title={`Manufacturer: ${fullName}`} />
+          <Layout title={`Manufacturer: ${fullName}`}>
+            <div className="text-block">
+              <ManufacturerLocations locations={locations} />
+              {origin === null ? (
+                ""
+              ) : (
+                <>
+                  <h3>Founded</h3>
+                  <p>{origin.name}</p>
+                </>
+              )}
+              {notes === null ? (
+                ""
+              ) : (
+                <>
+                  <h3>Notes</h3>
+                  <p>{notes}</p>
+                </>
+              )}
+              {paints.length === 0 ? (
+                ""
+              ) : (
+                <>
+                  <h3>Paints</h3>
+                  <PaintBlocks paints={paints} />
+                </>
+              )}
+              <h3>{addedUpdatedHdr}</h3>
+              <p>
+                <DateFormat date={dateTime} />
+              </p>
+            </div>
+          </Layout>
+        </>
       )
     }
 

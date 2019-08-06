@@ -7,6 +7,7 @@ import Layout from "../components/layout"
 import ColorSwatch from "../components/color-swatch"
 import PaintCards from "../components/paint-cards"
 import DateFormat from "../components/date-format"
+import SEO from "../components/seo"
 
 const ColorPage = () => (
   <Router>
@@ -119,58 +120,61 @@ class ShowColor extends Component {
       }
 
       content = (
-        <Layout title={`Color: ${name}`}>
-          <ColorSwatch color={colorRgb} />
-          <PaintCards paints={parts} />
-          <div className="text-block">
-            {credit === null ? (
-              ""
-            ) : (
-              <>
-                <h3>Credit</h3>
-                <p>{credit}</p>
-              </>
-            )}
-            {origin === null ? (
-              ""
-            ) : (
-              <>
-                <h3>Color origin</h3>
-                <p>
-                  <a href={`/origin/${origin.id}`}>{origin.name}</a>
-                </p>
-              </>
-            )}
-            {standards.length === 0 ? (
-              ""
-            ) : (
-              <>
-                <h3>Related standards</h3>
-                <p>{relStandards}</p>
-              </>
-            )}
-            {periods.length === 0 ? (
-              ""
-            ) : (
-              <>
-                <h3>Related periods</h3>
-                <p>{relPeriods}</p>
-              </>
-            )}
-            <h3>{addedUpdatedHdr}</h3>
-            <p>
-              <DateFormat date={dateTime} />
-            </p>
-            {notes === null ? (
-              ""
-            ) : (
-              <>
-                <h3>Notes</h3>
-                <p>{notes}</p>
-              </>
-            )}
-          </div>
-        </Layout>
+        <>
+          <SEO title={`Color: ${name}`} />
+          <Layout title={`Color: ${name}`}>
+            <ColorSwatch color={colorRgb} />
+            <PaintCards paints={parts} />
+            <div className="text-block">
+              {credit === null ? (
+                ""
+              ) : (
+                <>
+                  <h3>Credit</h3>
+                  <p>{credit}</p>
+                </>
+              )}
+              {origin === null ? (
+                ""
+              ) : (
+                <>
+                  <h3>Color origin</h3>
+                  <p>
+                    <a href={`/origin/${origin.id}`}>{origin.name}</a>
+                  </p>
+                </>
+              )}
+              {standards.length === 0 ? (
+                ""
+              ) : (
+                <>
+                  <h3>Related standards</h3>
+                  <p>{relStandards}</p>
+                </>
+              )}
+              {periods.length === 0 ? (
+                ""
+              ) : (
+                <>
+                  <h3>Related periods</h3>
+                  <p>{relPeriods}</p>
+                </>
+              )}
+              <h3>{addedUpdatedHdr}</h3>
+              <p>
+                <DateFormat date={dateTime} />
+              </p>
+              {notes === null ? (
+                ""
+              ) : (
+                <>
+                  <h3>Notes</h3>
+                  <p>{notes}</p>
+                </>
+              )}
+            </div>
+          </Layout>
+        </>
       )
     }
 

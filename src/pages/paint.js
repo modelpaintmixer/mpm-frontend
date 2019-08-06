@@ -6,6 +6,7 @@ import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
 import ColorSwatch from "../components/color-swatch"
 import DateFormat from "../components/date-format"
+import SEO from "../components/seo"
 
 const PaintPage = () => (
   <Router>
@@ -153,60 +154,63 @@ class ShowPaint extends Component {
       }
 
       content = (
-        <Layout title={`Paint: ${name} (${partNumber})`}>
-          <ColorSwatch
-            color={colorRgb}
-            isTransparent={transparent}
-            isClear={clear}
-          />
-          <div className="text-block">
-            <h3>Manufacturer</h3>
-            <p>
-              <a href={`/manufacturer/${mfr.id}`}>{mfr.fullName}</a>
-              {prodCodesText ? `, ${prodCodesText}` : ""}
-            </p>
-            {origin === null ? (
-              ""
-            ) : (
-              <>
-                <h3>Color origin</h3>
-                <p>
-                  <a href={`/origin/${origin.id}`}>{origin.name}</a>
-                </p>
-              </>
-            )}
-            {standards.length === 0 ? (
-              ""
-            ) : (
-              <>
-                <h3>Related standards</h3>
-                <p>{relStandards}</p>
-              </>
-            )}
-            <h3>Attributes</h3>
-            <p>{attrText}</p>
-            {colors.length === 0 ? (
-              ""
-            ) : (
-              <>
-                <h3>Used in</h3>
-                <p>{relColors}</p>
-              </>
-            )}
-            {notes === null ? (
-              ""
-            ) : (
-              <>
-                <h3>Notes</h3>
-                <p>{notes}</p>
-              </>
-            )}
-            <h3>{addedUpdatedHdr}</h3>
-            <p>
-              <DateFormat date={dateTime} />
-            </p>
-          </div>
-        </Layout>
+        <>
+          <SEO title={`Paint: ${name} (${partNumber})`} />
+          <Layout title={`Paint: ${name} (${partNumber})`}>
+            <ColorSwatch
+              color={colorRgb}
+              isTransparent={transparent}
+              isClear={clear}
+            />
+            <div className="text-block">
+              <h3>Manufacturer</h3>
+              <p>
+                <a href={`/manufacturer/${mfr.id}`}>{mfr.fullName}</a>
+                {prodCodesText ? `, ${prodCodesText}` : ""}
+              </p>
+              {origin === null ? (
+                ""
+              ) : (
+                <>
+                  <h3>Color origin</h3>
+                  <p>
+                    <a href={`/origin/${origin.id}`}>{origin.name}</a>
+                  </p>
+                </>
+              )}
+              {standards.length === 0 ? (
+                ""
+              ) : (
+                <>
+                  <h3>Related standards</h3>
+                  <p>{relStandards}</p>
+                </>
+              )}
+              <h3>Attributes</h3>
+              <p>{attrText}</p>
+              {colors.length === 0 ? (
+                ""
+              ) : (
+                <>
+                  <h3>Used in</h3>
+                  <p>{relColors}</p>
+                </>
+              )}
+              {notes === null ? (
+                ""
+              ) : (
+                <>
+                  <h3>Notes</h3>
+                  <p>{notes}</p>
+                </>
+              )}
+              <h3>{addedUpdatedHdr}</h3>
+              <p>
+                <DateFormat date={dateTime} />
+              </p>
+            </div>
+          </Layout>
+        </>
       )
     }
 
