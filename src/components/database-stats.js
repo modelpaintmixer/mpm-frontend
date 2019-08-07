@@ -2,6 +2,8 @@ import React, { Component } from "react"
 
 import apiurl from "../utils/api-url"
 
+const dataUrl = apiurl("/api/stats/site")
+
 class DatabaseStats extends Component {
   constructor(props) {
     super(props)
@@ -14,7 +16,7 @@ class DatabaseStats extends Component {
   }
 
   componentDidMount() {
-    fetch(apiurl("/api/stats/site"))
+    fetch(dataUrl)
       .then(res => res.json())
       .then(
         result => {

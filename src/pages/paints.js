@@ -5,6 +5,8 @@ import Layout from "../components/layout"
 import PaintBlocks from "../components/paint-blocks"
 import SEO from "../components/seo"
 
+const dataUrl = apiurl("/api/paint")
+
 class PaintsPage extends Component {
   constructor(props) {
     super(props)
@@ -18,7 +20,7 @@ class PaintsPage extends Component {
   }
 
   componentDidMount() {
-    fetch(apiurl("/api/paint"))
+    fetch(dataUrl)
       .then(res => res.json())
       .then(
         result => {

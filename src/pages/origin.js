@@ -6,6 +6,8 @@ import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
+const dataUrl = apiurl("/api/view/origin/")
+
 const OriginPage = () => (
   <Router>
     <ShowOrigin path="/origin/:id" />
@@ -26,7 +28,7 @@ class ShowOrigin extends Component {
   }
 
   componentDidMount() {
-    fetch(apiurl(`/api/view/origin/${this.props.id}`))
+    fetch(`${dataUrl}${this.props.id}`)
       .then(res => res.json())
       .then(
         result => {

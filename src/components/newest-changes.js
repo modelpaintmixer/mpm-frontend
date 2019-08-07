@@ -4,6 +4,8 @@ import { Link } from "gatsby"
 
 import apiurl from "../utils/api-url"
 
+const dataUrl = apiurl("/api/stats/changes")
+
 const ItemLink = props => {
   let item = props.item
   let url = `/${item.type.toLowerCase()}/${item.id}`
@@ -39,7 +41,7 @@ class NewestChanges extends Component {
   }
 
   componentDidMount() {
-    fetch(apiurl("/api/stats/changes"))
+    fetch(dataUrl)
       .then(res => res.json())
       .then(
         result => {

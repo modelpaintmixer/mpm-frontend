@@ -4,6 +4,8 @@ import PropTypes from "prop-types"
 import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
 
+const dataUrl = apiurl("/api/stats/changes/25")
+
 const ItemLink = props => {
   let item = props.item
   let url = `/${item.type.toLowerCase()}/${item.id}`
@@ -40,7 +42,7 @@ class ChangesPage extends Component {
   }
 
   componentDidMount() {
-    fetch(apiurl("/api/stats/changes/25"))
+    fetch(dataUrl)
       .then(res => res.json())
       .then(
         result => {

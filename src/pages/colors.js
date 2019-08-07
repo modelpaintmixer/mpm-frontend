@@ -5,6 +5,8 @@ import Layout from "../components/layout"
 import ColorBlocks from "../components/color-blocks"
 import SEO from "../components/seo"
 
+const dataUrl = apiurl("/api/color")
+
 class ColorsPage extends Component {
   constructor(props) {
     super(props)
@@ -18,7 +20,7 @@ class ColorsPage extends Component {
   }
 
   componentDidMount() {
-    fetch(apiurl("/api/color"))
+    fetch(dataUrl)
       .then(res => res.json())
       .then(
         result => {

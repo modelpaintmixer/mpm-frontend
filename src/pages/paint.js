@@ -8,6 +8,8 @@ import ColorSwatch from "../components/color-swatch"
 import DateFormat from "../components/date-format"
 import SEO from "../components/seo"
 
+const dataUrl = apiurl("/api/view/paint/")
+
 const PaintPage = () => (
   <Router>
     <ShowPaint path="/paint/:id" />
@@ -28,7 +30,7 @@ class ShowPaint extends Component {
   }
 
   componentDidMount() {
-    fetch(apiurl(`/api/view/paint/${this.props.id}`))
+    fetch(`${dataUrl}${this.props.id}`)
       .then(res => res.json())
       .then(
         result => {

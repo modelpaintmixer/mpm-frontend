@@ -7,6 +7,8 @@ import Layout from "../components/layout"
 import PaintBlocks from "../components/paint-blocks"
 import SEO from "../components/seo"
 
+const dataUrl = apiurl("/api/view/attribute/")
+
 const AttributePage = () => (
   <Router>
     <ShowAttribute path="/attribute/:id" />
@@ -27,7 +29,7 @@ class ShowAttribute extends Component {
   }
 
   componentDidMount() {
-    fetch(apiurl(`/api/view/attribute/${this.props.id}`))
+    fetch(`${dataUrl}${this.props.id}`)
       .then(res => res.json())
       .then(
         result => {

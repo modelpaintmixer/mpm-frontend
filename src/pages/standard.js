@@ -6,6 +6,8 @@ import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
+const dataUrl = apiurl("/api/view/standard/")
+
 const StandardPage = () => (
   <Router>
     <ShowStandard path="/standard/:id" />
@@ -26,7 +28,7 @@ class ShowStandard extends Component {
   }
 
   componentDidMount() {
-    fetch(apiurl(`/api/view/standard/${this.props.id}`))
+    fetch(`${dataUrl}${this.props.id}`)
       .then(res => res.json())
       .then(
         result => {

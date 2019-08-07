@@ -9,6 +9,8 @@ import PaintCards from "../components/paint-cards"
 import DateFormat from "../components/date-format"
 import SEO from "../components/seo"
 
+const dataUrl = apiurl("/api/view/color/")
+
 const ColorPage = () => (
   <Router>
     <ShowColor path="/color/:id" />
@@ -29,7 +31,7 @@ class ShowColor extends Component {
   }
 
   componentDidMount() {
-    fetch(apiurl(`/api/view/color/${this.props.id}`))
+    fetch(`${dataUrl}${this.props.id}`)
       .then(res => res.json())
       .then(
         result => {
