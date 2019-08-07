@@ -6,7 +6,7 @@ const dataUrl = apiurl("/api/period")
 
 const OnePeriod = period => (
   <div>
-    <a href={`/period/${period.id}`} title={period.abbreviation}>
+    <a href={`/period/?id=${period.id}`} title={period.abbreviation}>
       <h3>{period.name}</h3>
     </a>
     <p>{period.notes || ""}</p>

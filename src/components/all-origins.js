@@ -6,7 +6,7 @@ const dataUrl = apiurl("/api/origin")
 
 const OneOrigin = origin => (
   <div>
-    <a href={`/origin/${origin.id}`} title={origin.abbreviation}>
+    <a href={`/origin/?id=${origin.id}`} title={origin.abbreviation}>
       <h3>{`${origin.name} (${origin.abbreviation})`}</h3>
     </a>
     <p>{origin.notes || ""}</p>

@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { Router, Redirect } from "@reach/router"
+import { Redirect } from "@reach/router"
+import queryString from "query-string"
 
 import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
@@ -9,52 +10,51 @@ import SEO from "../components/seo"
 
 const dataUrl = apiurl("/api/view/attribute/")
 
-const AttributePage = () => (
-  <Router>
-    <ShowAttribute path="/attribute/:id" />
-    <Redirect from="/attribute/" to="/attributes" />
-  </Router>
-)
-
-class ShowAttribute extends Component {
+class AttributePage extends Component {
   constructor(props) {
     super(props)
     this.state = {
       error: null,
       isLoaded: false,
       attribute: null,
-      id: 0,
+      redirect: false,
       timeStamp: 0,
     }
   }
 
   componentDidMount() {
-    fetch(`${dataUrl}${this.props.id}`)
-      .then(res => res.json())
-      .then(
-        result => {
-          this.setState({
-            isLoaded: true,
-            attribute: result.attribute,
-            // eslint-disable-next-line react/prop-types
-            id: this.props.id,
-            timeStamp: result.timestamp,
-          })
-        },
-        error => {
-          this.setState({
-            isLoaded: true,
-            error,
-          })
-        }
-      )
+    const values = queryString.parse(this.props.location.search)
+
+    if (!values.id) {
+      this.setState({ redirect: true })
+    } else {
+      fetch(`${dataUrl}${values.id}`)
+        .then(res => res.json())
+        .then(
+          result => {
+            this.setState({
+              isLoaded: true,
+              attribute: result.attribute,
+              timeStamp: result.timestamp,
+            })
+          },
+          error => {
+            this.setState({
+              isLoaded: true,
+              error,
+            })
+          }
+        )
+    }
   }
 
   render() {
-    const { error, isLoaded, attribute } = this.state
+    const { error, isLoaded, attribute, redirect } = this.state
     let content
 
-    if (error) {
+    if (redirect) {
+      return <Redirect to="/attributes" />
+    } else if (error) {
       content = (
         <>
           <h2>An Error Occurred</h2>
@@ -94,8 +94,8 @@ class ShowAttribute extends Component {
   }
 }
 
-ShowAttribute.propTypes = {
-  id: PropTypes.number,
+AttributePage.propTypes = {
+  location: PropTypes.object,
 }
 
 export default AttributePage

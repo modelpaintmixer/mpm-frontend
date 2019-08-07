@@ -8,7 +8,7 @@ const dataUrl = apiurl("/api/stats/changes")
 
 const ItemLink = props => {
   let item = props.item
-  let url = `/${item.type.toLowerCase()}/${item.id}`
+  let url = `/${item.type.toLowerCase()}/?id=${item.id}`
   let text
 
   switch (item.type) {

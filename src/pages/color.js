@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { Router, Redirect } from "@reach/router"
+import { Redirect } from "@reach/router"
+import queryString from "query-string"
 
 import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
@@ -11,52 +12,51 @@ import SEO from "../components/seo"
 
 const dataUrl = apiurl("/api/view/color/")
 
-const ColorPage = () => (
-  <Router>
-    <ShowColor path="/color/:id" />
-    <Redirect from="/color/" to="/colors" />
-  </Router>
-)
-
-class ShowColor extends Component {
+class ColorPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
       error: null,
       isLoaded: false,
       color: null,
-      id: 0,
+      redirect: false,
       timeStamp: 0,
     }
   }
 
   componentDidMount() {
-    fetch(`${dataUrl}${this.props.id}`)
-      .then(res => res.json())
-      .then(
-        result => {
-          this.setState({
-            isLoaded: true,
-            color: result.color,
-            // eslint-disable-next-line react/prop-types
-            id: this.props.id,
-            timeStamp: result.timestamp,
-          })
-        },
-        error => {
-          this.setState({
-            isLoaded: true,
-            error,
-          })
-        }
-      )
+    const values = queryString.parse(this.props.location.search)
+
+    if (!values.id) {
+      this.setState({ redirect: true })
+    } else {
+      fetch(`${dataUrl}${values.id}`)
+        .then(res => res.json())
+        .then(
+          result => {
+            this.setState({
+              isLoaded: true,
+              color: result.color,
+              timeStamp: result.timestamp,
+            })
+          },
+          error => {
+            this.setState({
+              isLoaded: true,
+              error,
+            })
+          }
+        )
+    }
   }
 
   render() {
-    const { error, isLoaded, color } = this.state
+    const { error, isLoaded, color, redirect } = this.state
     let content
 
-    if (error) {
+    if (redirect) {
+      return <Redirect to="/colors" />
+    } else if (error) {
       content = (
         <>
           <h2>An Error Occurred</h2>
@@ -106,7 +106,7 @@ class ShowColor extends Component {
         }
         relStandards.push(
           <a
-            href={`/standard/${standard.id}`}
+            href={`/standard/?id=${standard.id}`}
             title={standard.name}
           >{`${standard.displayName}${standard.standardNumber}`}</a>
         )
@@ -118,7 +118,7 @@ class ShowColor extends Component {
         if (count++) {
           relPeriods.push(", ")
         }
-        relPeriods.push(<a href={`/period/${period.id}`}>{period.name}</a>)
+        relPeriods.push(<a href={`/period/?id=${period.id}`}>{period.name}</a>)
       }
 
       content = (
@@ -142,7 +142,7 @@ class ShowColor extends Component {
                 <>
                   <h3>Color origin</h3>
                   <p>
-                    <a href={`/origin/${origin.id}`}>{origin.name}</a>
+                    <a href={`/origin/?id=${origin.id}`}>{origin.name}</a>
                   </p>
                 </>
               )}
@@ -184,8 +184,8 @@ class ShowColor extends Component {
   }
 }
 
-ShowColor.propTypes = {
-  id: PropTypes.number,
+ColorPage.propTypes = {
+  location: PropTypes.object,
 }
 
 export default ColorPage

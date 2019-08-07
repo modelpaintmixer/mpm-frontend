@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { Router, Redirect } from "@reach/router"
+import { Redirect } from "@reach/router"
+import queryString from "query-string"
 
 import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
@@ -8,52 +9,51 @@ import SEO from "../components/seo"
 
 const dataUrl = apiurl("/api/view/period/")
 
-const PeriodPage = () => (
-  <Router>
-    <ShowPeriod path="/period/:id" />
-    <Redirect from="/period/" to="/periods" />
-  </Router>
-)
-
-class ShowPeriod extends Component {
+class PeriodPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
       error: null,
       isLoaded: false,
       period: null,
-      id: 0,
+      redirect: false,
       timeStamp: 0,
     }
   }
 
   componentDidMount() {
-    fetch(`${dataUrl}${this.props.id}`)
-      .then(res => res.json())
-      .then(
-        result => {
-          this.setState({
-            isLoaded: true,
-            period: result.period,
-            // eslint-disable-next-line react/prop-types
-            id: this.props.id,
-            timeStamp: result.timestamp,
-          })
-        },
-        error => {
-          this.setState({
-            isLoaded: true,
-            error,
-          })
-        }
-      )
+    const values = queryString.parse(this.props.location.search)
+
+    if (!values.id) {
+      this.setState({ redirect: true })
+    } else {
+      fetch(`${dataUrl}${values.id}`)
+        .then(res => res.json())
+        .then(
+          result => {
+            this.setState({
+              isLoaded: true,
+              period: result.period,
+              timeStamp: result.timestamp,
+            })
+          },
+          error => {
+            this.setState({
+              isLoaded: true,
+              error,
+            })
+          }
+        )
+    }
   }
 
   render() {
-    const { error, isLoaded, period } = this.state
+    const { error, isLoaded, period, redirect } = this.state
     let content
 
-    if (error) {
+    if (redirect) {
+      return <Redirect to="/periods" />
+    } else if (error) {
       content = (
         <>
           <h2>An Error Occurred</h2>
@@ -88,7 +88,7 @@ class ShowPeriod extends Component {
         }
         relStandards.push(
           <a
-            href={`/standard/${standard.id}`}
+            href={`/standard/?id=${standard.id}`}
             title={standard.name}
           >{`${standard.name} (${standard.abbreviation})`}</a>
         )
@@ -101,7 +101,7 @@ class ShowPeriod extends Component {
           relColors.push(", ")
         }
         relColors.push(
-          <a href={`/color/${color.id}`} title={color.name}>
+          <a href={`/color/?id=${color.id}`} title={color.name}>
             {color.name}
           </a>
         )
@@ -146,8 +146,8 @@ class ShowPeriod extends Component {
   }
 }
 
-ShowPeriod.propTypes = {
-  id: PropTypes.number,
+PeriodPage.propTypes = {
+  location: PropTypes.object,
 }
 
 export default PeriodPage

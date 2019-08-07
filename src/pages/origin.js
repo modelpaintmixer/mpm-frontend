@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { Router, Redirect } from "@reach/router"
+import { Redirect } from "@reach/router"
+import queryString from "query-string"
 
 import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
@@ -8,52 +9,51 @@ import SEO from "../components/seo"
 
 const dataUrl = apiurl("/api/view/origin/")
 
-const OriginPage = () => (
-  <Router>
-    <ShowOrigin path="/origin/:id" />
-    <Redirect from="/origin/" to="/origins" />
-  </Router>
-)
-
-class ShowOrigin extends Component {
+class OriginPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
       error: null,
       isLoaded: false,
       origin: null,
-      id: 0,
+      redirect: false,
       timeStamp: 0,
     }
   }
 
   componentDidMount() {
-    fetch(`${dataUrl}${this.props.id}`)
-      .then(res => res.json())
-      .then(
-        result => {
-          this.setState({
-            isLoaded: true,
-            origin: result.origin,
-            // eslint-disable-next-line react/prop-types
-            id: this.props.id,
-            timeStamp: result.timestamp,
-          })
-        },
-        error => {
-          this.setState({
-            isLoaded: true,
-            error,
-          })
-        }
-      )
+    const values = queryString.parse(this.props.location.search)
+
+    if (!values.id) {
+      this.setState({ redirect: true })
+    } else {
+      fetch(`${dataUrl}${values.id}`)
+        .then(res => res.json())
+        .then(
+          result => {
+            this.setState({
+              isLoaded: true,
+              origin: result.origin,
+              timeStamp: result.timestamp,
+            })
+          },
+          error => {
+            this.setState({
+              isLoaded: true,
+              error,
+            })
+          }
+        )
+    }
   }
 
   render() {
-    const { error, isLoaded, origin } = this.state
+    const { error, isLoaded, origin, redirect } = this.state
     let content
 
-    if (error) {
+    if (redirect) {
+      return <Redirect to="/origins" />
+    } else if (error) {
       content = (
         <>
           <h2>An Error Occurred</h2>
@@ -88,7 +88,7 @@ class ShowOrigin extends Component {
           relStandards.push(", ")
         }
         relStandards.push(
-          <a href={`/standard/${standard.id}`} title={standard.name}>
+          <a href={`/standard/?id=${standard.id}`} title={standard.name}>
             {standard.name}
           </a>
         )
@@ -101,7 +101,7 @@ class ShowOrigin extends Component {
           relColors.push(", ")
         }
         relColors.push(
-          <a href={`/color/${color.id}`} title={color.name}>
+          <a href={`/color/?id=${color.id}`} title={color.name}>
             {color.name}
           </a>
         )
@@ -114,7 +114,7 @@ class ShowOrigin extends Component {
           relPaints.push(", ")
         }
         relPaints.push(
-          <a href={`/paint/${paint.id}`} title={paint.name}>
+          <a href={`/paint/?id=${paint.id}`} title={paint.name}>
             {paint.manufacturer} {paint.partNumber} {paint.name}
           </a>
         )
@@ -167,8 +167,8 @@ class ShowOrigin extends Component {
   }
 }
 
-ShowOrigin.propTypes = {
-  id: PropTypes.number,
+OriginPage.propTypes = {
+  location: PropTypes.object,
 }
 
 export default OriginPage

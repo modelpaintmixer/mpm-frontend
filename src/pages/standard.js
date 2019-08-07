@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { Router, Redirect } from "@reach/router"
+import { Redirect } from "@reach/router"
+import queryString from "query-string"
 
 import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
@@ -8,52 +9,51 @@ import SEO from "../components/seo"
 
 const dataUrl = apiurl("/api/view/standard/")
 
-const StandardPage = () => (
-  <Router>
-    <ShowStandard path="/standard/:id" />
-    <Redirect from="/standard/" to="/standards" />
-  </Router>
-)
-
-class ShowStandard extends Component {
+class StandardPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
       error: null,
       isLoaded: false,
       standard: null,
-      id: 0,
+      redirect: false,
       timeStamp: 0,
     }
   }
 
   componentDidMount() {
-    fetch(`${dataUrl}${this.props.id}`)
-      .then(res => res.json())
-      .then(
-        result => {
-          this.setState({
-            isLoaded: true,
-            standard: result.standard,
-            // eslint-disable-next-line react/prop-types
-            id: this.props.id,
-            timeStamp: result.timestamp,
-          })
-        },
-        error => {
-          this.setState({
-            isLoaded: true,
-            error,
-          })
-        }
-      )
+    const values = queryString.parse(this.props.location.search)
+
+    if (!values.id) {
+      this.setState({ redirect: true })
+    } else {
+      fetch(`${dataUrl}${values.id}`)
+        .then(res => res.json())
+        .then(
+          result => {
+            this.setState({
+              isLoaded: true,
+              standard: result.standard,
+              timeStamp: result.timestamp,
+            })
+          },
+          error => {
+            this.setState({
+              isLoaded: true,
+              error,
+            })
+          }
+        )
+    }
   }
 
   render() {
-    const { error, isLoaded, standard } = this.state
+    const { error, isLoaded, standard, redirect } = this.state
     let content
 
-    if (error) {
+    if (redirect) {
+      return <Redirect to="/standards" />
+    } else if (error) {
       content = (
         <>
           <h2>An Error Occurred</h2>
@@ -89,7 +89,7 @@ class ShowStandard extends Component {
           relPeriods.push(", ")
         }
         relPeriods.push(
-          <a href={`/period/${period.id}`} title={period.name}>
+          <a href={`/period/?id=${period.id}`} title={period.name}>
             {period.abbreviation}
           </a>
         )
@@ -102,7 +102,7 @@ class ShowStandard extends Component {
           relColors.push(", ")
         }
         relColors.push(
-          <a href={`/color/${color.id}`} title={color.name}>
+          <a href={`/color/?id=${color.id}`} title={color.name}>
             {color.name}
           </a>
         )
@@ -115,7 +115,7 @@ class ShowStandard extends Component {
           relPaints.push(", ")
         }
         relPaints.push(
-          <a href={`/paint/${paint.id}`} title={paint.name}>
+          <a href={`/paint/?id=${paint.id}`} title={paint.name}>
             {paint.manufacturer} {paint.partNumber} {paint.name}
           </a>
         )
@@ -170,8 +170,8 @@ class ShowStandard extends Component {
   }
 }
 
-ShowStandard.propTypes = {
-  id: PropTypes.number,
+StandardPage.propTypes = {
+  location: PropTypes.object,
 }
 
 export default StandardPage

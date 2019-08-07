@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { Router, Redirect } from "@reach/router"
+import { Redirect } from "@reach/router"
+import queryString from "query-string"
 
 import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
@@ -10,52 +11,51 @@ import SEO from "../components/seo"
 
 const dataUrl = apiurl("/api/view/paint/")
 
-const PaintPage = () => (
-  <Router>
-    <ShowPaint path="/paint/:id" />
-    <Redirect from="/paint/" to="/paints" />
-  </Router>
-)
-
-class ShowPaint extends Component {
+class PaintPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
       error: null,
       isLoaded: false,
       paint: null,
-      id: 0,
+      redirect: false,
       timeStamp: 0,
     }
   }
 
   componentDidMount() {
-    fetch(`${dataUrl}${this.props.id}`)
-      .then(res => res.json())
-      .then(
-        result => {
-          this.setState({
-            isLoaded: true,
-            paint: result.paint,
-            // eslint-disable-next-line react/prop-types
-            id: this.props.id,
-            timeStamp: result.timestamp,
-          })
-        },
-        error => {
-          this.setState({
-            isLoaded: true,
-            error,
-          })
-        }
-      )
+    const values = queryString.parse(this.props.location.search)
+
+    if (!values.id) {
+      this.setState({ redirect: true })
+    } else {
+      fetch(`${dataUrl}${values.id}`)
+        .then(res => res.json())
+        .then(
+          result => {
+            this.setState({
+              isLoaded: true,
+              paint: result.paint,
+              timeStamp: result.timestamp,
+            })
+          },
+          error => {
+            this.setState({
+              isLoaded: true,
+              error,
+            })
+          }
+        )
+    }
   }
 
   render() {
-    const { error, isLoaded, paint } = this.state
+    const { error, isLoaded, paint, redirect } = this.state
     let content
 
-    if (error) {
+    if (redirect) {
+      return <Redirect to="/paints" />
+    } else if (error) {
       content = (
         <>
           <h2>An Error Occurred</h2>
@@ -100,7 +100,7 @@ class ShowPaint extends Component {
           attrText.push(", ")
         }
         attrText.push(
-          <a href={`/attribute/${attr.id}`} title={attr.description}>
+          <a href={`/attribute/?id=${attr.id}`} title={attr.description}>
             {attr.name}
           </a>
         )
@@ -136,7 +136,7 @@ class ShowPaint extends Component {
         }
         relStandards.push(
           <a
-            href={`/standard/${standard.id}`}
+            href={`/standard/?id=${standard.id}`}
             title={standard.name}
           >{`${standard.displayName}${standard.standardNumber}`}</a>
         )
@@ -149,7 +149,7 @@ class ShowPaint extends Component {
           relColors.push(", ")
         }
         relColors.push(
-          <a href={`/color/${color.id}`} title={color.name}>
+          <a href={`/color/?id=${color.id}`} title={color.name}>
             {color.name}
           </a>
         )
@@ -167,7 +167,7 @@ class ShowPaint extends Component {
             <div className="text-block">
               <h3>Manufacturer</h3>
               <p>
-                <a href={`/manufacturer/${mfr.id}`}>{mfr.fullName}</a>
+                <a href={`/manufacturer/?id=${mfr.id}`}>{mfr.fullName}</a>
                 {prodCodesText ? `, ${prodCodesText}` : ""}
               </p>
               {origin === null ? (
@@ -176,7 +176,7 @@ class ShowPaint extends Component {
                 <>
                   <h3>Color origin</h3>
                   <p>
-                    <a href={`/origin/${origin.id}`}>{origin.name}</a>
+                    <a href={`/origin/?id=${origin.id}`}>{origin.name}</a>
                   </p>
                 </>
               )}
@@ -220,8 +220,8 @@ class ShowPaint extends Component {
   }
 }
 
-ShowPaint.propTypes = {
-  id: PropTypes.number,
+PaintPage.propTypes = {
+  location: PropTypes.object,
 }
 
 export default PaintPage

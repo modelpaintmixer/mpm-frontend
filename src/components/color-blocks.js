@@ -7,7 +7,7 @@ import styles from "./color-blocks.module.css"
 const ColorBlock = ({ color }) => (
   <div className={styles.colorBlock}>
     <a
-      href={`/color/${color.id}`}
+      href={`/color/?id=${color.id}`}
       className={styles.colorLink}
       title="View this color"
     >

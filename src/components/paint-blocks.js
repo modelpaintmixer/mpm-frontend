@@ -7,7 +7,7 @@ import styles from "./paint-blocks.module.css"
 const PaintBlock = ({ paint }) => (
   <div className={styles.paintBlock}>
     <a
-      href={`/paint/${paint.id}`}
+      href={`/paint/?id=${paint.id}`}
       className={styles.paintLink}
       title="View this paint"
     >

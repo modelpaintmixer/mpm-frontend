@@ -7,7 +7,7 @@ import styles from "./paint-cards.module.css"
 const PaintCard = ({ paint }) => (
   <div className={`${styles.paintCard} text-block`}>
     <a
-      href={`/paint/${paint.id}`}
+      href={`/paint/?id=${paint.id}`}
       className={styles.paintLink}
       title="View this paint"
     >

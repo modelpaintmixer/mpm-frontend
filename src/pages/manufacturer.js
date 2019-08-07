@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { Router, Redirect } from "@reach/router"
+import { Redirect } from "@reach/router"
+import queryString from "query-string"
 
 import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
@@ -11,52 +12,51 @@ import SEO from "../components/seo"
 
 const dataUrl = apiurl("/api/view/manufacturer/")
 
-const ManufacturerPage = () => (
-  <Router>
-    <ShowManufacturer path="/manufacturer/:id" />
-    <Redirect from="/manufacturer/" to="/manufacturers" />
-  </Router>
-)
-
-class ShowManufacturer extends Component {
+class ManufacturerPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
       error: null,
       isLoaded: false,
       manufacturer: null,
-      id: 0,
+      redirect: false,
       timeStamp: 0,
     }
   }
 
   componentDidMount() {
-    fetch(`${dataUrl}${this.props.id}`)
-      .then(res => res.json())
-      .then(
-        result => {
-          this.setState({
-            isLoaded: true,
-            manufacturer: result.manufacturer,
-            // eslint-disable-next-line react/prop-types
-            id: this.props.id,
-            timeStamp: result.timestamp,
-          })
-        },
-        error => {
-          this.setState({
-            isLoaded: true,
-            error,
-          })
-        }
-      )
+    const values = queryString.parse(this.props.location.search)
+
+    if (!values.id) {
+      this.setState({ redirect: true })
+    } else {
+      fetch(`${dataUrl}${values.id}`)
+        .then(res => res.json())
+        .then(
+          result => {
+            this.setState({
+              isLoaded: true,
+              manufacturer: result.manufacturer,
+              timeStamp: result.timestamp,
+            })
+          },
+          error => {
+            this.setState({
+              isLoaded: true,
+              error,
+            })
+          }
+        )
+    }
   }
 
   render() {
-    const { error, isLoaded, manufacturer } = this.state
+    const { error, isLoaded, manufacturer, redirect } = this.state
     let content
 
-    if (error) {
+    if (redirect) {
+      return <Redirect to="/manufacturers" />
+    } else if (error) {
       content = (
         <>
           <h2>An Error Occurred</h2>
@@ -141,8 +141,8 @@ class ShowManufacturer extends Component {
   }
 }
 
-ShowManufacturer.propTypes = {
-  id: PropTypes.number,
+ManufacturerPage.propTypes = {
+  location: PropTypes.object,
 }
 
 export default ManufacturerPage

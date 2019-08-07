@@ -6,7 +6,7 @@ const dataUrl = apiurl("/api/standard")
 
 const OneStandard = standard => (
   <div>
-    <a href={`/standard/${standard.id}`} title={standard.abbreviation}>
+    <a href={`/standard/?id=${standard.id}`} title={standard.abbreviation}>
       <h3>{`${standard.name} (${standard.abbreviation})`}</h3>
     </a>
     <p>{standard.notes || ""}</p>
