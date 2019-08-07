@@ -36,6 +36,7 @@
     "gatsby-transformer-sharp": "^2.2.5",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
+    "query-string": "^6.8.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet": "^6.0.0-beta",
