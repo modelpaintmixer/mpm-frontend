@@ -55,7 +55,9 @@ class AllPeriods extends Component {
     } else if (!isLoaded) {
       content = <p>Loading...</p>
     } else {
-      content = periods.map(period => OnePeriod(period))
+      content = periods
+        .sort((a, b) => a.fromYear - b.fromYear)
+        .map(period => OnePeriod(period))
     }
 
     return content
