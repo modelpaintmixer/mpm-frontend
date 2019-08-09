@@ -3,6 +3,7 @@ import React from "react"
 import Layout from "../components/layout"
 import NewestChanges from "../components/newest-changes"
 import SEO from "../components/seo"
+import MainNavigation from "../components/main-navigation"
 
 const IndexPage = () => (
   <>
@@ -15,6 +16,7 @@ const IndexPage = () => (
           users for the purpose of sharing with the scale modeling community.
         </p>
       </div>
+      <MainNavigation />
       <div className="text-block">
         <h3>Site News</h3>
         <NewestChanges />
