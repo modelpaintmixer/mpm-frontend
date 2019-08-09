@@ -5,6 +5,8 @@ import queryString from "query-string"
 
 import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
+import ColorBlocks from "../components/color-blocks"
+import PaintBlocks from "../components/paint-blocks"
 import SEO from "../components/seo"
 
 const dataUrl = apiurl("/api/view/standard/")
@@ -95,32 +97,6 @@ class StandardPage extends Component {
         )
       }
 
-      let relColors = []
-      count = 0
-      for (let color of colors) {
-        if (count++) {
-          relColors.push(", ")
-        }
-        relColors.push(
-          <a href={`/color/?id=${color.id}`} title={color.name}>
-            {color.name}
-          </a>
-        )
-      }
-
-      let relPaints = []
-      count = 0
-      for (let paint of paints) {
-        if (count++) {
-          relPaints.push(", ")
-        }
-        relPaints.push(
-          <a href={`/paint/?id=${paint.id}`} title={paint.name}>
-            {paint.manufacturer} {paint.partNumber} {paint.name}
-          </a>
-        )
-      }
-
       content = (
         <>
           <SEO title={`Standard: ${name} (${abbreviation})`} />
@@ -149,7 +125,7 @@ class StandardPage extends Component {
               ) : (
                 <>
                   <h3>Related colors</h3>
-                  <p>{relColors}</p>
+                  <ColorBlocks colors={colors} />
                 </>
               )}
               {paints.length === 0 ? (
@@ -157,7 +133,7 @@ class StandardPage extends Component {
               ) : (
                 <>
                   <h3>Related paints</h3>
-                  <p>{relPaints}</p>
+                  <PaintBlocks paints={paints} />
                 </>
               )}
             </div>

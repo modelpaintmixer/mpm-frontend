@@ -5,6 +5,7 @@ import queryString from "query-string"
 
 import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
+import ColorBlocks from "../components/color-blocks"
 import SEO from "../components/seo"
 
 const dataUrl = apiurl("/api/view/period/")
@@ -94,19 +95,6 @@ class PeriodPage extends Component {
         )
       }
 
-      let relColors = []
-      count = 0
-      for (let color of colors) {
-        if (count++) {
-          relColors.push(", ")
-        }
-        relColors.push(
-          <a href={`/color/?id=${color.id}`} title={color.name}>
-            {color.name}
-          </a>
-        )
-      }
-
       content = (
         <>
           <SEO title={`Period: ${name} (${abbreviation})`} />
@@ -133,7 +121,7 @@ class PeriodPage extends Component {
               ) : (
                 <>
                   <h3>Related colors</h3>
-                  <p>{relColors}</p>
+                  <ColorBlocks colors={colors} />
                 </>
               )}
             </div>

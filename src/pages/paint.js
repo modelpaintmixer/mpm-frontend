@@ -6,6 +6,7 @@ import queryString from "query-string"
 import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
 import ColorSwatch from "../components/color-swatch"
+import ColorBlocks from "../components/color-blocks"
 import DateFormat from "../components/date-format"
 import SEO from "../components/seo"
 
@@ -142,19 +143,6 @@ class PaintPage extends Component {
         )
       }
 
-      let relColors = []
-      count = 0
-      for (let color of colors) {
-        if (count++) {
-          relColors.push(", ")
-        }
-        relColors.push(
-          <a href={`/color/?id=${color.id}`} title={color.name}>
-            {color.name}
-          </a>
-        )
-      }
-
       content = (
         <>
           <SEO title={`Paint: ${name} (${partNumber})`} />
@@ -195,7 +183,7 @@ class PaintPage extends Component {
               ) : (
                 <>
                   <h3>Used in</h3>
-                  <p>{relColors}</p>
+                  <ColorBlocks colors={colors} />
                 </>
               )}
               {notes === null ? (
