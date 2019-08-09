@@ -13,3 +13,16 @@
 .navigation-column h3 {
   text-align: center;
 }
+
+@media only screen and (max-width: 480px) {
+  .navigation-container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr;
+    margin-bottom: 1rem;
+  }
+
+  .navigation-column {
+    margin-bottom: 1rem;
+  }
+}
