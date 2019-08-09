@@ -4,7 +4,7 @@ import NavigationColumn from "./navigation-column"
 import styles from "./main-navigation.module.css"
 
 const MainNavigation = () => (
-  <div className={styles.navigationContainer}>
+  <section className={styles.navigationContainer}>
     <div className={`${styles.navigationColumn} text-block`}>
       <h3>By Color Name</h3>
       <NavigationColumn type="color" />
@@ -17,7 +17,7 @@ const MainNavigation = () => (
       <h3>By Origin</h3>
       <NavigationColumn type="origin" />
     </div>
-  </div>
+  </section>
 )
 
 export default MainNavigation

@@ -4,6 +4,9 @@ theme.overrideThemeStyles = () => ({
   "div > :last-child": {
     marginBottom: 0,
   },
+  "section > :last-child": {
+    marginBottom: 0,
+  },
 })
 
 const typography = new Typography(theme)
