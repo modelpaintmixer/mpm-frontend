@@ -1,4 +1,7 @@
-import React from "react"
+import React, { Component } from "react"
+import { instanceOf } from "prop-types"
+import { withCookies, Cookies } from "react-cookie"
+import Modal from "react-awesome-modal"
 
 import Layout from "../components/layout"
 import NewestChanges from "../components/newest-changes"
@@ -44,4 +47,93 @@ const IndexPage = () => (
   </>
 )
 
-export default IndexPage
+class IndexUnderConstruction extends Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired,
+  }
+
+  constructor(props) {
+    super(props)
+
+    const { cookies } = props
+    this.state = {
+      signupSeen: cookies.get("signupSeen") || false,
+      intervalId: null,
+      visible: false,
+    }
+
+    this.showSignup = this.showSignup.bind(this)
+    this.closeSignup = this.closeSignup.bind(this)
+  }
+
+  showSignup() {
+    if (!this.state.signupSeen) {
+      this.props.cookies.set("signupSeen", true, "/")
+      this.setState({ visible: true })
+    }
+    if (this.state.intervalId) {
+      clearInterval(this.state.intervalId)
+      this.setState({ intervalId: null })
+    }
+  }
+
+  closeSignup() {
+    this.setState({ visible: false })
+  }
+
+  componentDidMount() {
+    let intervalId = setInterval(this.showSignup, 1000)
+    this.setState({ intervalId: intervalId })
+  }
+
+  componentWillUnmount() {
+    if (this.state.intervalId) {
+      clearInterval(this.state.intervalId)
+      this.setState({ intervalId: null })
+    }
+  }
+
+  render() {
+    return (
+      <>
+        <IndexPage />
+        <Modal
+          visible={this.state.visible}
+          width="450"
+          height="300"
+          effect="fadeInDown"
+          onClickAway={() => this.closeSignup()}
+        >
+          <div
+            style={{
+              textAlign: "center",
+              margin: "0.5rem",
+            }}
+          >
+            <h3>Sign Up for Updates</h3>
+            <p>
+              This site is still under construction.{" "}
+              <a href={mailchimpUrl}>Sign up here</a> to be notified as more
+              features are added and when the site fully launches.
+            </p>
+            <p style={{ fontSize: "80%" }}>
+              This mailing list will only be used until the full site launches,
+              and will be removed at that time.
+            </p>
+            <p style={{ fontSize: "110%" }}>
+              <a href={mailchimpUrl}>Sign up here</a>
+            </p>
+            <p>
+              <a href="javascript:void(0);" onClick={() => this.closeSignup()}>
+                Close
+              </a>
+            </p>
+          </div>
+        </Modal>
+      </>
+    )
+  }
+}
+
+// export default IndexPage
+export default withCookies(IndexUnderConstruction)
