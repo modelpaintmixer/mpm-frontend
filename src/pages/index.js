@@ -48,10 +48,6 @@ const IndexPage = () => (
 )
 
 class IndexUnderConstruction extends Component {
-  static propTypes = {
-    cookies: instanceOf(Cookies).isRequired,
-  }
-
   constructor(props) {
     super(props)
 
@@ -71,10 +67,7 @@ class IndexUnderConstruction extends Component {
       this.props.cookies.set("signupSeen", true, "/")
       this.setState({ visible: true })
     }
-    if (this.state.intervalId) {
-      clearInterval(this.state.intervalId)
-      this.setState({ intervalId: null })
-    }
+    clearInterval(this.state.intervalId)
   }
 
   closeSignup() {
@@ -82,15 +75,12 @@ class IndexUnderConstruction extends Component {
   }
 
   componentDidMount() {
-    let intervalId = setInterval(this.showSignup, 1000)
+    let intervalId = setInterval(this.showSignup, 2000)
     this.setState({ intervalId: intervalId })
   }
 
   componentWillUnmount() {
-    if (this.state.intervalId) {
-      clearInterval(this.state.intervalId)
-      this.setState({ intervalId: null })
-    }
+    clearInterval(this.state.intervalId)
   }
 
   render() {
@@ -100,7 +90,6 @@ class IndexUnderConstruction extends Component {
         <Modal
           visible={this.state.visible}
           width="450"
-          height="300"
           effect="fadeInDown"
           onClickAway={() => this.closeSignup()}
         >
@@ -120,11 +109,11 @@ class IndexUnderConstruction extends Component {
               This mailing list will only be used until the full site launches,
               and will be removed at that time.
             </p>
-            <p style={{ fontSize: "110%" }}>
+            <p style={{ fontSize: "120%" }}>
               <a href={mailchimpUrl}>Sign up here</a>
             </p>
             <p>
-              <a href="javascript:void(0);" onClick={() => this.closeSignup()}>
+              <a href="" onClick={() => this.closeSignup()}>
                 Close
               </a>
             </p>
@@ -133,6 +122,10 @@ class IndexUnderConstruction extends Component {
       </>
     )
   }
+}
+
+IndexUnderConstruction.propTypes = {
+  cookies: instanceOf(Cookies).isRequired,
 }
 
 // export default IndexPage
