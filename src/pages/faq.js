@@ -49,12 +49,12 @@ const FAQPage = () => (
               </Qpara>
               <Apara>
                 This site will not be storing any real amount of personal
-                information. Aside from a name, user-name and password, the bulk
-                of the information we plan on storing in connection to a user
-                will be: color mixes they've created, comments they've made, and
-                ratings of other colors they've made. This may change before the
-                full site is rolled out, but once user accounts are enabled the
-                stored information will be well-defined and stable.
+                information. Aside from a name, email, user-name and password,
+                the bulk of the information we plan on storing in connection to
+                a user will be: color mixes they've created, comments they've
+                made, and ratings of other colors they've made. This may change
+                before the full site is rolled out, but once user accounts are
+                enabled the stored information will be well-defined and stable.
               </Apara>
             </div>
           </li>
@@ -69,8 +69,8 @@ const FAQPage = () => (
               </Apara>
               <Apara>
                 As for ads, there is no plan in the short-term to make any use
-                of ads. If this changes out of necessity, the cookie policy will
-                be updated to reflect this and you will have the option of
+                of ads. If this changes (out of necessity), the cookie policy
+                will be updated to reflect this and you will have the option of
                 opting out. We have <em>no</em> plans to utilize any commercial
                 ad networks, for a range of reasons.
               </Apara>
