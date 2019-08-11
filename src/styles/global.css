@@ -37,6 +37,15 @@ h4 {
   background-image: none;
 }
 
+/*
+ * Prevent Cookie Hub links from having the animated underline
+ */
+div.cc-container a {
+  text-decoration: none;
+  text-shadow: none;
+  background-image: none;
+}
+
 .link-text {
   text-shadow: none;
 }

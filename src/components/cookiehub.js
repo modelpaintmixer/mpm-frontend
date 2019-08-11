@@ -1,11 +1,19 @@
+import React from "react"
+
 const COOKIEHUB_API_KEY = process.env.COOKIEHUB_API_KEY
 const GA_API_KEY = process.env.GA_API_KEY
+const environment = process.env.NODE_ENV
 
-const CookieHub = () =>
-  `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA_API_KEY}"></script>
+const cookieHub = () => {
+  if (
+    environment === "production" &&
+    COOKIEHUB_API_KEY !== null &&
+    GA_API_KEY !== null
+  ) {
+    return `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA_API_KEY}"></script>
 <script type="text/javascript">
 var gtagId = '${GA_API_KEY}';
-window['ga-disable-' + gtagId] = true;
+window['ga-disable-${GA_API_KEY}'] = true;
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
@@ -41,5 +49,17 @@ window.cookieconsent.initialise({
 });
 </script>
 `
+  } else {
+    return ""
+  }
+}
+
+const CookieHub = () => (
+  <script
+    dangerouslySetInnerHTML={{
+      __html: cookieHub(),
+    }}
+  />
+)
 
 export default CookieHub
