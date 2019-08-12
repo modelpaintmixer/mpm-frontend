@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react"
+import { Link } from "gatsby"
 import styled from "styled-components"
 
 import Layout from "../components/layout"
@@ -99,6 +100,18 @@ const FAQPage = () => (
               </Apara>
             </div>
           </li>
+          <li>
+            <div>
+              <Qpara>
+                I have an idea for something I'd like to see... interested?
+              </Qpara>
+              <Apara>
+                Absolutely! Use the email address on the{" "}
+                <Link to="/contact">Contact</Link> page and let us know what
+                you're thinking!
+              </Apara>
+            </div>
+          </li>
         </ul>
       </section>
       <section className="text-block">
@@ -125,6 +138,22 @@ const FAQPage = () => (
                 computer monitors (and other devices) use is not the same as
                 mixing pigments. At least for now, the site will rely on
                 scanning swatches in photographs.
+              </Apara>
+            </div>
+          </li>
+          <li>
+            <div>
+              <Qpara>
+                What if a given paint is already a great match for a given
+                color?
+              </Qpara>
+              <Apara>
+                When first planning this site and database, the goal was to only
+                focus on those colors that <em>needed</em> to be custom-mixed.
+                But the larger plan is now to be a more comprehensive center for
+                questions of colors and paints. To this end, paints that people
+                consider to be a good native match will be used to create colors
+                that have just one mix element: that paint.
               </Apara>
             </div>
           </li>

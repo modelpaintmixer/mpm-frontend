@@ -18,6 +18,10 @@ const ContactPage = () => (
             modelpaint@modexpaintmixer.com
           </a>
         </p>
+        <p>
+          You can also follow us on Twitter:{" "}
+          <a href="https://twitter.com/modelpaintmixer">@modelpaintmixer</a>.
+        </p>
       </section>
     </Layout>
   </>
