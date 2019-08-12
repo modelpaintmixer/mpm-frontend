@@ -14,8 +14,8 @@ const ContactPage = () => (
           questions, etc.
         </p>
         <p>
-          <a href="mailto:modelpaint@modexpaintmixer.com">
-            modelpaint@modexpaintmixer.com
+          <a href="mailto:modelpaint@modelpaintmixer.com">
+            modelpaint@modelpaintmixer.com
           </a>
         </p>
         <p>
