@@ -22,14 +22,6 @@ module.exports = {
         pathToConfigModule: `src/utils/typography`,
       },
     },
-    // {
-    //   resolve: "gatsby-plugin-cookiehub",
-    //   options: {
-    //     cookihubId: process.env.COOKIEHUB_API_KEY,
-    //     trackingId: process.env.GA_API_KEY,
-    //     head: false,
-    //   },
-    // },
     "gatsby-plugin-optimize-svgs",
     `gatsby-plugin-react-helmet`,
     {
