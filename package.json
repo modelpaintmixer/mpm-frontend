@@ -31,6 +31,7 @@
     "gatsby-plugin-sharp": "^2.2.9",
     "gatsby-plugin-styled-components": "^3.1.2",
     "gatsby-plugin-typography": "^2.3.2",
+    "gatsby-remark-images": "^3.1.10",
     "gatsby-source-filesystem": "^2.1.6",
     "gatsby-transformer-sharp": "^2.2.5",
     "normalize.css": "^8.0.1",
@@ -43,6 +44,8 @@
     "react-helmet": "^6.0.0-beta",
     "react-icons": "^3.7.0",
     "react-typography": "^0.16.19",
+    "remark-containers": "^1.1.0",
+    "remark-metadata": "^0.2.1",
     "styled-components": "^4.3.2",
     "typography": "^0.16.19",
     "typography-theme-fairy-gates": "^0.16.19"

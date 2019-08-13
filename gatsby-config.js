@@ -7,13 +7,16 @@ const siteUrl =
     ? "https://modelpaintmixer.com"
     : "http://localhost:8000"
 
+const containers = require("remark-containers")
+const metadata = require("remark-metadata")
+
 module.exports = {
   siteMetadata: {
     title: "Home",
     titleTemplate: "%s | Model Paint Mixer",
     description: `A site for finding and exchanging custom paint mixes`,
     url: siteUrl,
-    author: `rjray@blackperl.com`,
+    author: `modelpaint@modelpaintmixer.com`,
   },
   plugins: [
     {
@@ -31,14 +34,21 @@ module.exports = {
         path: `${__dirname}/src/pages`,
       },
     },
-    // {
-    //   resolve: `gatsby-plugin-mdx`,
-    //   options: {
-    //     defaultLayouts: {
-    //       default: require.resolve("./src/components/md-layout.js"),
-    //     },
-    //   },
-    // },
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        defaultLayouts: {
+          default: require.resolve("./src/components/md-layout.js"),
+        },
+        gatsbyRemarkPlugins: [
+          {
+            resolve: "gatsby-remark-images",
+            maxWidth: 600,
+          },
+        ],
+        remarkPlugins: [containers, metadata],
+      },
+    },
     `gatsby-plugin-styled-components`,
     {
       resolve: `gatsby-source-filesystem`,

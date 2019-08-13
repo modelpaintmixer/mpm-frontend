@@ -5,14 +5,8 @@ import { MDXProvider } from "@mdx-js/react"
 import Layout from "./layout"
 import SEO from "./seo"
 
-const para = props => <p className="text-block" {...props} />
-
 const MdLayout = props => (
-  <MDXProvider
-    components={{
-      p: para,
-    }}
-  >
+  <MDXProvider>
     <SEO title={props.pageContext.frontmatter.title} />
     <Layout>{props.children}</Layout>
   </MDXProvider>
