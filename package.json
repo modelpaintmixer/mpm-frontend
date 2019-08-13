@@ -8,6 +8,10 @@
   },
   "author": "Randy J. Ray <modelpaint@modelpaintmixer.com> (https://www.modelpaintmixer.com)",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modelpaintmixer/mpm-frontend.git"
+  },
   "devDependencies": {
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.0.0",
