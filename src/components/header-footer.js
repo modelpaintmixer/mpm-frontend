@@ -12,6 +12,7 @@ import {
   MdSpeakerNotes,
   MdLockOutline,
   MdGroup,
+  MdHome,
 } from "react-icons/md"
 
 import SiteIcon from "./siteicon"
@@ -98,7 +99,11 @@ Header.propTypes = {
 export const Footer = () => (
   <footer>
     <div className={styles.footerContainer}>
-      <div className={styles.copyright}>&copy; {new Date().getFullYear()}</div>
+      <div>
+        <ListLink to="/" icon={<MdHome />}>
+          Home
+        </ListLink>
+      </div>
       <div className={styles.menu}>
         <ul className={styles.menuList}>
           <ListLink to="/about" icon={<MdInfo />}>
@@ -119,6 +124,10 @@ export const Footer = () => (
         <IconLink to="/contact" icon={<MdEmail />}>
           Contact
         </IconLink>
+      </div>
+      <div className={styles.copyright}>
+        &copy; {new Date().getFullYear()} ModelPaintMixer.com, all rights
+        reserved.
       </div>
     </div>
   </footer>
