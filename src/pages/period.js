@@ -7,6 +7,7 @@ import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
 import ColorBlocks from "../components/color-blocks"
 import SEO from "../components/seo"
+import RenderNotes from "../components/render-notes"
 
 const dataUrl = apiurl("/api/view/period/")
 
@@ -76,6 +77,8 @@ class PeriodPage extends Component {
       let {
         name,
         abbreviation,
+        fromYear,
+        toYear,
         notes,
         Colors: colors,
         Standards: standards,
@@ -95,17 +98,26 @@ class PeriodPage extends Component {
         )
       }
 
+      let duration =
+        fromYear === 0
+          ? `Until ${toYear}`
+          : toYear === 0
+          ? `${fromYear} to present`
+          : `${fromYear} to ${toYear}`
+
       content = (
         <>
           <SEO title={`Period: ${name} (${abbreviation})`} />
           <Layout title={`Period: ${name} (${abbreviation})`}>
             <div className="text-block">
+              <h3>Duration</h3>
+              <p>{duration}</p>
               {notes === null ? (
                 ""
               ) : (
                 <>
                   <h3>Notes</h3>
-                  <p>{notes}</p>
+                  <RenderNotes>{notes}</RenderNotes>
                 </>
               )}
               {standards.length === 0 ? (

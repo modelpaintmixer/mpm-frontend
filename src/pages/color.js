@@ -9,6 +9,7 @@ import ColorSwatch from "../components/color-swatch"
 import PaintCards from "../components/paint-cards"
 import DateFormat from "../components/date-format"
 import SEO from "../components/seo"
+import RenderNotes from "../components/render-notes"
 
 const dataUrl = apiurl("/api/view/color/")
 
@@ -171,7 +172,7 @@ class ColorPage extends Component {
               ) : (
                 <>
                   <h3>Notes</h3>
-                  <p>{notes}</p>
+                  <RenderNotes>{notes}</RenderNotes>
                 </>
               )}
             </div>

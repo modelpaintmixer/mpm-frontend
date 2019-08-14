@@ -9,6 +9,7 @@ import ColorSwatch from "../components/color-swatch"
 import ColorBlocks from "../components/color-blocks"
 import DateFormat from "../components/date-format"
 import SEO from "../components/seo"
+import RenderNotes from "../components/render-notes"
 
 const dataUrl = apiurl("/api/view/paint/")
 
@@ -191,7 +192,7 @@ class PaintPage extends Component {
               ) : (
                 <>
                   <h3>Notes</h3>
-                  <p>{notes}</p>
+                  <RenderNotes>{notes}</RenderNotes>
                 </>
               )}
               <h3>{addedUpdatedHdr}</h3>

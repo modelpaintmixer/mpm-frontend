@@ -8,6 +8,7 @@ import Layout from "../components/layout"
 import ColorBlocks from "../components/color-blocks"
 import PaintBlocks from "../components/paint-blocks"
 import SEO from "../components/seo"
+import RenderNotes from "../components/render-notes"
 
 const dataUrl = apiurl("/api/view/standard/")
 
@@ -107,7 +108,7 @@ class StandardPage extends Component {
               ) : (
                 <>
                   <h3>Notes</h3>
-                  <p>{notes}</p>
+                  <RenderNotes>{notes}</RenderNotes>
                 </>
               )}
               <h3>Origin</h3>

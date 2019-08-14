@@ -9,6 +9,7 @@ import DateFormat from "../components/date-format"
 import ManufacturerLocations from "../components/manufacturer-locations"
 import PaintBlocks from "../components/paint-blocks"
 import SEO from "../components/seo"
+import RenderNotes from "../components/render-notes"
 
 const dataUrl = apiurl("/api/view/manufacturer/")
 
@@ -116,7 +117,7 @@ class ManufacturerPage extends Component {
               ) : (
                 <>
                   <h3>Notes</h3>
-                  <p>{notes}</p>
+                  <RenderNotes>{notes}</RenderNotes>
                 </>
               )}
               {paints.length === 0 ? (
