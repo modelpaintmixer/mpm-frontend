@@ -48,6 +48,7 @@
     "react-helmet": "^6.0.0-beta",
     "react-icons": "^3.7.0",
     "react-markdown": "^4.1.0",
+    "react-spinners": "^0.5.12",
     "react-typography": "^0.16.19",
     "remark-containers": "^1.1.0",
     "remark-metadata": "^0.2.1",
