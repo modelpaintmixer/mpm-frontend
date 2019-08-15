@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import ScaleLoader from "react-spinners/ScaleLoader"
 
 import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
@@ -53,37 +54,35 @@ class PaintsPage extends Component {
 
     if (error) {
       content = (
-        <>
-          <h2>An Error Occurred</h2>
-          <div className="text-block">
-            <p>An error occurred trying to load all the paints:</p>
-            <p>{error.message}</p>
-          </div>
-        </>
+        <div className="text-block">
+          <h3>An Error Occurred</h3>
+          <p>An error occurred trying to load all the paints:</p>
+          <p>{error.message}</p>
+        </div>
       )
     } else if (!isLoaded) {
       content = (
-        <>
-          <div className="text-block">
-            <p>Loading...</p>
+        <div className="text-block">
+          <div className="loading">
+            <ScaleLoader />
           </div>
-        </>
+        </div>
       )
     } else {
       content = (
-        <>
-          <SEO title="All Paints" />
-          <Layout title="All Paints">
-            <div className="text-block">
-              <h3>{count} Paints in Database</h3>
-              {paints.length === 0 ? "" : <PaintBlocks paints={paints} />}
-            </div>
-          </Layout>
-        </>
+        <div className="text-block">
+          <h3>{count} Paints in Database</h3>
+          {paints.length === 0 ? "" : <PaintBlocks paints={paints} />}
+        </div>
       )
     }
 
-    return content
+    return (
+      <>
+        <SEO title="All Paints" />
+        <Layout title="All Paints">{content}</Layout>
+      </>
+    )
   }
 }
 

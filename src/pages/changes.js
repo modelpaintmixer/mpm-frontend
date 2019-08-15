@@ -1,8 +1,10 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
+import ScaleLoader from "react-spinners/ScaleLoader"
 
 import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
+import SEO from "../components/seo"
 
 const dataUrl = apiurl("/api/stats/changes/25")
 
@@ -69,7 +71,11 @@ class ChangesPage extends Component {
     if (error) {
       content = <p>Error: {error.message}</p>
     } else if (!isLoaded) {
-      content = <p>Loading...</p>
+      content = (
+        <div className="loading">
+          <ScaleLoader />
+        </div>
+      )
     } else {
       content = (
         <ul>
@@ -89,11 +95,15 @@ class ChangesPage extends Component {
       )
     }
 
+    let title = `${count} Newest Changes`
+
     return (
-      <Layout title="Changes">
-        <h2>{count} Newest Changes</h2>
-        <div className="text-block">{content}</div>
-      </Layout>
+      <>
+        <SEO title={title} />
+        <Layout title={title}>
+          <div className="text-block">{content}</div>
+        </Layout>
+      </>
     )
   }
 }

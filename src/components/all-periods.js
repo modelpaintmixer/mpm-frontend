@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import ScaleLoader from "react-spinners/ScaleLoader"
 
 import apiurl from "../utils/api-url"
 
@@ -53,7 +54,11 @@ class AllPeriods extends Component {
     if (error) {
       content = <p>Error: {error.message}</p>
     } else if (!isLoaded) {
-      content = <p>Loading...</p>
+      content = (
+        <div className="loading">
+          <ScaleLoader />
+        </div>
+      )
     } else {
       content = periods
         .sort((a, b) => a.fromYear - b.fromYear)

@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
+import ScaleLoader from "react-spinners/ScaleLoader"
 
 import apiurl from "../utils/api-url"
 
@@ -46,7 +47,11 @@ class NavigationColumn extends Component {
         </div>
       )
     } else if (!isLoaded) {
-      content = <p>Loading...</p>
+      content = (
+        <div className="loading">
+          <ScaleLoader />
+        </div>
+      )
     } else {
       content = (
         <ul>

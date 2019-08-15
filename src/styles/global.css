@@ -54,6 +54,11 @@ div.cc-container a {
   max-width: 48px;
 }
 
+.loading {
+  text-align: center;
+  margin: auto;
+}
+
 @media only screen and (max-width: 480px) {
   .link-text {
     display: none;

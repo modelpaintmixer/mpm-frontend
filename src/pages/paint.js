@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import PropTypes from "prop-types"
 import { Redirect } from "@reach/router"
 import queryString from "query-string"
+import ScaleLoader from "react-spinners/ScaleLoader"
 
 import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
@@ -71,7 +72,9 @@ class PaintPage extends Component {
       content = (
         <>
           <div className="text-block">
-            <p>Loading...</p>
+            <div className="loading">
+              <ScaleLoader />
+            </div>
           </div>
         </>
       )

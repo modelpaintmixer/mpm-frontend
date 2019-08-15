@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import ScaleLoader from "react-spinners/ScaleLoader"
 
 import apiurl from "../utils/api-url"
 import Layout from "../components/layout"
@@ -50,37 +51,35 @@ class ColorsPage extends Component {
 
     if (error) {
       content = (
-        <>
-          <h2>An Error Occurred</h2>
-          <div className="text-block">
-            <p>An error occurred trying to load all the colors:</p>
-            <p>{error.message}</p>
-          </div>
-        </>
+        <div className="text-block">
+          <h3>An Error Occurred</h3>
+          <p>An error occurred trying to load all the colors:</p>
+          <p>{error.message}</p>
+        </div>
       )
     } else if (!isLoaded) {
       content = (
-        <>
-          <div className="text-block">
-            <p>Loading...</p>
+        <div className="text-block">
+          <div className="loading">
+            <ScaleLoader />
           </div>
-        </>
+        </div>
       )
     } else {
       content = (
-        <>
-          <SEO title="All Colors" />
-          <Layout title="All Colors">
-            <div className="text-block">
-              <h3>{count} Colors in Database</h3>
-              <ColorBlocks colors={colors} />
-            </div>
-          </Layout>
-        </>
+        <div className="text-block">
+          <h3>{count} Colors in Database</h3>
+          <ColorBlocks colors={colors} />
+        </div>
       )
     }
 
-    return content
+    return (
+      <>
+        <SEO title="All Colors" />
+        <Layout title="All Colors">{content}</Layout>
+      </>
+    )
   }
 }
 
