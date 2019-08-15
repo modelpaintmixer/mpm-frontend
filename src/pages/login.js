@@ -6,9 +6,9 @@ import SEO from "../components/seo"
 const LoginPage = () => (
   <>
     <SEO title="Login" />
-    <Layout>
-      <h2>Login or Create an Account</h2>
+    <Layout title="Login">
       <section className="text-block">
+        <h3>Login or Create an Account</h3>
         <p>User logins are not yet ready. Check back!</p>
       </section>
     </Layout>

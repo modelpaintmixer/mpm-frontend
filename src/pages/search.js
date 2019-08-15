@@ -6,9 +6,11 @@ import SEO from "../components/seo"
 const SearchPage = () => (
   <>
     <SEO title="Site Search" />
-    <Layout>
-      <h2>Site Search</h2>
-      <p></p>
+    <Layout title="Site Search">
+      <section className="text-block">
+        <h3>Site Search</h3>
+        <p>Searching is not yet available. Please check back!</p>
+      </section>
     </Layout>
   </>
 )
