@@ -105,10 +105,12 @@ class PeriodPage extends Component {
           ? `${fromYear} to present`
           : `${fromYear} to ${toYear}`
 
+      let title = name === abbreviation ? name : `${name} (${abbreviation})`
+
       content = (
         <>
-          <SEO title={`Period: ${name} (${abbreviation})`} />
-          <Layout title={`Period: ${name} (${abbreviation})`}>
+          <SEO title={`Period: ${title}`} />
+          <Layout title={`Period: ${title}`}>
             <div className="text-block">
               <h3>Duration</h3>
               <p>{duration}</p>
