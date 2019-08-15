@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { Redirect } from "@reach/router"
+import { Link } from "gatsby"
 import queryString from "query-string"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
@@ -18,7 +18,7 @@ class AttributePage extends Component {
       error: null,
       isLoaded: false,
       attribute: null,
-      redirect: false,
+      missingId: false,
       timeStamp: 0,
     }
   }
@@ -27,7 +27,7 @@ class AttributePage extends Component {
     const values = queryString.parse(this.props.location.search)
 
     if (!values.id) {
-      this.setState({ redirect: true })
+      this.setState({ missingId: true })
     } else {
       fetch(`${dataUrl}${values.id}`)
         .then(res => res.json())
@@ -50,11 +50,22 @@ class AttributePage extends Component {
   }
 
   render() {
-    const { error, isLoaded, attribute, redirect } = this.state
+    const { error, isLoaded, attribute, missingId } = this.state
     let content
 
-    if (redirect) {
-      return <Redirect to="/attributes" />
+    if (missingId) {
+      content = (
+        <>
+          <h2>An Error Occurred</h2>
+          <div className="text-block">
+            <p>This page was requested without an attribute ID.</p>
+            <p>
+              To browse all attributes, visit the{" "}
+              <Link to="/attributes">All Attributes</Link> page.
+            </p>
+          </div>
+        </>
+      )
     } else if (error) {
       content = (
         <>

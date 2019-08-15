@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { Redirect } from "@reach/router"
+import { Link } from "gatsby"
 import queryString from "query-string"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
@@ -20,7 +20,7 @@ class OriginPage extends Component {
       error: null,
       isLoaded: false,
       origin: null,
-      redirect: false,
+      missingId: false,
       timeStamp: 0,
     }
   }
@@ -29,7 +29,7 @@ class OriginPage extends Component {
     const values = queryString.parse(this.props.location.search)
 
     if (!values.id) {
-      this.setState({ redirect: true })
+      this.setState({ missingId: true })
     } else {
       fetch(`${dataUrl}${values.id}`)
         .then(res => res.json())
@@ -52,11 +52,22 @@ class OriginPage extends Component {
   }
 
   render() {
-    const { error, isLoaded, origin, redirect } = this.state
+    const { error, isLoaded, origin, missingId } = this.state
     let content
 
-    if (redirect) {
-      return <Redirect to="/origins" />
+    if (missingId) {
+      content = (
+        <>
+          <h2>An Error Occurred</h2>
+          <div className="text-block">
+            <p>This page was requested without an origin ID.</p>
+            <p>
+              To browse all origins, visit the{" "}
+              <Link to="/origins">All Origins</Link> page.
+            </p>
+          </div>
+        </>
+      )
     } else if (error) {
       content = (
         <>

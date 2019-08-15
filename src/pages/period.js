@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { Redirect } from "@reach/router"
+import { Link } from "gatsby"
 import queryString from "query-string"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
@@ -19,7 +19,7 @@ class PeriodPage extends Component {
       error: null,
       isLoaded: false,
       period: null,
-      redirect: false,
+      missingId: false,
       timeStamp: 0,
     }
   }
@@ -28,7 +28,7 @@ class PeriodPage extends Component {
     const values = queryString.parse(this.props.location.search)
 
     if (!values.id) {
-      this.setState({ redirect: true })
+      this.setState({ missingId: true })
     } else {
       fetch(`${dataUrl}${values.id}`)
         .then(res => res.json())
@@ -51,11 +51,22 @@ class PeriodPage extends Component {
   }
 
   render() {
-    const { error, isLoaded, period, redirect } = this.state
+    const { error, isLoaded, period, missingId } = this.state
     let content
 
-    if (redirect) {
-      return <Redirect to="/periods" />
+    if (missingId) {
+      content = (
+        <>
+          <h2>An Error Occurred</h2>
+          <div className="text-block">
+            <p>This page was requested without a period ID.</p>
+            <p>
+              To browse all periods, visit the{" "}
+              <Link to="/periods">All Periods</Link> page.
+            </p>
+          </div>
+        </>
+      )
     } else if (error) {
       content = (
         <>

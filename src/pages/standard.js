@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { Redirect } from "@reach/router"
+import { Link } from "gatsby"
 import queryString from "query-string"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
@@ -20,7 +20,7 @@ class StandardPage extends Component {
       error: null,
       isLoaded: false,
       standard: null,
-      redirect: false,
+      missingId: false,
       timeStamp: 0,
     }
   }
@@ -29,7 +29,7 @@ class StandardPage extends Component {
     const values = queryString.parse(this.props.location.search)
 
     if (!values.id) {
-      this.setState({ redirect: true })
+      this.setState({ missingId: true })
     } else {
       fetch(`${dataUrl}${values.id}`)
         .then(res => res.json())
@@ -52,11 +52,22 @@ class StandardPage extends Component {
   }
 
   render() {
-    const { error, isLoaded, standard, redirect } = this.state
+    const { error, isLoaded, standard, missingId } = this.state
     let content
 
-    if (redirect) {
-      return <Redirect to="/standards" />
+    if (missingId) {
+      content = (
+        <>
+          <h2>An Error Occurred</h2>
+          <div className="text-block">
+            <p>This page was requested without a standard ID.</p>
+            <p>
+              To browse all standards, visit the{" "}
+              <Link to="/standards">All Standards</Link> page.
+            </p>
+          </div>
+        </>
+      )
     } else if (error) {
       content = (
         <>

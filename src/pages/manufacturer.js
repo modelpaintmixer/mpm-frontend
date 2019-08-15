@@ -1,6 +1,6 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { Redirect } from "@reach/router"
 import queryString from "query-string"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
@@ -21,7 +21,7 @@ class ManufacturerPage extends Component {
       error: null,
       isLoaded: false,
       manufacturer: null,
-      redirect: false,
+      missingId: false,
       timeStamp: 0,
     }
   }
@@ -30,7 +30,7 @@ class ManufacturerPage extends Component {
     const values = queryString.parse(this.props.location.search)
 
     if (!values.id) {
-      this.setState({ redirect: true })
+      this.setState({ missingId: true })
     } else {
       fetch(`${dataUrl}${values.id}`)
         .then(res => res.json())
@@ -53,11 +53,18 @@ class ManufacturerPage extends Component {
   }
 
   render() {
-    const { error, isLoaded, manufacturer, redirect } = this.state
+    const { error, isLoaded, manufacturer, missingId } = this.state
     let content
 
-    if (redirect) {
-      return <Redirect to="/manufacturers" />
+    if (missingId) {
+      content = (
+        <>
+          <h2>An Error Occurred</h2>
+          <div className="text-block">
+            <p>This page was requested without a manufacturer's ID.</p>
+          </div>
+        </>
+      )
     } else if (error) {
       content = (
         <>

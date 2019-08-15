@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { Redirect } from "@reach/router"
+import { Link } from "gatsby"
 import queryString from "query-string"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
@@ -21,7 +21,7 @@ class ColorPage extends Component {
       error: null,
       isLoaded: false,
       color: null,
-      redirect: false,
+      missingId: false,
       timeStamp: 0,
     }
   }
@@ -30,7 +30,7 @@ class ColorPage extends Component {
     const values = queryString.parse(this.props.location.search)
 
     if (!values.id) {
-      this.setState({ redirect: true })
+      this.setState({ missingId: true })
     } else {
       fetch(`${dataUrl}${values.id}`)
         .then(res => res.json())
@@ -53,11 +53,22 @@ class ColorPage extends Component {
   }
 
   render() {
-    const { error, isLoaded, color, redirect } = this.state
+    const { error, isLoaded, color, missingId } = this.state
     let content
 
-    if (redirect) {
-      return <Redirect to="/colors" />
+    if (missingId) {
+      content = (
+        <>
+          <h2>An Error Occurred</h2>
+          <div className="text-block">
+            <p>This page was requested without a color ID.</p>
+            <p>
+              To browse all colors, visit the{" "}
+              <Link to="/colors">All Colors</Link> page.
+            </p>
+          </div>
+        </>
+      )
     } else if (error) {
       content = (
         <>

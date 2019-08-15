@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { Redirect } from "@reach/router"
+import { Link } from "gatsby"
 import queryString from "query-string"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
@@ -21,7 +21,7 @@ class PaintPage extends Component {
       error: null,
       isLoaded: false,
       paint: null,
-      redirect: false,
+      missingId: false,
       timeStamp: 0,
     }
   }
@@ -30,7 +30,7 @@ class PaintPage extends Component {
     const values = queryString.parse(this.props.location.search)
 
     if (!values.id) {
-      this.setState({ redirect: true })
+      this.setState({ missingId: true })
     } else {
       fetch(`${dataUrl}${values.id}`)
         .then(res => res.json())
@@ -53,11 +53,22 @@ class PaintPage extends Component {
   }
 
   render() {
-    const { error, isLoaded, paint, redirect } = this.state
+    const { error, isLoaded, paint, missingId } = this.state
     let content
 
-    if (redirect) {
-      return <Redirect to="/paints" />
+    if (missingId) {
+      content = (
+        <>
+          <h2>An Error Occurred</h2>
+          <div className="text-block">
+            <p>This page was requested without a paint ID.</p>
+            <p>
+              To browse all paints, visit the{" "}
+              <Link to="/paints">All Paints</Link> page.
+            </p>
+          </div>
+        </>
+      )
     } else if (error) {
       content = (
         <>
