@@ -64,7 +64,12 @@ class IndexUnderConstruction extends Component {
 
   showSignup() {
     if (!this.state.signupSeen) {
-      this.props.cookies.set("signupSeen", true, "/")
+      let expires = new Date()
+      expires.setDate(expires.getDate() + 365)
+      this.props.cookies.set("signupSeen", true, {
+        path: "/",
+        expires: expires,
+      })
       this.setState({ visible: true })
     }
     clearInterval(this.state.intervalId)
