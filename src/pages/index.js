@@ -80,7 +80,7 @@ class IndexUnderConstruction extends Component {
   }
 
   componentDidMount() {
-    let intervalId = setInterval(this.showSignup, 2000)
+    let intervalId = setInterval(this.showSignup, 1500)
     this.setState({ intervalId: intervalId })
   }
 
@@ -118,9 +118,7 @@ class IndexUnderConstruction extends Component {
               <a href={mailchimpUrl}>Sign up here</a>
             </p>
             <p>
-              <a href="" onClick={() => this.closeSignup()}>
-                Close
-              </a>
+              <button onClick={() => this.closeSignup()}>Close</button>
             </p>
           </div>
         </Modal>
