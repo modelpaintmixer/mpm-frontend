@@ -8,9 +8,11 @@ const dataUrl = apiurl("/api/standard")
 
 const OneStandard = standard => (
   <div>
-    <a href={`/standard/?id=${standard.id}`} title={standard.abbreviation}>
-      <h3>{`${standard.name} (${standard.abbreviation})`}</h3>
-    </a>
+    <h3>
+      <a href={`/standard/?id=${standard.id}`} title={standard.abbreviation}>
+        <h3>{`${standard.name} (${standard.abbreviation})`}</h3>
+      </a>
+    </h3>
     {standard.notes === null ? "" : <RenderNotes>{standard.notes}</RenderNotes>}
   </div>
 )

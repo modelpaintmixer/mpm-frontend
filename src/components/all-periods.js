@@ -8,9 +8,11 @@ const dataUrl = apiurl("/api/period")
 
 const OnePeriod = period => (
   <div>
-    <a href={`/period/?id=${period.id}`} title={period.abbreviation}>
-      <h3>{period.name}</h3>
-    </a>
+    <h3>
+      <a href={`/period/?id=${period.id}`} title={period.abbreviation}>
+        {period.name}
+      </a>
+    </h3>
     {period.notes === null ? "" : <RenderNotes>{period.notes}</RenderNotes>}
   </div>
 )
