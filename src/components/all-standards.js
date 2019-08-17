@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
 import apiurl from "../utils/api-url"
+import RenderNotes from "../components/render-notes"
 
 const dataUrl = apiurl("/api/standard")
 
@@ -10,7 +11,7 @@ const OneStandard = standard => (
     <a href={`/standard/?id=${standard.id}`} title={standard.abbreviation}>
       <h3>{`${standard.name} (${standard.abbreviation})`}</h3>
     </a>
-    <p>{standard.notes || ""}</p>
+    {standard.notes === null ? "" : <RenderNotes>{standard.notes}</RenderNotes>}
   </div>
 )
 

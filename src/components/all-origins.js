@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
 import apiurl from "../utils/api-url"
+import RenderNotes from "../components/render-notes"
 
 const dataUrl = apiurl("/api/origin")
 
@@ -10,7 +11,7 @@ const OneOrigin = origin => (
     <a href={`/origin/?id=${origin.id}`} title={origin.abbreviation}>
       <h3>{`${origin.name} (${origin.abbreviation})`}</h3>
     </a>
-    <p>{origin.notes || ""}</p>
+    {origin.notes === null ? "" : <RenderNotes>{origin.notes}</RenderNotes>}
   </div>
 )
 

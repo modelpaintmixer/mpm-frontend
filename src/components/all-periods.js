@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
 import apiurl from "../utils/api-url"
+import RenderNotes from "../components/render-notes"
 
 const dataUrl = apiurl("/api/period")
 
@@ -10,7 +11,7 @@ const OnePeriod = period => (
     <a href={`/period/?id=${period.id}`} title={period.abbreviation}>
       <h3>{period.name}</h3>
     </a>
-    <p>{period.notes || ""}</p>
+    {period.notes === null ? "" : <RenderNotes>{period.notes}</RenderNotes>}
   </div>
 )
 
@@ -21,7 +22,6 @@ class AllPeriods extends Component {
       error: null,
       isLoaded: false,
       periods: [],
-      count: 0,
       timeStamp: 0,
     }
   }
@@ -34,7 +34,6 @@ class AllPeriods extends Component {
           this.setState({
             isLoaded: true,
             periods: result.periods,
-            count: result.periods.length,
             timeStamp: result.timestamp,
           })
         },
