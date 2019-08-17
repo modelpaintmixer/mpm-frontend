@@ -5,9 +5,9 @@ import ScaleLoader from "react-spinners/ScaleLoader"
 import apiurl from "../utils/api-url"
 
 const getUrl = {
-  color: apiurl("/api/topn/color"),
-  period: apiurl("/api/topn/period"),
-  origin: apiurl("/api/topn/origin/8"),
+  color: apiurl("/api/topn/color/5"),
+  period: apiurl("/api/topn/period/5"),
+  origin: apiurl("/api/topn/origin/5"),
 }
 
 class NavigationColumn extends Component {
