@@ -58,8 +58,7 @@ div.paint-blocks > :last-child {
   }
 
   .paint-block {
-    flex-basis: calc(50% - 1rem);
-    margin: auto;
+    flex-basis: calc(50% - 0.5rem);
     margin-bottom: 1rem;
   }
 }

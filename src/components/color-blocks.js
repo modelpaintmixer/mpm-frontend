@@ -6,23 +6,31 @@ import styles from "./color-blocks.module.css"
 
 const ColorBlock = ({ color }) => (
   <div className={styles.colorBlock}>
-    <a
-      href={`/color/?id=${color.id}`}
-      className={styles.colorLink}
-      title="View this color"
-    >
+    <div className={styles.colorSwatchAndTitle}>
       <div className={styles.colorSwatch}>
-        <ColorSwatch
-          color={color.colorRgb}
-          isTransparent={color.transparent}
-          isClear={color.clear}
-          size="4rem"
-          textSize="50%"
-        />
+        <a
+          href={`/color/?id=${color.id}`}
+          className={styles.colorLink}
+          title="View this color"
+        >
+          <ColorSwatch
+            color={color.colorRgb}
+            isTransparent={color.transparent}
+            isClear={color.clear}
+            size="4rem"
+            textSize="50%"
+          />
+        </a>
       </div>
-      <p className={styles.colorTitle}>{color.name}</p>
+      <p className={styles.colorTitle}>
+        <a href={`/color/?id=${color.id}`} title="View this color">
+          {color.name}
+        </a>
+      </p>
+    </div>
+    <div>
       <p className={styles.colorCredit}>Credit: {color.credit}</p>
-    </a>
+    </div>
   </div>
 )
 

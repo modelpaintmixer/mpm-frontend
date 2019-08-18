@@ -6,25 +6,23 @@ import styles from "./paint-blocks.module.css"
 
 const PaintBlock = ({ paint }) => (
   <div className={styles.paintBlock}>
-    <a
-      href={`/paint/?id=${paint.id}`}
-      className={styles.paintLink}
-      title="View this paint"
-    >
-      <div className={styles.paintSwatch}>
+    <div className={styles.paintSwatch}>
+      <a href={`/paint/?id=${paint.id}`} title="View this paint">
         <ColorSwatch
           color={paint.colorRgb}
           isTransparent={paint.transparent}
           isClear={paint.clear}
           size="4rem"
         />
-      </div>
-      <p className={styles.paintTitle}>
+      </a>
+    </div>
+    <p className={styles.paintTitle}>
+      <a href={`/paint/?id=${paint.id}`} title="View this paint">
         {paint.manufacturer
           ? `${paint.manufacturer} ${paint.partNumber} ${paint.name}`
           : `${paint.partNumber} ${paint.name}`}
-      </p>
-    </a>
+      </a>
+    </p>
   </div>
 )
 
