@@ -4,6 +4,7 @@ import { Link } from "gatsby"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
 import apiurl from "../utils/api-url"
+import RenderNotes from "../components/render-notes"
 
 const dataUrl = apiurl("/api/stats/changes")
 
@@ -27,6 +28,36 @@ const ItemLink = props => {
 }
 
 ItemLink.propTypes = {
+  item: PropTypes.object.isRequired,
+}
+
+const BasicItem = ({ item }) => {
+  let type = item.type
+  let extra = type === "Paint" ? `${item.manufacturer} ` : ""
+  return (
+    <div>
+      {"["}
+      <b>{type}</b>
+      {"] "}
+      {item.action === "add"
+        ? `New ${extra}${item.type.toLowerCase()}`
+        : item.type}{" "}
+      <ItemLink item={item} /> {item.action === "add" ? "added" : "updated"}
+    </div>
+  )
+}
+
+BasicItem.propTypes = {
+  item: PropTypes.object.isRequired,
+}
+
+const NewsItem = ({ item }) => (
+  <div>
+    <RenderNotes>{`\\[**News**\\] ${item.headline}`}</RenderNotes>
+  </div>
+)
+
+NewsItem.propTypes = {
   item: PropTypes.object.isRequired,
 }
 
@@ -79,14 +110,13 @@ class NewestChanges extends Component {
         <>
           <ul>
             {changes.map((item, index) => {
-              let extra = item.type === "Paint" ? `${item.manufacturer} ` : ""
               return (
                 <li key={index}>
-                  {item.action === "add"
-                    ? `New ${extra}${item.type.toLowerCase()}`
-                    : item.type}{" "}
-                  <ItemLink item={item} />{" "}
-                  {item.action === "add" ? "added" : "updated"}
+                  {item.type === "NewsItem" ? (
+                    <NewsItem item={item} />
+                  ) : (
+                    <BasicItem item={item} />
+                  )}
                 </li>
               )
             })}
