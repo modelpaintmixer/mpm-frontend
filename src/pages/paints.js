@@ -26,7 +26,7 @@ class PaintsPage extends Component {
       .then(
         result => {
           let paints = result.paints.map(paint => {
-            paint.manufacturer = paint.Manufacturer.showName
+            paint.manufacturer = paint.Manufacturer.name
             delete paint.Manufacturer
             delete paint.Origin
             delete paint.ProductCodes
