@@ -1,71 +1,43 @@
-import React, { Component } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
-import apiurl from "../utils/api-url"
+import useDataApi from "../utils/data-api"
 
 const getUrl = {
-  color: apiurl("/api/topn/color/5"),
-  period: apiurl("/api/topn/period/5"),
-  origin: apiurl("/api/topn/origin/5"),
+  color: "/api/topn/color/5",
+  period: "/api/topn/period/5",
+  origin: "/api/topn/origin/5",
 }
 
-class NavigationColumn extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      error: null,
-      isLoaded: false,
-      data: null,
-      timeStamp: 0,
-    }
-  }
+const NavigationColumn = props => {
+  const [{ data, loading, error }] = useDataApi(getUrl[props.type], {
+    data: {},
+  })
 
-  componentDidMount() {
-    let type = this.props.type
-
-    fetch(getUrl[type])
-      .then(res => res.json())
-      .then(results => {
-        this.setState({
-          isLoaded: true,
-          data: results.topn,
-          timeStamp: results.timestamp,
-        })
-      })
-  }
-
-  render() {
-    let { error, isLoaded, data } = this.state
-    let content
-
-    if (error) {
-      content = (
+  return (
+    <>
+      {error && (
         <div>
-          <p>An error occurred trying to load the data for this paint:</p>
+          <p>An error occurred trying to load data:</p>
           <p>{error.message}</p>
         </div>
-      )
-    } else if (!isLoaded) {
-      content = (
+      )}
+      {loading ? (
         <div className="loading">
           <ScaleLoader />
         </div>
-      )
-    } else {
-      content = (
+      ) : (
         <ul>
-          {data.map(item => (
+          {data.topn.map(item => (
             <li key={item.id}>
               <a href={item.url}>{item.text}</a>
             </li>
           ))}
         </ul>
-      )
-    }
-
-    return content
-  }
+      )}
+    </>
+  )
 }
 
 NavigationColumn.propTypes = {
