@@ -33,7 +33,7 @@ const StandardsPage = () => {
     content = (
       <div className="text-block">
         <h3>An Error Occurred</h3>
-        <p>An error occurred trying to load all the origins:</p>
+        <p>An error occurred trying to load all the standards:</p>
         <p>{error.message}</p>
       </div>
     )
