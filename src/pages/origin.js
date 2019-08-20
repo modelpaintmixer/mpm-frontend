@@ -1,92 +1,54 @@
-import React, { Component } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import queryString from "query-string"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
-import apiurl from "../utils/api-url"
+import useDataApi from "../utils/data-api"
 import Layout from "../components/layout"
 import ColorBlocks from "../components/color-blocks"
 import PaintBlocks from "../components/paint-blocks"
 import SEO from "../components/seo"
 import RenderNotes from "../components/render-notes"
 
-const dataUrl = apiurl("/api/view/origin/")
+const OriginPage = props => {
+  const values = queryString.parse(props.location.search)
 
-class OriginPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      error: null,
-      isLoaded: false,
-      origin: null,
-      missingId: false,
-      timeStamp: 0,
-    }
-  }
+  if (!values.id) {
+    return (
+      <>
+        <h2>An Error Occurred</h2>
+        <div className="text-block">
+          <p>This page was requested without an origin ID.</p>
+          <p>
+            To browse all origins, visit the
+            <Link to="/origins">All Origins</Link> page.
+          </p>
+        </div>
+      </>
+    )
+  } else {
+    const [{ data, loading, error }] = useDataApi(
+      `/api/view/origin/${values.id}`,
+      {
+        data: {},
+      }
+    )
 
-  componentDidMount() {
-    const values = queryString.parse(this.props.location.search)
-
-    if (!values.id) {
-      this.setState({ missingId: true })
-    } else {
-      fetch(`${dataUrl}${values.id}`)
-        .then(res => res.json())
-        .then(
-          result => {
-            this.setState({
-              isLoaded: true,
-              origin: result.origin,
-              timeStamp: result.timestamp,
-            })
-          },
-          error => {
-            this.setState({
-              isLoaded: true,
-              error,
-            })
-          }
-        )
-    }
-  }
-
-  render() {
-    const { error, isLoaded, origin, missingId } = this.state
-    let content
-
-    if (missingId) {
-      content = (
-        <>
-          <h2>An Error Occurred</h2>
-          <div className="text-block">
-            <p>This page was requested without an origin ID.</p>
-            <p>
-              To browse all origins, visit the{" "}
-              <Link to="/origins">All Origins</Link> page.
-            </p>
-          </div>
-        </>
+    if (error) {
+      return (
+        <div>
+          <p>An error occurred trying to load data:</p>
+          <p>{error.message}</p>
+        </div>
       )
-    } else if (error) {
-      content = (
-        <>
-          <h2>An Error Occurred</h2>
-          <div className="text-block">
-            <p>An error occurred trying to load the data for this origin:</p>
-            <p>{error.message}</p>
+    } else if (loading) {
+      return (
+        <div className="text-block">
+          <div className="loading">
+            <ScaleLoader />
           </div>
-        </>
-      )
-    } else if (!isLoaded) {
-      content = (
-        <>
-          <div className="text-block">
-            <div className="loading">
-              <ScaleLoader />
-            </div>
-          </div>
-        </>
+        </div>
       )
     } else {
       let {
@@ -96,7 +58,7 @@ class OriginPage extends Component {
         Standards: standards,
         Colors: colors,
         Paints: paints,
-      } = origin
+      } = data.origin
 
       let relStandards = []
       let count = 0
@@ -111,7 +73,7 @@ class OriginPage extends Component {
         )
       }
 
-      content = (
+      return (
         <>
           <SEO title={`Origin: ${name} (${abbreviation})`} />
           <Layout title={`Origin: ${name} (${abbreviation})`}>
@@ -153,8 +115,6 @@ class OriginPage extends Component {
         </>
       )
     }
-
-    return content
   }
 }
 

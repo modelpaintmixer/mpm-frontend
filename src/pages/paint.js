@@ -1,10 +1,10 @@
-import React, { Component } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import queryString from "query-string"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
-import apiurl from "../utils/api-url"
+import useDataApi from "../utils/data-api"
 import Layout from "../components/layout"
 import ColorSwatch from "../components/color-swatch"
 import ColorBlocks from "../components/color-blocks"
@@ -12,82 +12,44 @@ import DateFormat from "../components/date-format"
 import SEO from "../components/seo"
 import RenderNotes from "../components/render-notes"
 
-const dataUrl = apiurl("/api/view/paint/")
+const PaintPage = props => {
+  const values = queryString.parse(props.location.search)
 
-class PaintPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      error: null,
-      isLoaded: false,
-      paint: null,
-      missingId: false,
-      timeStamp: 0,
-    }
-  }
+  if (!values.id) {
+    return (
+      <>
+        <h2>An Error Occurred</h2>
+        <div className="text-block">
+          <p>This page was requested without a paint ID.</p>
+          <p>
+            To browse all paints, visit the
+            <Link to="/paints">All Paints</Link> page.
+          </p>
+        </div>
+      </>
+    )
+  } else {
+    const [{ data, loading, error }] = useDataApi(
+      `/api/view/paint/${values.id}`,
+      {
+        data: {},
+      }
+    )
 
-  componentDidMount() {
-    const values = queryString.parse(this.props.location.search)
-
-    if (!values.id) {
-      this.setState({ missingId: true })
-    } else {
-      fetch(`${dataUrl}${values.id}`)
-        .then(res => res.json())
-        .then(
-          result => {
-            this.setState({
-              isLoaded: true,
-              paint: result.paint,
-              timeStamp: result.timestamp,
-            })
-          },
-          error => {
-            this.setState({
-              isLoaded: true,
-              error,
-            })
-          }
-        )
-    }
-  }
-
-  render() {
-    const { error, isLoaded, paint, missingId } = this.state
-    let content
-
-    if (missingId) {
-      content = (
-        <>
-          <h2>An Error Occurred</h2>
-          <div className="text-block">
-            <p>This page was requested without a paint ID.</p>
-            <p>
-              To browse all paints, visit the{" "}
-              <Link to="/paints">All Paints</Link> page.
-            </p>
-          </div>
-        </>
+    if (error) {
+      return (
+        <div>
+          <p>An error occurred trying to load data:</p>
+          <p>{error.message}</p>
+        </div>
       )
-    } else if (error) {
-      content = (
-        <>
-          <h2>An Error Occurred</h2>
-          <div className="text-block">
-            <p>An error occurred trying to load the data for this paint:</p>
-            <p>{error.message}</p>
+    } else if (loading) {
+      return (
+        <div className="text-block">
+          <div className="loading">
+            <ScaleLoader />
           </div>
-        </>
-      )
-    } else if (!isLoaded) {
-      content = (
-        <>
-          <div className="text-block">
-            <div className="loading">
-              <ScaleLoader />
-            </div>
-          </div>
-        </>
+        </div>
       )
     } else {
       let {
@@ -105,7 +67,7 @@ class PaintPage extends Component {
         ProductCodes: prodCodes,
         Standards: standards,
         Colors: colors,
-      } = paint
+      } = data.paint
 
       let hasAttr = {}
       let attrText = []
@@ -158,7 +120,7 @@ class PaintPage extends Component {
         )
       }
 
-      content = (
+      return (
         <>
           <SEO title={`Paint: ${name} (${partNumber})`} />
           <Layout title={`Paint: ${name} (${partNumber})`}>
@@ -218,8 +180,6 @@ class PaintPage extends Component {
         </>
       )
     }
-
-    return content
   }
 }
 

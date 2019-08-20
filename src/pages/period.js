@@ -1,91 +1,53 @@
-import React, { Component } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import queryString from "query-string"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
-import apiurl from "../utils/api-url"
+import useDataApi from "../utils/data-api"
 import Layout from "../components/layout"
 import ColorBlocks from "../components/color-blocks"
 import SEO from "../components/seo"
 import RenderNotes from "../components/render-notes"
 
-const dataUrl = apiurl("/api/view/period/")
+const PeriodPage = props => {
+  const values = queryString.parse(props.location.search)
 
-class PeriodPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      error: null,
-      isLoaded: false,
-      period: null,
-      missingId: false,
-      timeStamp: 0,
-    }
-  }
+  if (!values.id) {
+    return (
+      <>
+        <h2>An Error Occurred</h2>
+        <div className="text-block">
+          <p>This page was requested without a period ID.</p>
+          <p>
+            To browse all periods, visit the
+            <Link to="/periods">All Periods</Link> page.
+          </p>
+        </div>
+      </>
+    )
+  } else {
+    const [{ data, loading, error }] = useDataApi(
+      `/api/view/period/${values.id}`,
+      {
+        data: {},
+      }
+    )
 
-  componentDidMount() {
-    const values = queryString.parse(this.props.location.search)
-
-    if (!values.id) {
-      this.setState({ missingId: true })
-    } else {
-      fetch(`${dataUrl}${values.id}`)
-        .then(res => res.json())
-        .then(
-          result => {
-            this.setState({
-              isLoaded: true,
-              period: result.period,
-              timeStamp: result.timestamp,
-            })
-          },
-          error => {
-            this.setState({
-              isLoaded: true,
-              error,
-            })
-          }
-        )
-    }
-  }
-
-  render() {
-    const { error, isLoaded, period, missingId } = this.state
-    let content
-
-    if (missingId) {
-      content = (
-        <>
-          <h2>An Error Occurred</h2>
-          <div className="text-block">
-            <p>This page was requested without a period ID.</p>
-            <p>
-              To browse all periods, visit the{" "}
-              <Link to="/periods">All Periods</Link> page.
-            </p>
-          </div>
-        </>
+    if (error) {
+      return (
+        <div>
+          <p>An error occurred trying to load data:</p>
+          <p>{error.message}</p>
+        </div>
       )
-    } else if (error) {
-      content = (
-        <>
-          <h2>An Error Occurred</h2>
-          <div className="text-block">
-            <p>An error occurred trying to load the data for this period:</p>
-            <p>{error.message}</p>
+    } else if (loading) {
+      return (
+        <div className="text-block">
+          <div className="loading">
+            <ScaleLoader />
           </div>
-        </>
-      )
-    } else if (!isLoaded) {
-      content = (
-        <>
-          <div className="text-block">
-            <div className="loading">
-              <ScaleLoader />
-            </div>
-          </div>
-        </>
+        </div>
       )
     } else {
       let {
@@ -96,7 +58,7 @@ class PeriodPage extends Component {
         notes,
         Colors: colors,
         Standards: standards,
-      } = period
+      } = data.period
 
       let relStandards = []
       let count = 0
@@ -121,7 +83,7 @@ class PeriodPage extends Component {
 
       let title = name === abbreviation ? name : `${name} (${abbreviation})`
 
-      content = (
+      return (
         <>
           <SEO title={`Period: ${title}`} />
           <Layout title={`Period: ${title}`}>
@@ -157,8 +119,6 @@ class PeriodPage extends Component {
         </>
       )
     }
-
-    return content
   }
 }
 
