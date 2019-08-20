@@ -15,28 +15,23 @@ const NavigationColumn = props => {
     data: {},
   })
 
-  return (
-    <>
-      {error && (
-        <div>
-          <p>An error occurred trying to load data:</p>
-          <p>{error.message}</p>
-        </div>
-      )}
-      {loading ? (
-        <div className="loading">
-          <ScaleLoader />
-        </div>
-      ) : (
-        <ul>
-          {data.topn.map(item => (
-            <li key={item.id}>
-              <a href={item.url}>{item.text}</a>
-            </li>
-          ))}
-        </ul>
-      )}
-    </>
+  return error ? (
+    <div>
+      <p>An error occurred trying to load data:</p>
+      <p>{error.message}</p>
+    </div>
+  ) : loading ? (
+    <div className="loading">
+      <ScaleLoader />
+    </div>
+  ) : (
+    <ul>
+      {data.topn.map(item => (
+        <li key={item.id}>
+          <a href={item.url}>{item.text}</a>
+        </li>
+      ))}
+    </ul>
   )
 }
 
