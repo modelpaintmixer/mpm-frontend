@@ -1,12 +1,11 @@
-import React, { Component } from "react"
+import React from "react"
+import PropTypes from "prop-types"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
-import apiurl from "../utils/api-url"
+import useDataApi from "../utils/data-api"
 import RenderNotes from "../components/render-notes"
 
-const dataUrl = apiurl("/api/origin")
-
-const OneOrigin = origin => (
+const OneOrigin = ({ origin }) => (
   <div>
     <h3>
       <a href={`/origin/?id=${origin.id}`} title={origin.abbreviation}>
@@ -17,57 +16,30 @@ const OneOrigin = origin => (
   </div>
 )
 
-class AllOrigins extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      error: null,
-      isLoaded: false,
-      origins: [],
-      count: 0,
-      timeStamp: 0,
-    }
-  }
+OneOrigin.propTypes = {
+  origin: PropTypes.object.isRequired,
+  key: PropTypes.string,
+}
 
-  componentDidMount() {
-    fetch(dataUrl)
-      .then(res => res.json())
-      .then(
-        result => {
-          this.setState({
-            isLoaded: true,
-            origins: result.origins,
-            count: result.origins.length,
-            timeStamp: result.timestamp,
-          })
-        },
-        error => {
-          this.setState({
-            isLoaded: true,
-            error,
-          })
-        }
-      )
-  }
+const AllOrigins = () => {
+  const [{ data, loading, error }] = useDataApi("/api/origin", {
+    data: {},
+  })
 
-  render() {
-    const { error, isLoaded, origins } = this.state
-    let content
-
-    if (error) {
-      content = <p>Error: {error.message}</p>
-    } else if (!isLoaded) {
-      content = (
-        <div className="loading">
-          <ScaleLoader />
-        </div>
-      )
-    } else {
-      content = origins.map(origin => OneOrigin(origin))
-    }
-
-    return content
-  }
+  return error ? (
+    <div>
+      <p>An error occurred trying to load data:</p>
+      <p>{error.message}</p>
+    </div>
+  ) : loading ? (
+    <div className="loading">
+      <ScaleLoader />
+    </div>
+  ) : (
+    data.origins.map((origin, index) => (
+      <OneOrigin key={index} origin={origin} />
+    ))
+  )
 }
 
 export default AllOrigins

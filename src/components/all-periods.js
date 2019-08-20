@@ -1,12 +1,11 @@
-import React, { Component } from "react"
+import React from "react"
+import PropTypes from "prop-types"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
-import apiurl from "../utils/api-url"
+import useDataApi from "../utils/data-api"
 import RenderNotes from "../components/render-notes"
 
-const dataUrl = apiurl("/api/period")
-
-const OnePeriod = period => (
+const OnePeriod = ({ period }) => (
   <div>
     <h3>
       <a href={`/period/?id=${period.id}`} title={period.abbreviation}>
@@ -17,57 +16,30 @@ const OnePeriod = period => (
   </div>
 )
 
-class AllPeriods extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      error: null,
-      isLoaded: false,
-      periods: [],
-      timeStamp: 0,
-    }
-  }
+OnePeriod.propTypes = {
+  period: PropTypes.object.isRequired,
+  key: PropTypes.string,
+}
 
-  componentDidMount() {
-    fetch(dataUrl)
-      .then(res => res.json())
-      .then(
-        result => {
-          this.setState({
-            isLoaded: true,
-            periods: result.periods,
-            timeStamp: result.timestamp,
-          })
-        },
-        error => {
-          this.setState({
-            isLoaded: true,
-            error,
-          })
-        }
-      )
-  }
+const AllPeriods = () => {
+  const [{ data, loading, error }] = useDataApi("/api/period", {
+    data: {},
+  })
 
-  render() {
-    const { error, isLoaded, periods } = this.state
-    let content
-
-    if (error) {
-      content = <p>Error: {error.message}</p>
-    } else if (!isLoaded) {
-      content = (
-        <div className="loading">
-          <ScaleLoader />
-        </div>
-      )
-    } else {
-      content = periods
-        .sort((a, b) => a.fromYear - b.fromYear)
-        .map(period => OnePeriod(period))
-    }
-
-    return content
-  }
+  return error ? (
+    <div>
+      <p>An error occurred trying to load data:</p>
+      <p>{error.message}</p>
+    </div>
+  ) : loading ? (
+    <div className="loading">
+      <ScaleLoader />
+    </div>
+  ) : (
+    data.periods.map((period, index) => (
+      <OnePeriod key={index} period={period} />
+    ))
+  )
 }
 
 export default AllPeriods

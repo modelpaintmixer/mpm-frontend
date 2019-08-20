@@ -1,73 +1,45 @@
-import React, { Component } from "react"
+import React from "react"
+import PropTypes from "prop-types"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
-import apiurl from "../utils/api-url"
+import useDataApi from "../utils/data-api"
 import RenderNotes from "../components/render-notes"
 
-const dataUrl = apiurl("/api/standard")
-
-const OneStandard = standard => (
+const OneStandard = ({ standard }) => (
   <div>
     <h3>
       <a href={`/standard/?id=${standard.id}`} title={standard.abbreviation}>
-        <h3>{`${standard.name} (${standard.abbreviation})`}</h3>
+        {`${standard.name} (${standard.abbreviation})`}
       </a>
     </h3>
     {standard.notes === null ? "" : <RenderNotes>{standard.notes}</RenderNotes>}
   </div>
 )
 
-class AllStandards extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      error: null,
-      isLoaded: false,
-      standards: [],
-      count: 0,
-      timeStamp: 0,
-    }
-  }
+OneStandard.propTypes = {
+  standard: PropTypes.object.isRequired,
+  key: PropTypes.string,
+}
 
-  componentDidMount() {
-    fetch(dataUrl)
-      .then(res => res.json())
-      .then(
-        result => {
-          this.setState({
-            isLoaded: true,
-            standards: result.standards,
-            count: result.standards.length,
-            timeStamp: result.timestamp,
-          })
-        },
-        error => {
-          this.setState({
-            isLoaded: true,
-            error,
-          })
-        }
-      )
-  }
+const AllStandards = () => {
+  const [{ data, loading, error }] = useDataApi("/api/standard", {
+    data: {},
+  })
 
-  render() {
-    const { error, isLoaded, standards } = this.state
-    let content
-
-    if (error) {
-      content = <p>Error: {error.message}</p>
-    } else if (!isLoaded) {
-      content = (
-        <div className="loading">
-          <ScaleLoader />
-        </div>
-      )
-    } else {
-      content = standards.map(standard => OneStandard(standard))
-    }
-
-    return content
-  }
+  return error ? (
+    <div>
+      <p>An error occurred trying to load data:</p>
+      <p>{error.message}</p>
+    </div>
+  ) : loading ? (
+    <div className="loading">
+      <ScaleLoader />
+    </div>
+  ) : (
+    data.standards.map((standard, index) => (
+      <OneStandard key={index} standard={standard} />
+    ))
+  )
 }
 
 export default AllStandards
