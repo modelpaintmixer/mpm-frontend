@@ -1,12 +1,10 @@
-import React, { Component } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
-import apiurl from "../utils/api-url"
+import useDataApi from "../utils/data-api"
 import RenderNotes from "../components/render-notes"
-
-const dataUrl = apiurl("/api/stats/changes")
 
 const ItemLink = props => {
   let item = props.item
@@ -61,75 +59,45 @@ NewsItem.propTypes = {
   item: PropTypes.object.isRequired,
 }
 
-class NewestChanges extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      error: null,
-      isLoaded: false,
-      stats: {},
-      timeStamp: 0,
-    }
+const NewestChanges = () => {
+  const [{ data, loading, error }] = useDataApi("/api/stats/changes", {
+    data: {},
+  })
+  let content
+
+  if (error) {
+    content = <p>Error: {error.message}</p>
+  } else if (loading) {
+    content = (
+      <div className="loading">
+        <ScaleLoader />
+      </div>
+    )
+  } else {
+    let changes = data.changes
+    content = (
+      <>
+        <ul>
+          {changes.map((item, index) => {
+            return (
+              <li key={index}>
+                {item.type === "NewsItem" ? (
+                  <NewsItem item={item} />
+                ) : (
+                  <BasicItem item={item} />
+                )}
+              </li>
+            )
+          })}
+        </ul>
+        <p>
+          <Link to="/changes">more...</Link>
+        </p>
+      </>
+    )
   }
 
-  componentDidMount() {
-    fetch(dataUrl)
-      .then(res => res.json())
-      .then(
-        result => {
-          this.setState({
-            isLoaded: true,
-            changes: result.changes,
-            count: result.changes.length,
-            timeStamp: result.timestamp,
-          })
-        },
-        error => {
-          this.setState({
-            isLoaded: true,
-            error,
-          })
-        }
-      )
-  }
-
-  render() {
-    const { error, isLoaded, changes } = this.state
-    let content
-
-    if (error) {
-      content = <p>Error: {error.message}</p>
-    } else if (!isLoaded) {
-      content = (
-        <div className="loading">
-          <ScaleLoader />
-        </div>
-      )
-    } else {
-      content = (
-        <>
-          <ul>
-            {changes.map((item, index) => {
-              return (
-                <li key={index}>
-                  {item.type === "NewsItem" ? (
-                    <NewsItem item={item} />
-                  ) : (
-                    <BasicItem item={item} />
-                  )}
-                </li>
-              )
-            })}
-          </ul>
-          <p>
-            <Link to="/changes">more...</Link>
-          </p>
-        </>
-      )
-    }
-
-    return content
-  }
+  return content
 }
 
 export default NewestChanges

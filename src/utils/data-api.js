@@ -8,7 +8,7 @@
 import { useState, useEffect, useReducer } from "react"
 import axios from "axios"
 
-import apiurl from "../utils/api-url"
+const apiEndpoint = process.env.API_ENDPOINT
 
 const dataFetchReducer = (state, action) => {
   switch (action.type) {
@@ -33,7 +33,10 @@ const dataFetchReducer = (state, action) => {
 }
 
 const useDataApi = (initialUrl, initialData) => {
-  const [url, setUrl] = useState(apiurl(initialUrl))
+  if (!initialUrl.startsWith("http")) {
+    initialUrl = `${apiEndpoint}${initialUrl}`
+  }
+  const [url, setUrl] = useState(initialUrl)
 
   const [state, dispatch] = useReducer(dataFetchReducer, {
     loading: true,

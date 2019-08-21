@@ -1,13 +1,11 @@
-import React, { Component } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
-import apiurl from "../utils/api-url"
+import useDataApi from "../utils/data-api"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import RenderNotes from "../components/render-notes"
-
-const dataUrl = apiurl("/api/stats/changes/25")
 
 const ItemLink = props => {
   let item = props.item
@@ -62,80 +60,49 @@ NewsItem.propTypes = {
   item: PropTypes.object.isRequired,
 }
 
-class ChangesPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      error: null,
-      isLoaded: false,
-      changes: null,
-      count: 0,
-      timeStamp: 0,
-    }
-  }
+const ChangesPage = () => {
+  const [{ data, loading, error }] = useDataApi("/api/stats/changes/25", {
+    data: {},
+  })
+  let content, title
 
-  componentDidMount() {
-    fetch(dataUrl)
-      .then(res => res.json())
-      .then(
-        result => {
-          this.setState({
-            isLoaded: true,
-            changes: result.changes,
-            count: result.changes.length,
-            timeStamp: result.timestamp,
-          })
-        },
-        error => {
-          this.setState({
-            isLoaded: true,
-            error,
-          })
-        }
-      )
-  }
+  if (error) {
+    content = <p>Error: {error.message}</p>
+  } else if (loading) {
+    content = (
+      <div className="loading">
+        <ScaleLoader />
+      </div>
+    )
+  } else {
+    let changes = data.changes
+    title = `${changes.length} Newest Changes`
 
-  render() {
-    const { error, isLoaded, changes, count } = this.state
-    let content
-
-    if (error) {
-      content = <p>Error: {error.message}</p>
-    } else if (!isLoaded) {
-      content = (
-        <div className="loading">
-          <ScaleLoader />
-        </div>
-      )
-    } else {
-      content = (
-        <ul>
-          {changes.map((item, index) => {
-            return (
-              <li key={index}>
-                {item.type === "NewsItem" ? (
-                  <NewsItem item={item} />
-                ) : (
-                  <BasicItem item={item} />
-                )}
-              </li>
-            )
-          })}
-        </ul>
-      )
-    }
-
-    let title = `${count} Newest Changes`
-
-    return (
-      <>
-        <SEO title={title} />
-        <Layout title={title}>
-          <div className="text-block">{content}</div>
-        </Layout>
-      </>
+    content = (
+      <ul>
+        {changes.map((item, index) => {
+          return (
+            <li key={index}>
+              {item.type === "NewsItem" ? (
+                <NewsItem item={item} />
+              ) : (
+                <BasicItem item={item} />
+              )}
+            </li>
+          )
+        })}
+      </ul>
     )
   }
+
+  return (
+    <>
+      <SEO title={title} />
+      <Layout title={title}>
+        <div className="text-block">{content}</div>
+      </Layout>
+    </>
+  )
 }
 
 export default ChangesPage
