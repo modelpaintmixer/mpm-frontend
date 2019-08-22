@@ -5,7 +5,7 @@ import { format } from "date-fns"
 const DateFormat = props => {
   let { date, fmt } = props
 
-  let formatted = format(date, fmt || "MMMM Do, YYYY, h:mm:sA")
+  let formatted = format(date, fmt || "MMMM do, y, h:mm:sa (O)")
 
   return <span>{formatted}</span>
 }
