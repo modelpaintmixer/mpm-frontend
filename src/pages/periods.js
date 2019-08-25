@@ -8,7 +8,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 const OnePeriod = ({ period }) => (
-  <div>
+  <div style={{ marginBottom: "1rem" }}>
     <h3>
       <a href={`/period/?id=${period.id}`} title={period.abbreviation}>
         {period.name}
