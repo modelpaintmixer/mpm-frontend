@@ -8,7 +8,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 const OneOrigin = ({ origin }) => (
-  <div>
+  <div style={{ marginBottom: "1rem" }}>
     <h3>
       <a href={`/origin/?id=${origin.id}`} title={origin.abbreviation}>
         {`${origin.name} (${origin.abbreviation})`}
