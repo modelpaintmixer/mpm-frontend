@@ -60,6 +60,7 @@ const ColorPage = props => {
         notes,
         createdAt,
         updatedAt,
+        User: user,
         Origin: origin,
         Standards: standards,
         Periods: periods,
@@ -140,6 +141,12 @@ const ColorPage = props => {
                   <p>{relPeriods}</p>
                 </>
               )}
+              <h3>Owner</h3>
+              <p>
+                <Link to={`/user?username=${user.username}`}>
+                  {user.username}
+                </Link>
+              </p>
               <h3>{addedUpdatedHdr}</h3>
               <p>
                 <DateFormat date={dateTime} />
