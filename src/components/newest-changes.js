@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
 import useDataApi from "../utils/data-api"
-import { BasicItem, NewsItem } from "../components/change-items"
+import ChangeItem from "./change-item"
 
 const NewestChanges = () => {
   const [{ data, loading, error }] = useDataApi("/api/stats/changes", {
@@ -24,17 +24,11 @@ const NewestChanges = () => {
     content = (
       <>
         <ul>
-          {changes.map((item, index) => {
-            return (
-              <li key={index}>
-                {item.type === "NewsItem" ? (
-                  <NewsItem item={item} />
-                ) : (
-                  <BasicItem item={item} />
-                )}
-              </li>
-            )
-          })}
+          {changes.map((item, index) => (
+            <li key={index}>
+              <ChangeItem item={item} />
+            </li>
+          ))}
         </ul>
         <p>
           <Link to="/changes">more...</Link>
