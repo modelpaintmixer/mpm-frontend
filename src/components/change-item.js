@@ -1,8 +1,14 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
+import { formatDistance } from "date-fns"
 
-import RenderNotes from "./render-notes"
+const changedWhen = date => {
+  let now = new Date()
+  let then = new Date(date)
+
+  return formatDistance(then, now, { addSuffix: true })
+}
 
 const ItemLink = props => {
   let item = props.item
@@ -38,7 +44,8 @@ const BasicItem = ({ item }) => {
       {item.action === "add"
         ? `New ${extra}${item.type.toLowerCase()}`
         : item.type}{" "}
-      <ItemLink item={item} /> {item.action === "add" ? "added" : "updated"}
+      <ItemLink item={item} /> {item.action === "add" ? "added " : "updated "}
+      {changedWhen(item.updatedAt)}
     </div>
   )
 }
@@ -47,11 +54,22 @@ BasicItem.propTypes = {
   item: PropTypes.object.isRequired,
 }
 
-const NewsItem = ({ item }) => (
-  <div>
-    <RenderNotes>{`\\[**News**\\] ${item.headline}`}</RenderNotes>
-  </div>
-)
+const NewsItem = ({ item }) => {
+  let user = item.User
+  let userlink = (
+    <Link to={`/user?username=${user.username}`} title={user.name}>
+      {user.username}
+    </Link>
+  )
+
+  return (
+    <div>
+      [<b>News</b>] {item.headline},{" "}
+      {item.action === "add" ? "added " : "updated "} by {userlink}{" "}
+      {changedWhen(item.updatedAt)}
+    </div>
+  )
+}
 
 NewsItem.propTypes = {
   item: PropTypes.object.isRequired,
@@ -69,7 +87,7 @@ const ColorItem = ({ item }) => {
     <div>
       [<b>Color</b>] {item.action === "add" ? "New color " : "Color "}
       <ItemLink item={item} /> {item.action === "add" ? "added " : "updated "}
-      by {userlink}
+      by {userlink} {changedWhen(item.updatedAt)}
     </div>
   )
 }
