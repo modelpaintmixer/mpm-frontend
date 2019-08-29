@@ -4,7 +4,7 @@ import ScaleLoader from "react-spinners/ScaleLoader"
 import styled from "styled-components"
 
 import useDataApi from "../utils/data-api"
-import RenderNotes from "../components/render-notes"
+import RenderNotes from "./render-notes"
 
 const TH = styled.th`
   vertical-align: top;
