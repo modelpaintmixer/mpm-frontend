@@ -4,6 +4,9 @@
   "description": "Frontend for ModelPaintMixer.com",
   "main": "gatsby-browser.js",
   "scripts": {
+    "develop": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Randy J. Ray <modelpaint@modelpaintmixer.com> (https://www.modelpaintmixer.com)",
