@@ -71,6 +71,13 @@ class IndexUnderConstruction extends Component {
     this.closeSignup = this.closeSignup.bind(this)
     this.showNewsItem = this.showNewsItem.bind(this)
     this.closeNewsItem = this.closeNewsItem.bind(this)
+    this.escFunction = this.escFunction.bind(this)
+  }
+
+  escFunction(event) {
+    if (event.keyCode === 27) {
+      this.setState({ signupVisible: false, newsItemVisible: false })
+    }
   }
 
   showSignup() {
@@ -101,10 +108,12 @@ class IndexUnderConstruction extends Component {
   componentDidMount() {
     let intervalId = setInterval(this.showSignup, 1500)
     this.setState({ intervalId: intervalId })
+    document.addEventListener("keydown", this.escFunction, false)
   }
 
   componentWillUnmount() {
     clearInterval(this.state.intervalId)
+    document.removeEventListener("keydown", this.escFunction, false)
   }
 
   render() {
@@ -140,7 +149,7 @@ class IndexUnderConstruction extends Component {
               <a href={mailchimpUrl}>Sign up here</a>
             </p>
             <p>
-              <button onClick={() => this.closeSignup()}>Close</button>
+              <a onClick={() => this.closeSignup()}>Close</a>
             </p>
           </div>
         </Modal>
