@@ -54,18 +54,19 @@ BasicItem.propTypes = {
   item: PropTypes.object.isRequired,
 }
 
-const NewsItem = ({ item }) => {
+const NewsItem = ({ item, openItem }) => {
   let user = item.User
-  let userlink = (
+  let userLink = (
     <Link to={`/user?username=${user.username}`} title={user.name}>
       {user.username}
     </Link>
   )
+  let headlineLink = <a onClick={() => openItem(item.id)}>{item.headline}</a>
 
   return (
     <div>
-      [<b>News</b>] {item.headline},{" "}
-      {item.action === "add" ? "added " : "updated "} by {userlink}{" "}
+      [<b>News</b>] {headlineLink},{" "}
+      {item.action === "add" ? "added " : "updated "} by {userLink}{" "}
       {changedWhen(item.updatedAt)}
     </div>
   )
@@ -73,11 +74,12 @@ const NewsItem = ({ item }) => {
 
 NewsItem.propTypes = {
   item: PropTypes.object.isRequired,
+  openItem: PropTypes.func,
 }
 
 const ColorItem = ({ item }) => {
   let user = item.User
-  let userlink = (
+  let userLink = (
     <Link to={`/user?username=${user.username}`} title={user.name}>
       {user.username}
     </Link>
@@ -87,7 +89,7 @@ const ColorItem = ({ item }) => {
     <div>
       [<b>Color</b>] {item.action === "add" ? "New color " : "Color "}
       <ItemLink item={item} /> {item.action === "add" ? "added " : "updated "}
-      by {userlink} {changedWhen(item.updatedAt)}
+      by {userLink} {changedWhen(item.updatedAt)}
     </div>
   )
 }
@@ -96,12 +98,13 @@ ColorItem.propTypes = {
   item: PropTypes.object.isRequired,
 }
 
-const ChangeItem = ({ item }) => {
+const ChangeItem = props => {
+  let { item, showNewsItem } = props
   let formatted
 
   switch (item.type) {
     case "NewsItem":
-      formatted = <NewsItem item={item} />
+      formatted = <NewsItem item={item} openItem={showNewsItem} />
       break
     case "Color":
       formatted = <ColorItem item={item} />

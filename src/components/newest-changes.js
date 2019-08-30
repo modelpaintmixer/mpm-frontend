@@ -5,7 +5,7 @@ import ScaleLoader from "react-spinners/ScaleLoader"
 import useDataApi from "../utils/data-api"
 import ChangeItem from "./change-item"
 
-const NewestChanges = () => {
+const NewestChanges = props => {
   const [{ data, loading, error }] = useDataApi("/api/stats/changes", {
     data: {},
   })
@@ -26,7 +26,7 @@ const NewestChanges = () => {
         <ul>
           {changes.map((item, index) => (
             <li key={index}>
-              <ChangeItem item={item} />
+              <ChangeItem item={item} {...props} />
             </li>
           ))}
         </ul>

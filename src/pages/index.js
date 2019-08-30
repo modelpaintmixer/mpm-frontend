@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import PropTypes from "prop-types"
 import { instanceOf } from "prop-types"
 import { withCookies, Cookies } from "react-cookie"
 import Modal from "react-awesome-modal"
@@ -7,10 +8,11 @@ import Layout from "../components/layout"
 import NewestChanges from "../components/newest-changes"
 import SEO from "../components/seo"
 import MainNavigation from "../components/main-navigation"
+import NewsItem from "../components/news-item"
 
 const mailchimpUrl = "https://mailchi.mp/5a620671bda0/mpm"
 
-const IndexPage = () => (
+const IndexPage = props => (
   <>
     <SEO />
     <Layout>
@@ -41,11 +43,16 @@ const IndexPage = () => (
       <MainNavigation />
       <section className="text-block">
         <h3>Site News</h3>
-        <NewestChanges />
+        <NewestChanges {...props} />
       </section>
     </Layout>
   </>
 )
+
+IndexPage.propTypes = {
+  showNewsItem: PropTypes.func.isRequired,
+  closeNewsItem: PropTypes.func.isRequired,
+}
 
 class IndexUnderConstruction extends Component {
   constructor(props) {
@@ -55,11 +62,15 @@ class IndexUnderConstruction extends Component {
     this.state = {
       signupSeen: cookies.get("signupSeen") || false,
       intervalId: null,
-      visible: false,
+      signupVisible: false,
+      newsItemVisible: false,
+      newsItemId: 0,
     }
 
     this.showSignup = this.showSignup.bind(this)
     this.closeSignup = this.closeSignup.bind(this)
+    this.showNewsItem = this.showNewsItem.bind(this)
+    this.closeNewsItem = this.closeNewsItem.bind(this)
   }
 
   showSignup() {
@@ -70,13 +81,21 @@ class IndexUnderConstruction extends Component {
         path: "/",
         expires: expires,
       })
-      this.setState({ visible: true })
+      this.setState({ signupVisible: true })
     }
     clearInterval(this.state.intervalId)
   }
 
   closeSignup() {
-    this.setState({ visible: false })
+    this.setState({ signupVisible: false })
+  }
+
+  showNewsItem(itemId) {
+    this.setState({ newsItemVisible: true, newsItemId: itemId })
+  }
+
+  closeNewsItem() {
+    this.setState({ newsItemVisible: false })
   }
 
   componentDidMount() {
@@ -91,11 +110,14 @@ class IndexUnderConstruction extends Component {
   render() {
     return (
       <>
-        <IndexPage />
+        <IndexPage
+          showNewsItem={this.showNewsItem}
+          closeNewsItem={this.closeNewsItem}
+        />
         <Modal
-          visible={this.state.visible}
+          visible={this.state.signupVisible}
           width="450"
-          effect="fadeInDown"
+          effect="fadeInUp"
           onClickAway={() => this.closeSignup()}
         >
           <div
@@ -120,6 +142,23 @@ class IndexUnderConstruction extends Component {
             <p>
               <button onClick={() => this.closeSignup()}>Close</button>
             </p>
+          </div>
+        </Modal>
+        <Modal
+          visible={this.state.newsItemVisible}
+          width="450"
+          effect="fadeInDown"
+          onClickAway={() => this.closeNewsItem()}
+        >
+          <div
+            style={{
+              margin: "0.5rem",
+            }}
+          >
+            <NewsItem
+              itemId={this.state.newsItemId}
+              closeItem={this.closeNewsItem}
+            />
           </div>
         </Modal>
       </>
