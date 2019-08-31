@@ -41,7 +41,7 @@ const NewsItem = props => {
     content = (
       <div>
         <h3>{headline}</h3>
-        <p style={{ fontSize: "80%" }}>
+        <p style={{ fontSize: "75%" }}>
           By {user.username}, {changedWhen(updatedAt)}
         </p>
         <RenderNotes>{body}</RenderNotes>
