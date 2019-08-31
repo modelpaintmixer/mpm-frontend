@@ -5,7 +5,7 @@ import { formatDistance } from "date-fns"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
 import useDataApi from "../utils/data-api"
-import RenderNotes from "./render-notes"
+import RenderMarkdown from "./render-markdown"
 
 const changedWhen = date => {
   let now = new Date()
@@ -44,7 +44,7 @@ const NewsItem = props => {
         <p style={{ fontSize: "75%" }}>
           By {user.username}, {changedWhen(updatedAt)}
         </p>
-        <RenderNotes>{body}</RenderNotes>
+        <RenderMarkdown>{body}</RenderMarkdown>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <p style={{ flex: 1, marginBottom: 0 }}>
             <Link to="/news">all news...</Link>

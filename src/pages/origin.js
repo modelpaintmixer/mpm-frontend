@@ -9,7 +9,7 @@ import Layout from "../components/layout"
 import ColorBlocks from "../components/color-blocks"
 import PaintBlocks from "../components/paint-blocks"
 import SEO from "../components/seo"
-import RenderNotes from "../components/render-notes"
+import RenderMarkdown from "../components/render-markdown"
 
 const OriginPage = props => {
   const values = queryString.parse(props.location.search)
@@ -83,7 +83,7 @@ const OriginPage = props => {
               ) : (
                 <>
                   <h3>Notes</h3>
-                  <RenderNotes>{notes}</RenderNotes>
+                  <RenderMarkdown>{notes}</RenderMarkdown>
                 </>
               )}
               {standards.length === 0 ? (

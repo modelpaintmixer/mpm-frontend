@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
 import useDataApi from "../utils/data-api"
-import RenderNotes from "../components/render-notes"
+import RenderMarkdown from "../components/render-markdown"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
@@ -14,7 +14,11 @@ const OneStandard = ({ standard }) => (
         {`${standard.name} (${standard.abbreviation})`}
       </a>
     </h3>
-    {standard.notes === null ? "" : <RenderNotes>{standard.notes}</RenderNotes>}
+    {standard.notes === null ? (
+      ""
+    ) : (
+      <RenderMarkdown>{standard.notes}</RenderMarkdown>
+    )}
   </div>
 )
 

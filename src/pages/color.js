@@ -10,7 +10,7 @@ import ColorSwatch from "../components/color-swatch"
 import PaintCards from "../components/paint-cards"
 import DateFormat from "../components/date-format"
 import SEO from "../components/seo"
-import RenderNotes from "../components/render-notes"
+import RenderMarkdown from "../components/render-markdown"
 
 const ColorPage = props => {
   const values = queryString.parse(props.location.search)
@@ -156,7 +156,7 @@ const ColorPage = props => {
               ) : (
                 <>
                   <h3>Notes</h3>
-                  <RenderNotes>{notes}</RenderNotes>
+                  <RenderMarkdown>{notes}</RenderMarkdown>
                 </>
               )}
             </div>

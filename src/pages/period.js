@@ -8,7 +8,7 @@ import useDataApi from "../utils/data-api"
 import Layout from "../components/layout"
 import ColorBlocks from "../components/color-blocks"
 import SEO from "../components/seo"
-import RenderNotes from "../components/render-notes"
+import RenderMarkdown from "../components/render-markdown"
 
 const PeriodPage = props => {
   const values = queryString.parse(props.location.search)
@@ -95,7 +95,7 @@ const PeriodPage = props => {
               ) : (
                 <>
                   <h3>Notes</h3>
-                  <RenderNotes>{notes}</RenderNotes>
+                  <RenderMarkdown>{notes}</RenderMarkdown>
                 </>
               )}
               {standards.length === 0 ? (

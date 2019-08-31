@@ -4,7 +4,7 @@ import ScaleLoader from "react-spinners/ScaleLoader"
 import styled from "styled-components"
 
 import useDataApi from "../utils/data-api"
-import RenderNotes from "./render-notes"
+import RenderMarkdown from "./render-markdown"
 
 const TH = styled.th`
   vertical-align: top;
@@ -45,7 +45,7 @@ const CookiesTableRow = ({ key, data }) => {
       <TD>{needed}</TD>
       <TD>{duration}</TD>
       <TD>
-        <RenderNotes>{description}</RenderNotes>
+        <RenderMarkdown>{description}</RenderMarkdown>
       </TD>
     </tr>
   )

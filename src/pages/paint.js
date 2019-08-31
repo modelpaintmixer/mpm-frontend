@@ -10,7 +10,7 @@ import ColorSwatch from "../components/color-swatch"
 import ColorBlocks from "../components/color-blocks"
 import DateFormat from "../components/date-format"
 import SEO from "../components/seo"
-import RenderNotes from "../components/render-notes"
+import RenderMarkdown from "../components/render-markdown"
 
 const PaintPage = props => {
   const values = queryString.parse(props.location.search)
@@ -168,7 +168,7 @@ const PaintPage = props => {
               ) : (
                 <>
                   <h3>Notes</h3>
-                  <RenderNotes>{notes}</RenderNotes>
+                  <RenderMarkdown>{notes}</RenderMarkdown>
                 </>
               )}
               <h3>{addedUpdatedHdr}</h3>

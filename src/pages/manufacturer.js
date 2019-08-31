@@ -11,7 +11,7 @@ import DateFormat from "../components/date-format"
 import ManufacturerLocations from "../components/manufacturer-locations"
 import PaintBlocks from "../components/paint-blocks"
 import SEO from "../components/seo"
-import RenderNotes from "../components/render-notes"
+import RenderMarkdown from "../components/render-markdown"
 
 const ManufacturerPage = props => {
   const values = queryString.parse(props.location.search)
@@ -93,7 +93,7 @@ const ManufacturerPage = props => {
               ) : (
                 <>
                   <h3>Notes</h3>
-                  <RenderNotes>{notes}</RenderNotes>
+                  <RenderMarkdown>{notes}</RenderMarkdown>
                 </>
               )}
               {paints.length === 0 ? (

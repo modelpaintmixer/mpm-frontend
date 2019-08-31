@@ -5,7 +5,7 @@ import ScaleLoader from "react-spinners/ScaleLoader"
 import useDataApi from "../utils/data-api"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import RenderNotes from "../components/render-notes"
+import RenderMarkdown from "../components/render-markdown"
 
 const OneManufacturer = ({ manufacturer }) => (
   <div>
@@ -25,7 +25,7 @@ const OneManufacturer = ({ manufacturer }) => (
     {manufacturer.notes === null ? (
       ""
     ) : (
-      <RenderNotes>{manufacturer.notes}</RenderNotes>
+      <RenderMarkdown>{manufacturer.notes}</RenderMarkdown>
     )}
   </div>
 )

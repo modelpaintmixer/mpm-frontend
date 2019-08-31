@@ -16,7 +16,7 @@ const renderers = {
   linkReference: checkExternal,
 }
 
-const RenderNotes = props => (
+const RenderMarkdown = props => (
   <ReactMarkdown
     source={props.children}
     renderers={renderers}
@@ -25,8 +25,8 @@ const RenderNotes = props => (
   />
 )
 
-RenderNotes.propTypes = {
+RenderMarkdown.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default RenderNotes
+export default RenderMarkdown

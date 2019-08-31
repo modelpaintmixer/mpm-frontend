@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
 import useDataApi from "../utils/data-api"
-import RenderNotes from "../components/render-notes"
+import RenderMarkdown from "../components/render-markdown"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
@@ -14,7 +14,11 @@ const OneOrigin = ({ origin }) => (
         {`${origin.name} (${origin.abbreviation})`}
       </a>
     </h3>
-    {origin.notes === null ? "" : <RenderNotes>{origin.notes}</RenderNotes>}
+    {origin.notes === null ? (
+      ""
+    ) : (
+      <RenderMarkdown>{origin.notes}</RenderMarkdown>
+    )}
   </div>
 )
 
