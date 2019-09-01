@@ -7,7 +7,7 @@ import ScaleLoader from "react-spinners/ScaleLoader"
 
 import useDataApi from "../utils/data-api"
 import Layout from "../components/layout"
-import DateFormat from "../components/date-format"
+import { DateFormat } from "../components/date-format"
 import ManufacturerLocations from "../components/manufacturer-locations"
 import PaintBlocks from "../components/paint-blocks"
 import SEO from "../components/seo"

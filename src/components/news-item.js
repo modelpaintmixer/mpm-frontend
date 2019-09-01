@@ -1,18 +1,11 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
-import { formatDistance } from "date-fns"
 import ScaleLoader from "react-spinners/ScaleLoader"
 
 import useDataApi from "../utils/data-api"
 import RenderMarkdown from "./render-markdown"
-
-const changedWhen = date => {
-  let now = new Date()
-  let then = new Date(date)
-
-  return formatDistance(then, now, { addSuffix: true })
-}
+import { CombinedDate } from "./date-format"
 
 const NewsItem = props => {
   if (props.itemId === 0) {
@@ -42,7 +35,8 @@ const NewsItem = props => {
       <div>
         <h3>{headline}</h3>
         <p style={{ fontSize: "75%" }}>
-          By {user.username}, {changedWhen(updatedAt)}
+          By {user.username},
+          <CombinedDate date={updatedAt} />
         </p>
         <RenderMarkdown>{body}</RenderMarkdown>
         <div style={{ display: "flex", justifyContent: "space-between" }}>

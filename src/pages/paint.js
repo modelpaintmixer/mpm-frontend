@@ -8,7 +8,7 @@ import useDataApi from "../utils/data-api"
 import Layout from "../components/layout"
 import ColorSwatch from "../components/color-swatch"
 import ColorBlocks from "../components/color-blocks"
-import DateFormat from "../components/date-format"
+import { DateFormat } from "../components/date-format"
 import SEO from "../components/seo"
 import RenderMarkdown from "../components/render-markdown"
 

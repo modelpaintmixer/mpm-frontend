@@ -1,14 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
-import { formatDistance } from "date-fns"
 
-const changedWhen = date => {
-  let now = new Date()
-  let then = new Date(date)
-
-  return formatDistance(then, now, { addSuffix: true })
-}
+import { CombinedDate } from "./date-format"
 
 const ItemLink = props => {
   let item = props.item
@@ -45,7 +39,7 @@ const BasicItem = ({ item }) => {
         ? `New ${extra}${item.type.toLowerCase()}`
         : item.type}{" "}
       <ItemLink item={item} /> {item.action === "add" ? "added " : "updated "}
-      {changedWhen(item.updatedAt)}
+      <CombinedDate date={item.updatedAt} />
     </div>
   )
 }
@@ -67,7 +61,7 @@ const NewsItem = ({ item, openItem }) => {
     <div>
       [<b>News</b>] {headlineLink},{" "}
       {item.action === "add" ? "added " : "updated "} by {userLink}{" "}
-      {changedWhen(item.updatedAt)}
+      <CombinedDate date={item.updatedAt} />
     </div>
   )
 }
@@ -89,7 +83,7 @@ const ColorItem = ({ item }) => {
     <div>
       [<b>Color</b>] {item.action === "add" ? "New color " : "Color "}
       <ItemLink item={item} /> {item.action === "add" ? "added " : "updated "}
-      by {userLink} {changedWhen(item.updatedAt)}
+      by {userLink} <CombinedDate date={item.updatedAt} />
     </div>
   )
 }
