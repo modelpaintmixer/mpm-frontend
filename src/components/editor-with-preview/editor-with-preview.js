@@ -29,7 +29,6 @@ const EditorWithPreview = ({
 }
 
 EditorWithPreview.propTypes = {
-  editorRef: PropTypes.any,
   content: PropTypes.string,
   disableLink: PropTypes.bool,
   disablePhoto: PropTypes.bool,
