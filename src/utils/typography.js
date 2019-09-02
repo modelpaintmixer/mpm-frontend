@@ -4,8 +4,14 @@ theme.overrideThemeStyles = () => ({
   "div > :last-child": {
     marginBottom: 0,
   },
+  "div > :first-child": {
+    marginTop: 0,
+  },
   "section > :last-child": {
     marginBottom: 0,
+  },
+  "section > :first-child": {
+    marginTop: 0,
   },
 })
 
