@@ -35,8 +35,7 @@ const NewsItem = props => {
       <div>
         <h3>{headline}</h3>
         <p style={{ fontSize: "75%" }}>
-          By {user.username},
-          <CombinedDate date={updatedAt} />
+          By {user.username}, <CombinedDate date={updatedAt} />
         </p>
         <RenderMarkdown>{body}</RenderMarkdown>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
