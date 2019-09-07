@@ -8,7 +8,7 @@ const Preview = ({ value }) => (
     <div>
       <p>Preview:</p>
     </div>
-    <div className="text-block">
+    <div>
       <RenderMarkdown>{value}</RenderMarkdown>
     </div>
   </>

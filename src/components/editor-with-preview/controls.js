@@ -27,7 +27,13 @@ const findInsertPosition = (value, start) => {
   return value.substring(0, start).lastIndexOf("\n") + 1
 }
 
-const Controls = ({ editorRef, update, disableLink, disablePhoto }) => {
+const Controls = ({
+  editorRef,
+  update,
+  onChange,
+  disableLink,
+  disablePhoto,
+}) => {
   const applyFormat = format => {
     let start = editorRef.current.selectionStart
     let end = editorRef.current.selectionEnd
@@ -41,12 +47,14 @@ const Controls = ({ editorRef, update, disableLink, disablePhoto }) => {
       value.substring(end)
 
     // Adjust the start/end based on the length of what we inserted
-    start += fmt.length
-    end = start
+    end += fmt.length
+    start = end
 
     update(value)
     editorRef.current.focus()
+    editorRef.current.value = value
     editorRef.current.setSelectionRange(start, end)
+    onChange({ target: editorRef.current })
   }
 
   const insertElement = type => {
@@ -93,7 +101,9 @@ const Controls = ({ editorRef, update, disableLink, disablePhoto }) => {
 
     update(value)
     editorRef.current.focus()
+    editorRef.current.value = value
     editorRef.current.setSelectionRange(start, end)
+    onChange({ target: editorRef.current })
   }
 
   return (
@@ -165,6 +175,7 @@ const Controls = ({ editorRef, update, disableLink, disablePhoto }) => {
 Controls.propTypes = {
   editorRef: PropTypes.any.isRequired,
   update: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   disableLink: PropTypes.bool,
   disablePhoto: PropTypes.bool,
 }
