@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-const Editor = ({ editorRef, value, update }) => {
+const Editor = ({ editorRef, name, value, update }) => {
   return (
     <div>
       <textarea
@@ -14,6 +14,7 @@ const Editor = ({ editorRef, value, update }) => {
         }}
         ref={editorRef}
         onChange={e => update(e.target.value)}
+        name={name}
         value={value}
       />
     </div>
@@ -23,6 +24,7 @@ const Editor = ({ editorRef, value, update }) => {
 Editor.propTypes = {
   editorRef: PropTypes.any.isRequired,
   update: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
   value: PropTypes.string,
 }
 

@@ -7,6 +7,7 @@ import Preview from "./preview"
 
 const EditorWithPreview = ({
   content,
+  name,
   disableLink,
   disablePhoto,
   ...otherProps
@@ -22,7 +23,12 @@ const EditorWithPreview = ({
         disableLink={disableLink}
         disablePhoto={disablePhoto}
       />
-      <Editor editorRef={editorRef} update={setValue} value={value} />
+      <Editor
+        editorRef={editorRef}
+        update={setValue}
+        name={name}
+        value={value}
+      />
       <Preview value={value || " "} />
     </div>
   )
@@ -30,6 +36,7 @@ const EditorWithPreview = ({
 
 EditorWithPreview.propTypes = {
   content: PropTypes.string,
+  name: PropTypes.string.isRequired,
   disableLink: PropTypes.bool,
   disablePhoto: PropTypes.bool,
 }
