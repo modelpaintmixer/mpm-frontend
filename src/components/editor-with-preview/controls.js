@@ -116,22 +116,38 @@ const Controls = ({
     >
       <div style={{ flex: 1 }}>
         <span title="bold text">
-          <Button name="applybold" onClick={() => applyFormat("bold")}>
+          <Button
+            type="button"
+            name="applybold"
+            onClick={() => applyFormat("bold")}
+          >
             <MdFormatBold />
           </Button>
         </span>
         <span title="italic text">
-          <Button name="applyitalic" onClick={() => applyFormat("italic")}>
+          <Button
+            type="button"
+            name="applyitalic"
+            onClick={() => applyFormat("italic")}
+          >
             <MdFormatItalic />
           </Button>
         </span>
         <span title="strikethrough text">
-          <Button name="applystrike" onClick={() => applyFormat("strike")}>
+          <Button
+            type="button"
+            name="applystrike"
+            onClick={() => applyFormat("strike")}
+          >
             <MdFormatStrikethrough />
           </Button>
         </span>
         <span title="insert quote">
-          <Button name="applyquote" onClick={() => insertElement("quote")}>
+          <Button
+            type="button"
+            name="applyquote"
+            onClick={() => insertElement("quote")}
+          >
             <MdFormatQuote />
           </Button>
         </span>
@@ -139,6 +155,7 @@ const Controls = ({
       <div style={{ flex: 1, textAlign: "center" }}>
         <span title={`insert link${disableLink ? " (disabled)" : ""}`}>
           <Button
+            type="button"
             name="insertlink"
             disabled={disableLink}
             onClick={() => insertElement("link")}
@@ -148,6 +165,7 @@ const Controls = ({
         </span>
         <span title={`insert photo${disablePhoto ? " (disabled)" : ""}`}>
           <Button
+            type="button"
             name="insertphoto"
             disabled={disablePhoto}
             onClick={() => insertElement("photo")}
@@ -158,12 +176,20 @@ const Controls = ({
       </div>
       <div style={{ flex: 1, textAlign: "right" }}>
         <span title="insert bulleted list">
-          <Button name="bulletlist" onClick={() => insertElement("bullet")}>
+          <Button
+            type="button"
+            name="bulletlist"
+            onClick={() => insertElement("bullet")}
+          >
             <MdFormatListBulleted />
           </Button>
         </span>
         <span title="insert numbered list">
-          <Button name="numberlist" onClick={() => insertElement("number")}>
+          <Button
+            type="button"
+            name="numberlist"
+            onClick={() => insertElement("number")}
+          >
             <MdFormatListNumbered />
           </Button>
         </span>

@@ -9,7 +9,6 @@ const Editor = ({ editorRef, name, value, onChange }) => {
           width: "100%",
           maxWidth: "100%",
           minWidth: "100%",
-          backgroundColor: "#fafafa",
           minHeight: "150px",
         }}
         ref={editorRef}

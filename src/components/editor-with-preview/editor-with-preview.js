@@ -6,28 +6,28 @@ import Editor from "./editor"
 import Preview from "./preview"
 
 const EditorWithPreview = ({
-  content,
   name,
   onChange,
+  value,
   disableLink,
   disablePhoto,
-  ...otherProps
+  ...props
 }) => {
   const editorRef = useRef(null)
-  const [value, setValue] = useState(content)
+  const [currentValue, setCurrentValue] = useState(value)
 
   const onChangeFn = e => {
-    setValue(e.target.value)
+    setCurrentValue(e.target.value)
     if (onChange) {
       onChange(e)
     }
   }
 
   return (
-    <div {...otherProps}>
+    <div {...props}>
       <Controls
         editorRef={editorRef}
-        update={setValue}
+        update={setCurrentValue}
         onChange={onChange}
         disableLink={disableLink}
         disablePhoto={disablePhoto}
@@ -36,17 +36,17 @@ const EditorWithPreview = ({
         editorRef={editorRef}
         onChange={onChangeFn}
         name={name}
-        value={value}
+        value={currentValue}
       />
-      <Preview value={value || " "} />
+      <Preview value={currentValue || " "} />
     </div>
   )
 }
 
 EditorWithPreview.propTypes = {
-  content: PropTypes.string,
   name: PropTypes.string.isRequired,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string,
   disableLink: PropTypes.bool,
   disablePhoto: PropTypes.bool,
 }
