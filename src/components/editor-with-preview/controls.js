@@ -118,6 +118,7 @@ const Controls = ({
         <span title="bold text">
           <Button
             type="button"
+            tabIndex="-1"
             name="applybold"
             onClick={() => applyFormat("bold")}
           >
@@ -127,6 +128,7 @@ const Controls = ({
         <span title="italic text">
           <Button
             type="button"
+            tabIndex="-1"
             name="applyitalic"
             onClick={() => applyFormat("italic")}
           >
@@ -136,6 +138,7 @@ const Controls = ({
         <span title="strikethrough text">
           <Button
             type="button"
+            tabIndex="-1"
             name="applystrike"
             onClick={() => applyFormat("strike")}
           >
@@ -145,6 +148,7 @@ const Controls = ({
         <span title="insert quote">
           <Button
             type="button"
+            tabIndex="-1"
             name="applyquote"
             onClick={() => insertElement("quote")}
           >
@@ -156,6 +160,7 @@ const Controls = ({
         <span title={`insert link${disableLink ? " (disabled)" : ""}`}>
           <Button
             type="button"
+            tabIndex="-1"
             name="insertlink"
             disabled={disableLink}
             onClick={() => insertElement("link")}
@@ -166,6 +171,7 @@ const Controls = ({
         <span title={`insert photo${disablePhoto ? " (disabled)" : ""}`}>
           <Button
             type="button"
+            tabIndex="-1"
             name="insertphoto"
             disabled={disablePhoto}
             onClick={() => insertElement("photo")}
@@ -178,6 +184,7 @@ const Controls = ({
         <span title="insert bulleted list">
           <Button
             type="button"
+            tabIndex="-1"
             name="bulletlist"
             onClick={() => insertElement("bullet")}
           >
@@ -187,6 +194,7 @@ const Controls = ({
         <span title="insert numbered list">
           <Button
             type="button"
+            tabIndex="-1"
             name="numberlist"
             onClick={() => insertElement("number")}
           >

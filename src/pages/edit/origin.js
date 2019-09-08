@@ -19,18 +19,8 @@ const validationSchema = Yup.object().shape({
       Abbreviation must not be empty
     </em>
   ),
-  notes: Yup.string().max(1000),
+  notes: Yup.string().max(2000),
 })
-
-const WrapEditorWithPreview = ({ field, ...props }) => (
-  <div>
-    <EditorWithPreview {...field} {...props} />
-  </div>
-)
-
-WrapEditorWithPreview.propTypes = {
-  field: PropTypes.object.required,
-}
 
 const EditOriginPage = ({ location }) => {
   const values = queryString.parse(location.search)
@@ -133,7 +123,7 @@ const EditOriginPage = ({ location }) => {
                         </label>
                       </div>
                       <div>
-                        <Field name="notes" component={WrapEditorWithPreview} />
+                        <Field name="notes" component={EditorWithPreview} />
                       </div>
                     </div>
                     <div

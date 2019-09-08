@@ -6,9 +6,7 @@ import Editor from "./editor"
 import Preview from "./preview"
 
 const EditorWithPreview = ({
-  name,
-  onChange,
-  value,
+  field: { name, value, onChange, onBlur },
   disableLink,
   disablePhoto,
   ...props
@@ -35,6 +33,7 @@ const EditorWithPreview = ({
       <Editor
         editorRef={editorRef}
         onChange={onChangeFn}
+        onBlur={onBlur}
         name={name}
         value={currentValue}
       />
@@ -44,9 +43,7 @@ const EditorWithPreview = ({
 }
 
 EditorWithPreview.propTypes = {
-  name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  value: PropTypes.string,
+  field: PropTypes.object.isRequired,
   disableLink: PropTypes.bool,
   disablePhoto: PropTypes.bool,
 }
