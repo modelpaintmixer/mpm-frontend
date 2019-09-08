@@ -143,15 +143,15 @@ const EditOriginPage = ({ location }) => {
                         justifyContent: "space-between",
                       }}
                     >
+                      <button name="reset" type="reset">
+                        Reset
+                      </button>
                       <button
                         name="submit"
                         type="submit"
                         disabled={isSubmitting}
                       >
                         Update
-                      </button>
-                      <button name="reset" type="reset">
-                        Reset
                       </button>
                     </div>
                   </Form>
