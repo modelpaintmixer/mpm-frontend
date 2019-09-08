@@ -4,14 +4,9 @@ import PropTypes from "prop-types"
 import RenderMarkdown from "../render-markdown"
 
 const Preview = ({ value }) => (
-  <>
-    <div>
-      <p>Preview:</p>
-    </div>
-    <div>
-      <RenderMarkdown>{value}</RenderMarkdown>
-    </div>
-  </>
+  <div style={{ marginTop: "1rem" }}>
+    <RenderMarkdown>{value}</RenderMarkdown>
+  </div>
 )
 
 Preview.propTypes = {

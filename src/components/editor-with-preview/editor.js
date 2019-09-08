@@ -10,6 +10,7 @@ const Editor = ({ editorRef, name, value, onChange, onBlur }) => {
           maxWidth: "100%",
           minWidth: "100%",
           minHeight: "150px",
+          fontFamily: "monospace",
         }}
         ref={editorRef}
         onChange={e => onChange(e)}
