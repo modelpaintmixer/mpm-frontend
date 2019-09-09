@@ -19,7 +19,7 @@ const RadioButton = ({
         onChange={onChange}
         onBlur={onBlur}
         {...props}
-      />
+      />{" "}
       <label htmlFor={id}>{label}</label>
     </div>
   )
