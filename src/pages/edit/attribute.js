@@ -74,7 +74,7 @@ const EditAttributePage = ({ location }) => {
         </>
       )
     } else {
-      let { name, description } = data.attributes[0]
+      let { name, description } = data.attribute
 
       return (
         <>

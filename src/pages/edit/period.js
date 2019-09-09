@@ -97,7 +97,7 @@ const EditPeriodPage = ({ location }) => {
         </>
       )
     } else {
-      let { name, abbreviation, fromYear, toYear, notes } = data.periods[0]
+      let { name, abbreviation, fromYear, toYear, notes } = data.period
 
       return (
         <>

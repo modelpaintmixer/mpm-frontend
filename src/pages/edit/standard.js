@@ -79,7 +79,7 @@ const EditStandardPage = ({ location }) => {
         </>
       )
     } else {
-      let { name, displayName, abbreviation, notes } = data.standards[0]
+      let { name, displayName, abbreviation, notes } = data.standard
 
       return (
         <>

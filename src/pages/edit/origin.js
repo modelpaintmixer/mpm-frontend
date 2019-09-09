@@ -71,7 +71,7 @@ const EditOriginPage = ({ location }) => {
         </>
       )
     } else {
-      let { name, abbreviation, notes } = data.origins[0]
+      let { name, abbreviation, notes } = data.origin
 
       return (
         <>
