@@ -45,7 +45,9 @@ const validationSchema = Yup.object().shape({
         To-year must not be empty
       </em>
     ),
-  notes: Yup.string().max(2000),
+  notes: Yup.string()
+    .ensure()
+    .max(2000),
 })
 
 const EditPeriodPage = ({ location }) => {
@@ -96,7 +98,6 @@ const EditPeriodPage = ({ location }) => {
       )
     } else {
       let { name, abbreviation, fromYear, toYear, notes } = data.periods[0]
-      notes = notes || ""
 
       return (
         <>

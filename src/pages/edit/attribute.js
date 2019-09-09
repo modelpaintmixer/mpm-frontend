@@ -16,6 +16,7 @@ const validationSchema = Yup.object().shape({
   ),
   description: Yup.string()
     .max(2000)
+    .ensure()
     .required(
       <em style={{ fontSize: "75%", color: "red" }}>
         Description must not be empty

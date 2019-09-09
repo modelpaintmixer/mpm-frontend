@@ -21,6 +21,7 @@ const validationSchema = Yup.object().shape({
     ),
   content: Yup.string()
     .max(10000)
+    .ensure()
     .required(
       <em style={{ fontSize: "75%", color: "red" }}>Story must not be empty</em>
     ),

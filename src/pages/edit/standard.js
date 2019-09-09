@@ -24,7 +24,9 @@ const validationSchema = Yup.object().shape({
       Abbreviation must not be empty
     </em>
   ),
-  notes: Yup.string().max(2000),
+  notes: Yup.string()
+    .ensure()
+    .max(2000),
 })
 
 const EditStandardPage = ({ location }) => {
@@ -78,7 +80,6 @@ const EditStandardPage = ({ location }) => {
       )
     } else {
       let { name, displayName, abbreviation, notes } = data.standards[0]
-      notes = notes || ""
 
       return (
         <>
