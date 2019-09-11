@@ -71,7 +71,7 @@ const EditOriginPage = ({ location }) => {
         </>
       )
     } else {
-      let { name, abbreviation, notes } = data.origin
+      let { id, name, abbreviation, notes } = data.origin
 
       return (
         <>
@@ -79,14 +79,14 @@ const EditOriginPage = ({ location }) => {
           <Layout title={`Edit Origin: ${name}`}>
             <div className="text-block">
               <Formik
-                initialValues={{ name, abbreviation, notes }}
+                initialValues={{ id, name, abbreviation, notes }}
                 validationSchema={validationSchema}
                 onSubmit={(values, actions) => {
                   alert(JSON.stringify(values, null, 2))
                   actions.setSubmitting(false)
                 }}
               >
-                {({ isSubmitting }) => (
+                {({ setFieldValue, isSubmitting }) => (
                   <Form>
                     <div
                       style={{
@@ -138,9 +138,10 @@ const EditOriginPage = ({ location }) => {
                         Reset
                       </button>
                       <button
-                        name="submit"
+                        name="update"
                         type="submit"
                         disabled={isSubmitting}
+                        onClick={() => setFieldValue("action", "update", false)}
                       >
                         Update
                       </button>

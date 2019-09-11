@@ -77,7 +77,7 @@ const EditNewsitemPage = ({ location }) => {
         </>
       )
     } else {
-      let { headline, content, createdAt, updatedAt } = data.newsitem
+      let { id, headline, content, createdAt, updatedAt } = data.newsitem
 
       return (
         <>
@@ -85,14 +85,14 @@ const EditNewsitemPage = ({ location }) => {
           <Layout title={`Edit Newsitem: ${headline}`}>
             <div className="text-block">
               <Formik
-                initialValues={{ headline, content }}
+                initialValues={{ id, headline, content }}
                 validationSchema={validationSchema}
                 onSubmit={(values, actions) => {
                   alert(JSON.stringify(values, null, 2))
                   actions.setSubmitting(false)
                 }}
               >
-                {({ isSubmitting }) => (
+                {({ setFieldValue, isSubmitting }) => (
                   <Form>
                     <div
                       style={{
@@ -141,9 +141,10 @@ const EditNewsitemPage = ({ location }) => {
                         Reset
                       </button>
                       <button
-                        name="submit"
+                        name="update"
                         type="submit"
                         disabled={isSubmitting}
+                        onClick={() => setFieldValue("action", "update", false)}
                       >
                         Update
                       </button>

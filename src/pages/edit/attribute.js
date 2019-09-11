@@ -74,7 +74,7 @@ const EditAttributePage = ({ location }) => {
         </>
       )
     } else {
-      let { name, description } = data.attribute
+      let { id, name, description } = data.attribute
 
       return (
         <>
@@ -82,14 +82,14 @@ const EditAttributePage = ({ location }) => {
           <Layout title={`Edit Attribute: ${name}`}>
             <div className="text-block">
               <Formik
-                initialValues={{ name, description }}
+                initialValues={{ id, name, description }}
                 validationSchema={validationSchema}
                 onSubmit={(values, actions) => {
                   alert(JSON.stringify(values, null, 2))
                   actions.setSubmitting(false)
                 }}
               >
-                {({ isSubmitting }) => (
+                {({ setFieldValue, isSubmitting }) => (
                   <Form>
                     <div
                       style={{
@@ -136,9 +136,10 @@ const EditAttributePage = ({ location }) => {
                         Reset
                       </button>
                       <button
-                        name="submit"
+                        name="update"
                         type="submit"
                         disabled={isSubmitting}
+                        onClick={() => setFieldValue("action", "update", false)}
                       >
                         Update
                       </button>

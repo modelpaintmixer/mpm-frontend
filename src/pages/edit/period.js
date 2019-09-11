@@ -97,7 +97,7 @@ const EditPeriodPage = ({ location }) => {
         </>
       )
     } else {
-      let { name, abbreviation, fromYear, toYear, notes } = data.period
+      let { id, name, abbreviation, fromYear, toYear, notes } = data.period
 
       return (
         <>
@@ -105,14 +105,21 @@ const EditPeriodPage = ({ location }) => {
           <Layout title={`Edit Period: ${name}`}>
             <div className="text-block">
               <Formik
-                initialValues={{ name, abbreviation, fromYear, toYear, notes }}
+                initialValues={{
+                  id,
+                  name,
+                  abbreviation,
+                  fromYear,
+                  toYear,
+                  notes,
+                }}
                 validationSchema={validationSchema}
                 onSubmit={(values, actions) => {
                   alert(JSON.stringify(values, null, 2))
                   actions.setSubmitting(false)
                 }}
               >
-                {({ isSubmitting }) => (
+                {({ setFieldValue, isSubmitting }) => (
                   <Form>
                     <div
                       style={{
@@ -182,9 +189,10 @@ const EditPeriodPage = ({ location }) => {
                         Reset
                       </button>
                       <button
-                        name="submit"
+                        name="update"
                         type="submit"
                         disabled={isSubmitting}
+                        onClick={() => setFieldValue("action", "update", false)}
                       >
                         Update
                       </button>

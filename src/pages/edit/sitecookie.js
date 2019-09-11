@@ -82,7 +82,7 @@ const EditSitecookiePage = ({ location }) => {
         </>
       )
     } else {
-      let { name, needed, duration, description, inUse } = data.sitecookie
+      let { id, name, needed, duration, description, inUse } = data.sitecookie
 
       return (
         <>
@@ -90,14 +90,21 @@ const EditSitecookiePage = ({ location }) => {
           <Layout title={`Edit Sitecookie: ${name}`}>
             <div className="text-block">
               <Formik
-                initialValues={{ name, needed, duration, description, inUse }}
+                initialValues={{
+                  id,
+                  name,
+                  needed,
+                  duration,
+                  description,
+                  inUse,
+                }}
                 validationSchema={validationSchema}
                 onSubmit={(values, actions) => {
                   alert(JSON.stringify(values, null, 2))
                   actions.setSubmitting(false)
                 }}
               >
-                {({ isSubmitting }) => (
+                {({ setFieldValue, isSubmitting }) => (
                   <Form>
                     <div
                       style={{
@@ -201,9 +208,10 @@ const EditSitecookiePage = ({ location }) => {
                         Reset
                       </button>
                       <button
-                        name="submit"
+                        name="update"
                         type="submit"
                         disabled={isSubmitting}
+                        onClick={() => setFieldValue("action", "update", false)}
                       >
                         Update
                       </button>

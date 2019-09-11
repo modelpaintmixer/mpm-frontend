@@ -79,7 +79,7 @@ const EditStandardPage = ({ location }) => {
         </>
       )
     } else {
-      let { name, displayName, abbreviation, notes } = data.standard
+      let { id, name, displayName, abbreviation, notes } = data.standard
 
       return (
         <>
@@ -87,14 +87,14 @@ const EditStandardPage = ({ location }) => {
           <Layout title={`Edit Standard: ${name}`}>
             <div className="text-block">
               <Formik
-                initialValues={{ name, displayName, abbreviation, notes }}
+                initialValues={{ id, name, displayName, abbreviation, notes }}
                 validationSchema={validationSchema}
                 onSubmit={(values, actions) => {
                   alert(JSON.stringify(values, null, 2))
                   actions.setSubmitting(false)
                 }}
               >
-                {({ isSubmitting }) => (
+                {({ setFieldValue, isSubmitting }) => (
                   <Form>
                     <div
                       style={{
@@ -158,9 +158,10 @@ const EditStandardPage = ({ location }) => {
                         Reset
                       </button>
                       <button
-                        name="submit"
+                        name="update"
                         type="submit"
                         disabled={isSubmitting}
+                        onClick={() => setFieldValue("action", "update", false)}
                       >
                         Update
                       </button>
