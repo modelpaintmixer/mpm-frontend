@@ -8,7 +8,7 @@ import SEO from "./seo"
 
 const checkExternal = props => {
   if (props.href.toLowerCase().startsWith("http")) {
-    return <a target="_blank" {...props} />
+    return <a target="_blank" rel="noopener" {...props} />
   } else {
     return <Link to={props.href} {...props} />
   }
