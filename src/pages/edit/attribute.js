@@ -14,11 +14,10 @@ const EditAttributePage = ({ location }) => {
   if (!values.id) {
     return (
       <>
-        <SEO title="Error" />
-        <Layout title="Edit Attribute: Error">
+        <SEO title="Create Attribute" />
+        <Layout title="Create Attribute">
           <div className="text-block">
-            <h3>An Error Occurred</h3>
-            <p>This page was requested without an attribute ID.</p>
+            <EditAttributeForm />
           </div>
         </Layout>
       </>
