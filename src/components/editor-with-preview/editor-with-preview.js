@@ -16,9 +16,7 @@ const EditorWithPreview = ({
 
   const onChangeFn = e => {
     setCurrentValue(e.target.value)
-    if (onChange) {
-      onChange(e)
-    }
+    onChange(e)
   }
 
   return (
