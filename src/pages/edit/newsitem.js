@@ -2,42 +2,22 @@ import React from "react"
 import PropTypes from "prop-types"
 import queryString from "query-string"
 import ScaleLoader from "react-spinners/ScaleLoader"
-import { Formik, Form, Field, ErrorMessage } from "formik"
-import * as Yup from "yup"
 
 import useDataApi from "../../utils/data-api"
 import Layout from "../../components/layout"
 import SEO from "../../components/seo"
-import EditorWithPreview from "../../components/editor-with-preview"
-import { DateFormat } from "../../components/date-format"
+import EditNewsItemForm from "../../forms/edit-newsitem"
 
-const validationSchema = Yup.object().shape({
-  headline: Yup.string()
-    .max(512)
-    .required(
-      <em style={{ fontSize: "75%", color: "red" }}>
-        Headline must not be empty
-      </em>
-    ),
-  content: Yup.string()
-    .max(10000)
-    .ensure()
-    .required(
-      <em style={{ fontSize: "75%", color: "red" }}>Story must not be empty</em>
-    ),
-})
-
-const EditNewsitemPage = ({ location }) => {
+const EditNewsItemPage = ({ location }) => {
   const values = queryString.parse(location.search)
 
   if (!values.id) {
     return (
       <>
-        <SEO title="Error" />
-        <Layout title="Edit Newsitem: Error">
-          <h2>An Error Occurred</h2>
+        <SEO title="Create NewsItem" />
+        <Layout title="Create NewsItem">
           <div className="text-block">
-            <p>This page was requested without an newsitem ID.</p>
+            <EditNewsItemForm />
           </div>
         </Layout>
       </>
@@ -54,9 +34,9 @@ const EditNewsitemPage = ({ location }) => {
       return (
         <>
           <SEO title="Error" />
-          <Layout title="Edit Newsitem: Error">
-            <h2>An Error Occurred</h2>
+          <Layout title="Edit NewsItem: Error">
             <div className="text-block">
+              <h3>An Error Occurred</h3>
               <p>An error occurred trying to load data:</p>
               <p>{error.message}</p>
             </div>
@@ -67,7 +47,7 @@ const EditNewsitemPage = ({ location }) => {
       return (
         <>
           <SEO title="Loading..." />
-          <Layout title="Edit Newsitem: Loading...">
+          <Layout title="Edit NewsItem: Loading...">
             <div className="text-block">
               <div className="loading">
                 <ScaleLoader />
@@ -77,81 +57,12 @@ const EditNewsitemPage = ({ location }) => {
         </>
       )
     } else {
-      let { id, headline, content, createdAt, updatedAt } = data.newsitem
-
       return (
         <>
-          <SEO title={`Edit Newsitem: ${headline}`} />
-          <Layout title={`Edit Newsitem: ${headline}`}>
+          <SEO title="Edit NewsItem" />
+          <Layout title="Edit NewsItem">
             <div className="text-block">
-              <Formik
-                initialValues={{ id, headline, content }}
-                validationSchema={validationSchema}
-                onSubmit={(values, actions) => {
-                  alert(JSON.stringify(values, null, 2))
-                  actions.setSubmitting(false)
-                }}
-              >
-                {({ setFieldValue, isSubmitting }) => (
-                  <Form>
-                    <div
-                      style={{
-                        display: "grid",
-                        width: "100%",
-                        gridTemplateColumns: "1fr 2fr",
-                        rowGap: "0.5rem",
-                        columnGap: "1rem",
-                      }}
-                    >
-                      <div style={{ textAlign: "right" }}>
-                        <label htmlFor="headline" style={{ display: "block" }}>
-                          Name:
-                        </label>
-                        <ErrorMessage name="headline" component="p" />
-                      </div>
-                      <div>
-                        <Field type="text" name="headline" />
-                      </div>
-                      <div style={{ textAlign: "right" }}>
-                        <label htmlFor="content" style={{ display: "block" }}>
-                          Content:
-                        </label>
-                        <ErrorMessage name="content" component="p" />
-                      </div>
-                      <div>
-                        <Field name="content" component={EditorWithPreview} />
-                      </div>
-                      <div style={{ textAlign: "right" }}>Created:</div>
-                      <div>
-                        <DateFormat date={createdAt} />
-                      </div>
-                      <div style={{ textAlign: "right" }}>Updated:</div>
-                      <div>
-                        <DateFormat date={updatedAt} />
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        marginTop: "1rem",
-                        display: "flex",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <button name="reset" type="reset">
-                        Reset
-                      </button>
-                      <button
-                        name="update"
-                        type="submit"
-                        disabled={isSubmitting}
-                        onClick={() => setFieldValue("action", "update", false)}
-                      >
-                        Update
-                      </button>
-                    </div>
-                  </Form>
-                )}
-              </Formik>
+              <EditNewsItemForm {...data.newsitem} />
             </div>
           </Layout>
         </>
@@ -160,8 +71,8 @@ const EditNewsitemPage = ({ location }) => {
   }
 }
 
-EditNewsitemPage.propTypes = {
+EditNewsItemPage.propTypes = {
   location: PropTypes.object.isRequired,
 }
 
-export default EditNewsitemPage
+export default EditNewsItemPage

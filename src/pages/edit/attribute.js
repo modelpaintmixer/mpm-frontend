@@ -35,8 +35,8 @@ const EditAttributePage = ({ location }) => {
         <>
           <SEO title="Error" />
           <Layout title="Edit Attribute: Error">
-            <h2>An Error Occurred</h2>
             <div className="text-block">
+              <h3>An Error Occurred</h3>
               <p>An error occurred trying to load data:</p>
               <p>{error.message}</p>
             </div>
@@ -57,14 +57,12 @@ const EditAttributePage = ({ location }) => {
         </>
       )
     } else {
-      let attribute = data.attribute
-
       return (
         <>
-          <SEO title={`Edit Attribute: ${attribute.name}`} />
-          <Layout title={`Edit Attribute: ${attribute.name}`}>
+          <SEO title="Edit Attribute" />
+          <Layout title="Edit Attribute">
             <div className="text-block">
-              <EditAttributeForm {...attribute} />
+              <EditAttributeForm {...data.attribute} />
             </div>
           </Layout>
         </>

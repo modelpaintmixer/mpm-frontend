@@ -2,53 +2,11 @@ import React from "react"
 import PropTypes from "prop-types"
 import queryString from "query-string"
 import ScaleLoader from "react-spinners/ScaleLoader"
-import { Formik, Form, Field, ErrorMessage } from "formik"
-import * as Yup from "yup"
 
 import useDataApi from "../../utils/data-api"
 import Layout from "../../components/layout"
 import SEO from "../../components/seo"
-import EditorWithPreview from "../../components/editor-with-preview"
-
-const validationSchema = Yup.object().shape({
-  name: Yup.string().required(
-    <em style={{ fontSize: "75%", color: "red" }}>Name must not be empty</em>
-  ),
-  abbreviation: Yup.string().required(
-    <em style={{ fontSize: "75%", color: "red" }}>
-      Abbreviation must not be empty
-    </em>
-  ),
-  fromYear: Yup.number()
-    .integer()
-    .min(
-      0,
-      <em style={{ fontSize: "75%", color: "red" }}>
-        Year must be greater than 0
-      </em>
-    )
-    .required(
-      <em style={{ fontSize: "75%", color: "red" }}>
-        From-year must not be empty
-      </em>
-    ),
-  toYear: Yup.number()
-    .integer()
-    .min(
-      0,
-      <em style={{ fontSize: "75%", color: "red" }}>
-        Year must be greater than 0
-      </em>
-    )
-    .required(
-      <em style={{ fontSize: "75%", color: "red" }}>
-        To-year must not be empty
-      </em>
-    ),
-  notes: Yup.string()
-    .ensure()
-    .max(2000),
-})
+import EditPeriodForm from "../../forms/edit-period"
 
 const EditPeriodPage = ({ location }) => {
   const values = queryString.parse(location.search)
@@ -56,11 +14,10 @@ const EditPeriodPage = ({ location }) => {
   if (!values.id) {
     return (
       <>
-        <SEO title="Error" />
-        <Layout title="Edit Period: Error">
-          <h2>An Error Occurred</h2>
+        <SEO title="Create Period" />
+        <Layout title="Create Period">
           <div className="text-block">
-            <p>This page was requested without an period ID.</p>
+            <EditPeriodForm />
           </div>
         </Layout>
       </>
@@ -75,8 +32,8 @@ const EditPeriodPage = ({ location }) => {
         <>
           <SEO title="Error" />
           <Layout title="Edit Period: Error">
-            <h2>An Error Occurred</h2>
             <div className="text-block">
+              <h3>An Error Occurred</h3>
               <p>An error occurred trying to load data:</p>
               <p>{error.message}</p>
             </div>
@@ -97,109 +54,12 @@ const EditPeriodPage = ({ location }) => {
         </>
       )
     } else {
-      let { id, name, abbreviation, fromYear, toYear, notes } = data.period
-
       return (
         <>
-          <SEO title={`Edit Period: ${name}`} />
-          <Layout title={`Edit Period: ${name}`}>
+          <SEO title="Edit Period" />
+          <Layout title="Edit Period">
             <div className="text-block">
-              <Formik
-                initialValues={{
-                  id,
-                  name,
-                  abbreviation,
-                  fromYear,
-                  toYear,
-                  notes,
-                }}
-                validationSchema={validationSchema}
-                onSubmit={(values, actions) => {
-                  alert(JSON.stringify(values, null, 2))
-                  actions.setSubmitting(false)
-                }}
-              >
-                {({ setFieldValue, isSubmitting }) => (
-                  <Form>
-                    <div
-                      style={{
-                        display: "grid",
-                        width: "100%",
-                        gridTemplateColumns: "1fr 2fr",
-                        rowGap: "0.5rem",
-                        columnGap: "1rem",
-                      }}
-                    >
-                      <div style={{ textAlign: "right" }}>
-                        <label htmlFor="name" style={{ display: "block" }}>
-                          Name:
-                        </label>
-                        <ErrorMessage name="name" component="p" />
-                      </div>
-                      <div>
-                        <Field type="text" name="name" />
-                      </div>
-                      <div style={{ textAlign: "right" }}>
-                        <label
-                          htmlFor="abbreviation"
-                          style={{ display: "block" }}
-                        >
-                          Abbreviation:
-                        </label>
-                        <ErrorMessage name="abbreviation" component="p" />
-                      </div>
-                      <div>
-                        <Field type="text" name="abbreviation" />
-                      </div>
-                      <div style={{ textAlign: "right" }}>
-                        <label htmlFor="fromYear" style={{ display: "block" }}>
-                          From:
-                        </label>
-                        <ErrorMessage name="fromYear" component="p" />
-                      </div>
-                      <div>
-                        <Field type="text" name="fromYear" />
-                      </div>
-                      <div style={{ textAlign: "right" }}>
-                        <label htmlFor="toYear" style={{ display: "block" }}>
-                          To:
-                        </label>
-                        <ErrorMessage name="toYear" component="p" />
-                      </div>
-                      <div>
-                        <Field type="text" name="toYear" />
-                      </div>
-                      <div style={{ textAlign: "right" }}>
-                        <label htmlFor="notes" style={{ display: "block" }}>
-                          Notes:
-                        </label>
-                      </div>
-                      <div>
-                        <Field name="notes" component={EditorWithPreview} />
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        marginTop: "1rem",
-                        display: "flex",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <button name="reset" type="reset">
-                        Reset
-                      </button>
-                      <button
-                        name="update"
-                        type="submit"
-                        disabled={isSubmitting}
-                        onClick={() => setFieldValue("action", "update", false)}
-                      >
-                        Update
-                      </button>
-                    </div>
-                  </Form>
-                )}
-              </Formik>
+              <EditPeriodForm {...data.period} />
             </div>
           </Layout>
         </>

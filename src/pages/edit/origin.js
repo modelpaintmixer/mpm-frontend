@@ -2,27 +2,11 @@ import React from "react"
 import PropTypes from "prop-types"
 import queryString from "query-string"
 import ScaleLoader from "react-spinners/ScaleLoader"
-import { Formik, Form, Field, ErrorMessage } from "formik"
-import * as Yup from "yup"
 
 import useDataApi from "../../utils/data-api"
 import Layout from "../../components/layout"
 import SEO from "../../components/seo"
-import EditorWithPreview from "../../components/editor-with-preview"
-
-const validationSchema = Yup.object().shape({
-  name: Yup.string().required(
-    <em style={{ fontSize: "75%", color: "red" }}>Name must not be empty</em>
-  ),
-  abbreviation: Yup.string().required(
-    <em style={{ fontSize: "75%", color: "red" }}>
-      Abbreviation must not be empty
-    </em>
-  ),
-  notes: Yup.string()
-    .ensure()
-    .max(2000),
-})
+import EditOriginForm from "../../forms/edit-origin"
 
 const EditOriginPage = ({ location }) => {
   const values = queryString.parse(location.search)
@@ -30,11 +14,10 @@ const EditOriginPage = ({ location }) => {
   if (!values.id) {
     return (
       <>
-        <SEO title="Error" />
-        <Layout title="Edit Origin: Error">
-          <h2>An Error Occurred</h2>
+        <SEO title="Create Origin" />
+        <Layout title="Create Origin">
           <div className="text-block">
-            <p>This page was requested without an origin ID.</p>
+            <EditOriginForm />
           </div>
         </Layout>
       </>
@@ -49,10 +32,9 @@ const EditOriginPage = ({ location }) => {
         <>
           <SEO title="Error" />
           <Layout title="Edit Origin: Error">
-            <h2>An Error Occurred</h2>
             <div className="text-block">
-              <p>An error occurred trying to load data:</p>
-              <p>{error.message}</p>
+              <h3>An Error Occurred</h3>
+              <p>An error occurred trying to load data: {error.message}</p>
             </div>
           </Layout>
         </>
@@ -71,84 +53,12 @@ const EditOriginPage = ({ location }) => {
         </>
       )
     } else {
-      let { id, name, abbreviation, notes } = data.origin
-
       return (
         <>
-          <SEO title={`Edit Origin: ${name}`} />
-          <Layout title={`Edit Origin: ${name}`}>
+          <SEO title="Edit Origin" />
+          <Layout title="Edit Origin">
             <div className="text-block">
-              <Formik
-                initialValues={{ id, name, abbreviation, notes }}
-                validationSchema={validationSchema}
-                onSubmit={(values, actions) => {
-                  alert(JSON.stringify(values, null, 2))
-                  actions.setSubmitting(false)
-                }}
-              >
-                {({ setFieldValue, isSubmitting }) => (
-                  <Form>
-                    <div
-                      style={{
-                        display: "grid",
-                        width: "100%",
-                        gridTemplateColumns: "1fr 2fr",
-                        rowGap: "0.5rem",
-                        columnGap: "1rem",
-                      }}
-                    >
-                      <div style={{ textAlign: "right" }}>
-                        <label htmlFor="name" style={{ display: "block" }}>
-                          Name:
-                        </label>
-                        <ErrorMessage name="name" component="p" />
-                      </div>
-                      <div>
-                        <Field type="text" name="name" />
-                      </div>
-                      <div style={{ textAlign: "right" }}>
-                        <label
-                          htmlFor="abbreviation"
-                          style={{ display: "block" }}
-                        >
-                          Abbreviation:
-                        </label>
-                        <ErrorMessage name="abbreviation" component="p" />
-                      </div>
-                      <div>
-                        <Field type="text" name="abbreviation" />
-                      </div>
-                      <div style={{ textAlign: "right" }}>
-                        <label htmlFor="notes" style={{ display: "block" }}>
-                          Notes:
-                        </label>
-                      </div>
-                      <div>
-                        <Field name="notes" component={EditorWithPreview} />
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        marginTop: "1rem",
-                        display: "flex",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <button name="reset" type="reset">
-                        Reset
-                      </button>
-                      <button
-                        name="update"
-                        type="submit"
-                        disabled={isSubmitting}
-                        onClick={() => setFieldValue("action", "update", false)}
-                      >
-                        Update
-                      </button>
-                    </div>
-                  </Form>
-                )}
-              </Formik>
+              <EditOriginForm {...data.origin} />
             </div>
           </Layout>
         </>

@@ -2,32 +2,11 @@ import React from "react"
 import PropTypes from "prop-types"
 import queryString from "query-string"
 import ScaleLoader from "react-spinners/ScaleLoader"
-import { Formik, Form, Field, ErrorMessage } from "formik"
-import * as Yup from "yup"
 
 import useDataApi from "../../utils/data-api"
 import Layout from "../../components/layout"
 import SEO from "../../components/seo"
-import EditorWithPreview from "../../components/editor-with-preview"
-
-const validationSchema = Yup.object().shape({
-  name: Yup.string().required(
-    <em style={{ fontSize: "75%", color: "red" }}>Name must not be empty</em>
-  ),
-  displayName: Yup.string().required(
-    <em style={{ fontSize: "75%", color: "red" }}>
-      Display name must not be empty
-    </em>
-  ),
-  abbreviation: Yup.string().required(
-    <em style={{ fontSize: "75%", color: "red" }}>
-      Abbreviation must not be empty
-    </em>
-  ),
-  notes: Yup.string()
-    .ensure()
-    .max(2000),
-})
+import EditStandardForm from "../../forms/edit-standard"
 
 const EditStandardPage = ({ location }) => {
   const values = queryString.parse(location.search)
@@ -35,11 +14,10 @@ const EditStandardPage = ({ location }) => {
   if (!values.id) {
     return (
       <>
-        <SEO title="Error" />
-        <Layout title="Edit Standard: Error">
-          <h2>An Error Occurred</h2>
+        <SEO title="Create Standard" />
+        <Layout title="Create Standard">
           <div className="text-block">
-            <p>This page was requested without an standard ID.</p>
+            <EditStandardForm />
           </div>
         </Layout>
       </>
@@ -57,8 +35,8 @@ const EditStandardPage = ({ location }) => {
         <>
           <SEO title="Error" />
           <Layout title="Edit Standard: Error">
-            <h2>An Error Occurred</h2>
             <div className="text-block">
+              <h3>An Error Occurred</h3>
               <p>An error occurred trying to load data:</p>
               <p>{error.message}</p>
             </div>
@@ -79,96 +57,12 @@ const EditStandardPage = ({ location }) => {
         </>
       )
     } else {
-      let { id, name, displayName, abbreviation, notes } = data.standard
-
       return (
         <>
-          <SEO title={`Edit Standard: ${name}`} />
-          <Layout title={`Edit Standard: ${name}`}>
+          <SEO title="Edit Standard" />
+          <Layout title="Edit Standard">
             <div className="text-block">
-              <Formik
-                initialValues={{ id, name, displayName, abbreviation, notes }}
-                validationSchema={validationSchema}
-                onSubmit={(values, actions) => {
-                  alert(JSON.stringify(values, null, 2))
-                  actions.setSubmitting(false)
-                }}
-              >
-                {({ setFieldValue, isSubmitting }) => (
-                  <Form>
-                    <div
-                      style={{
-                        display: "grid",
-                        width: "100%",
-                        gridTemplateColumns: "1fr 2fr",
-                        rowGap: "0.5rem",
-                        columnGap: "1rem",
-                      }}
-                    >
-                      <div style={{ textAlign: "right" }}>
-                        <label htmlFor="name" style={{ display: "block" }}>
-                          Name:
-                        </label>
-                        <ErrorMessage name="name" component="p" />
-                      </div>
-                      <div>
-                        <Field type="text" name="name" />
-                      </div>
-                      <div style={{ textAlign: "right" }}>
-                        <label
-                          htmlFor="displayName"
-                          style={{ display: "block" }}
-                        >
-                          Display Name:
-                        </label>
-                        <ErrorMessage name="displayName" component="p" />
-                      </div>
-                      <div>
-                        <Field type="text" name="displayName" />
-                      </div>
-                      <div style={{ textAlign: "right" }}>
-                        <label
-                          htmlFor="abbreviation"
-                          style={{ display: "block" }}
-                        >
-                          Abbreviation:
-                        </label>
-                        <ErrorMessage name="abbreviation" component="p" />
-                      </div>
-                      <div>
-                        <Field type="text" name="abbreviation" />
-                      </div>
-                      <div style={{ textAlign: "right" }}>
-                        <label htmlFor="notes" style={{ display: "block" }}>
-                          Notes:
-                        </label>
-                      </div>
-                      <div>
-                        <Field name="notes" component={EditorWithPreview} />
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        marginTop: "1rem",
-                        display: "flex",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <button name="reset" type="reset">
-                        Reset
-                      </button>
-                      <button
-                        name="update"
-                        type="submit"
-                        disabled={isSubmitting}
-                        onClick={() => setFieldValue("action", "update", false)}
-                      >
-                        Update
-                      </button>
-                    </div>
-                  </Form>
-                )}
-              </Formik>
+              <EditStandardForm {...data.standard} />
             </div>
           </Layout>
         </>
