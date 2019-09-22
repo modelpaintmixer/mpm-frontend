@@ -35,7 +35,7 @@ const EditSiteCookieForm = ({
   description,
   inUse,
 }) => (
-  <div className="text-block">
+  <div className="edit-form">
     <Formik
       initialValues={{
         id,
