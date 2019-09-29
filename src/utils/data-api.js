@@ -8,7 +8,7 @@
 import { useState, useEffect, useReducer } from "react"
 import axios from "axios"
 
-const apiEndpoint = process.env.API_ENDPOINT
+import apiEndpoint from "./api-endpoint"
 
 const dataFetchReducer = (state, action) => {
   switch (action.type) {
