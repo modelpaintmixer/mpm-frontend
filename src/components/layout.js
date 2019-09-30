@@ -1,5 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { ToastContainer } from "react-toastify"
 
 import { Header, Footer } from "./header-footer"
 
@@ -9,6 +10,7 @@ const Layout = props => {
       <Header title={props.title} />
       <main>{props.children}</main>
       <Footer />
+      <ToastContainer />
     </>
   )
 }
