@@ -4,6 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
 
 import EditorWithPreview from "../components/editor-with-preview"
+import { setupCRUDHandler } from "../utils/crud"
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -27,10 +28,7 @@ const EditAttributeForm = ({ id, name, description }) => (
       initialValues={{ id, name, description }}
       enableReinitialize
       validationSchema={validationSchema}
-      onSubmit={(values, actions) => {
-        alert(JSON.stringify(values, null, 2))
-        actions.setSubmitting(false)
-      }}
+      onSubmit={setupCRUDHandler({ type: "attribute" })}
     >
       {({ setFieldValue, isSubmitting }) => (
         <Form>
