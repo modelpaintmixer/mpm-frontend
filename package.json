@@ -61,6 +61,6 @@
     "styled-components": "^4.4.1",
     "typography": "^0.16.19",
     "typography-theme-fairy-gates": "^0.16.19",
-    "yup": "^0.28.0"
+    "yup": "^0.28.5"
   }
 }
