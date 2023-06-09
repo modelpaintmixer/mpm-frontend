@@ -29,7 +29,7 @@
     "babel-plugin-styled-components": "^1.10.6",
     "date-fns": "^2.9.0",
     "formik": "^2.1.1",
-    "gatsby": "^5.1.0",
+    "gatsby": "^5.9.1",
     "gatsby-cli": "^5.1.0",
     "gatsby-image": "^2.2.38",
     "gatsby-plugin-manifest": "^5.5.0",
